@@ -2,10 +2,18 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# 🏠 Home page route
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return "Backend is running fine!"
+
+@app.route('/run-upgrade', methods=['GET'])
+def run_upgrade():
+    try:        
+        subprocess.run(["python", "upgrade.py"], check=True)
+        return jsonify({"status": "success", "message": "upgrade.py executed successfully"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 
 # 👤 Profile page route
 @app.route('/profile')
@@ -41,4 +49,5 @@ def chat():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=10000)
+
