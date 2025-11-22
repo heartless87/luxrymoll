@@ -265,7 +265,7 @@
                 };
 
                 // dynamically import listeddata.js (from same folder)
-                const module = await import('./listeddata.js');
+                const module = await import('listeddata.js');
                 if (typeof module.receiveProductData === 'function') {
                     module.receiveProductData(product);
                 } else {
@@ -310,7 +310,7 @@
         // load products from listeddata.js (which uses localStorage)
         async function loadProducts() {
             try {
-                const module = await import('./listeddata.js');
+                const module = await import('listeddata.js');
                 const stored = (typeof module.getProducts === 'function') ? module.getProducts() : [];
                 productsList.innerHTML = '';
                 stored.forEach(product => {
