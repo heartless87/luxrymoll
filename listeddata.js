@@ -12,15 +12,31 @@ const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 // listeddata.js
 
-export function receiveProductData(product) {
-    console.log("Product received in listeddata.js:", product);
+const STORAGE_KEY = 'luxuryProducts_v1';
 
-    // Save to localStorage (optional)
-    let products = JSON.parse(localStorage.getItem("luxuryProducts")) || [];
-    products.push(product);
-    localStorage.setItem("luxuryProducts", JSON.stringify(products));
+export function receiveProductData(product) {
+    try {
+        if (!product || !product.title) {
+            console.warn('Invalid product', product);
+            return;
+        }
+        const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        existing.push(product);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+        console.log('Product saved to listeddata.js/localStorage:', product);
+    } catch (err) {
+        console.error('Error saving product in listeddata.js', err);
+    }
 }
 
+export function getProducts() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (err) {
+        console.error('Error reading products in listeddata.js', err);
+        return [];
+    }
+}
 // Save to DB function
 async function saveProductToDB(output) {
     try {
