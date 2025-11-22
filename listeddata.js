@@ -10,6 +10,16 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).array("images", 7);
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
+// listeddata.js
+
+export function receiveProductData(product) {
+    console.log("Product received in listeddata.js:", product);
+
+    // Save to localStorage (optional)
+    let products = JSON.parse(localStorage.getItem("luxuryProducts")) || [];
+    products.push(product);
+    localStorage.setItem("luxuryProducts", JSON.stringify(products));
+}
 
 // Save to DB function
 async function saveProductToDB(output) {
