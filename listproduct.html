@@ -665,56 +665,100 @@
                     });
                     
                     // Send data to backend
-                    const response = await fetch('http://localhost:3000/api/products', {
-                        method: 'POST',
-                        body: formData
-                    });
+                    import('/listeddata.js')
+                        .then(module => {
+                            module.receiveProductData({
+                                title: title,
+                                description: description,
+                                originalPrice: originalPrice,
+                                sellingPrice: sellingPrice,
+                                images: uploadedImages.map(img => img.src)
+                            });
                     
-                    const result = await response.json();
+                            showMessage('Product added successfully!', 'success');
                     
-                    if (response.ok) {
-                        showMessage('Product added successfully!', 'success');
-                        
-                        // Add product to UI
-                        const discount = calculateDiscount(originalPrice, sellingPrice);
-                        const productCard = document.createElement('div');
-                        productCard.className = 'product-card';
-                        
-                        productCard.innerHTML = `
-                            <img src="${uploadedImages[0].src}" alt="${title}" class="product-image">
-                            <div class="product-info">
-                                <h3 class="product-title">${title}</h3>
-                                <p class="product-description">${description}</p>
-                                <div class="product-price-container">
-                                    <span class="product-selling-price">₹${sellingPrice.toFixed(2)}</span>
-                                    ${originalPrice > sellingPrice ? 
-                                        `<span class="product-original-price">₹${originalPrice.toFixed(2)}</span>
-                                         <span class="product-discount">${discount}% OFF</span>` : 
-                                        ''}
+                            // UI me add kar do
+                            const discount = calculateDiscount(originalPrice, sellingPrice);
+                            const productCard = document.createElement('div');
+                            productCard.className = 'product-card';
+                    
+                            productCard.innerHTML = `
+                                <img src="${uploadedImages[0].src}" alt="${title}" class="product-image">
+                                <div class="product-info">
+                                    <h3 class="product-title">${title}</h3>
+                                    <p class="product-description">${description}</p>
+                                    <div class="product-price-container">
+                                        <span class="product-selling-price">₹${sellingPrice}</span>
+                                        ${originalPrice > sellingPrice ? 
+                                            `<span class="product-original-price">₹${originalPrice}</span>
+                                             <span class="product-discount">${discount}% OFF</span>` : ''}
+                                    </div>
                                 </div>
-                            </div>
-                        `;
-                        
-                        productsList.prepend(productCard);
-                        
-                        // Reset form
-                        productForm.reset();
-                        uploadedImages = [];
-                        updateImagePreview();
-                        
-                    } else {
-                        showMessage(result.message || 'Failed to add product. Please try again.', 'error');
-                    }
+                            `;
                     
-                } catch (error) {
-                    console.error('Error:', error);
-                    showMessage('Network error. Please check your connection and try again.', 'error');
-                } finally {
-                    // Reset button state
-                    submitBtn.disabled = false;
-                    btnText.textContent = 'Add Product';
-                }
-            });
+                            productsList.prepend(productCard);
+                    
+                            // Reset form
+                            productForm.reset();
+                            uploadedImages = [];
+                            updateImagePreview();
+                        })
+                        .catch(err => {
+                            console.error("listeddata.js loading failed:", err);
+                            showMessage("Error loading script!", "error");
+                        });
+
+                    
+                    // const response = await fetch('http://localhost:3000/api/products', {
+                    //     method: 'POST',
+                    //     body: formData
+                    // });
+                    
+            //         const result = await response.json();
+                    
+            //         if (response.ok) {
+            //             showMessage('Product added successfully!', 'success');
+                        
+            //             // Add product to UI
+            //             const discount = calculateDiscount(originalPrice, sellingPrice);
+            //             const productCard = document.createElement('div');
+            //             productCard.className = 'product-card';
+                        
+            //             productCard.innerHTML = `
+            //                 <img src="${uploadedImages[0].src}" alt="${title}" class="product-image">
+            //                 <div class="product-info">
+            //                     <h3 class="product-title">${title}</h3>
+            //                     <p class="product-description">${description}</p>
+            //                     <div class="product-price-container">
+            //                         <span class="product-selling-price">₹${sellingPrice.toFixed(2)}</span>
+            //                         ${originalPrice > sellingPrice ? 
+            //                             `<span class="product-original-price">₹${originalPrice.toFixed(2)}</span>
+            //                              <span class="product-discount">${discount}% OFF</span>` : 
+            //                             ''}
+            //                     </div>
+            //                 </div>
+            //             `;
+                        
+            //             productsList.prepend(productCard);
+                        
+            //             // Reset form
+            //             productForm.reset();
+            //             uploadedImages = [];
+            //             updateImagePreview();
+                        
+            //         } else {
+            //             showMessage(result.message || 'Failed to add product. Please try again.', 'error');
+            //         }
+                    
+            //     } catch (error) {
+            //         console.error('Error:', error);
+            //         showMessage('Network error. Please check your connection and try again.', 'error');
+            //     } finally {
+            //         // Reset button state
+            //         submitBtn.disabled = false;
+            //         btnText.textContent = 'Add Product';
+            //     }
+            // });
 
             // Add drag and drop functionality
             const uploadContainer = document.querySelector('.image-upload-container');
