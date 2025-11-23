@@ -139,6 +139,14 @@ app.post("/api/products", (req, res) => {
 // ------------------------------
 //  START SERVER
 // ------------------------------
-app.listen(3000, () => {
-    console.log("🚀 Server running on http://localhost:3000");
-});
+console.log("[listeddata] file loaded");
+
+window.receiveProductData = function(product) {
+    console.log("Product received:", product);
+
+    let stored = JSON.parse(localStorage.getItem("luxuryProducts")) || [];
+    stored.push(product);
+    localStorage.setItem("luxuryProducts", JSON.stringify(stored));
+
+    console.log("Saved to localStorage");
+};
