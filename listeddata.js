@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
@@ -11,10 +10,9 @@ const upload = multer({ storage: storage }).array("images", 7);
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 // listeddata.js
-
 const STORAGE_KEY = 'luxuryProducts_v1';
 
-export function receiveProductData(product) {
+function _receiveProductData(product) {
     try {
         if (!product || !product.title) {
             console.warn('Invalid product', product);
@@ -23,13 +21,13 @@ export function receiveProductData(product) {
         const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
         existing.push(product);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-        console.log('Product saved to listeddata.js/localStorage:', product);
+        console.log('Product saved to localStorage:', product);
     } catch (err) {
         console.error('Error saving product in listeddata.js', err);
     }
 }
 
-export function getProducts() {
+function _getProducts() {
     try {
         return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     } catch (err) {
@@ -37,6 +35,21 @@ export function getProducts() {
         return [];
     }
 }
+
+// Exports for ES module import
+export function receiveProductData(product) {
+    return _receiveProductData(product);
+}
+export function getProducts() {
+    return _getProducts();
+}
+
+// Also attach to window as fallback if someone loads this file as a plain <script>
+if (typeof window !== 'undefined') {
+    window.receiveProductData = _receiveProductData;
+    window.getProducts = _getProducts;
+}
+
 // Save to DB function
 async function saveProductToDB(output) {
     try {
