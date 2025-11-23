@@ -1,50 +1,64 @@
 require("dotenv").config();
 const express = require("express");
-const multer = require("multer");
 const cors = require("cors");
+const multer = require("multer");
 const { MongoClient } = require("mongodb");
 
 const app = express();
 app.use(cors());
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).array("images", 7);
+// Multer Storage
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { files: 7 }
+}).array("images", 7);
 
-const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri);
+// MongoDB Client
+const client = new MongoClient(process.env.MONGO_URI);
 
-// API ROUTE
+// API Route (Save Product)
 app.post("/api/products", (req, res) => {
     upload(req, res, async function (err) {
-        if (err) return res.status(400).json({ message: "Image error" });
+        if (err) {
+            return res.status(400).json({ success: false, message: "Image upload error" });
+        }
 
-        const Title = req.body.title;
-        const Description = req.body.description;
-        const OriginalPrice = req.body.originalPrice;
-        const SellingPrice = req.body.sellingPrice;
+        const { title, description, originalPrice, sellingPrice } = req.body;
 
-        let base64Images = (req.files || []).map(img =>
+        // Convert images to Base64
+        const imagesBase64 = (req.files || []).map(img =>
             `data:${img.mimetype};base64,${img.buffer.toString("base64")}`
         );
 
-        let output = {
-            Title,
-            Description,
-            "Original-price": OriginalPrice,
-            "Sell-price": SellingPrice,
-            images: base64Images
+        if (imagesBase64.length === 0) {
+            return res.json({ success: false, message: "At least one image required" });
+        }
+
+        const product = {
+            title,
+            description,
+            originalPrice,
+            sellingPrice,
+            images: imagesBase64,
+            createdAt: new Date()
         };
 
-        await client.connect();
-        const db = client.db("Product");
-        const col = db.collection("Prodlist");
+        try {
+            await client.connect();
+            const db = client.db("Product");
+            const col = db.collection("Prodlist");
 
-        const result = await col.insertOne(output);
+            const result = await col.insertOne(product);
 
-        res.json({ success: true, id: result.insertedId });
+            return res.json({ success: true, id: result.insertedId });
+        } catch (error) {
+            console.log("DB Error:", error);
+            return res.json({ success: false, message: "Database error" });
+        }
     });
 });
 
+// Start Server
 app.listen(3000, () => {
     console.log("🚀 Server running at http://localhost:3000");
 });
