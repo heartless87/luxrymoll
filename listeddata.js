@@ -10,23 +10,25 @@ const upload = multer({ storage: storage }).array("images", 7);
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 // listeddata.js
-// Simple storage handler that attaches functions to window for maximum compatibility.
-// Stores products in localStorage under key 'luxuryProducts_v1'
+// Stores products in localStorage
 
 (function () {
     const STORAGE_KEY = 'luxuryProducts_v1';
 
     function _receiveProductData(product) {
         try {
-            if (!product || !product.title) {
+            if (!product || !product.Title) {
                 console.warn('[listeddata] invalid product', product);
                 return false;
             }
+
             const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             existing.push(product);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+
             console.log('[listeddata] product saved', product);
             return true;
+
         } catch (err) {
             console.error('[listeddata] error saving product', err);
             return false;
@@ -35,31 +37,20 @@ const client = new MongoClient(uri);
 
     function _getProducts() {
         try {
-            const p = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            console.log('[listeddata] getProducts ->', p.length, 'items');
-            return p;
+            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
         } catch (err) {
             console.error('[listeddata] error reading products', err);
             return [];
         }
     }
 
-    // Attach to window
-    if (typeof window !== 'undefined') {
+    // attach to browser window
+    if (typeof window !== "undefined") {
         window.receiveProductData = _receiveProductData;
         window.getProducts = _getProducts;
-        console.log('[listeddata] attached to window');
+        console.log("[listeddata] attached to window");
     }
-
-    // Also export for module-aware environments (optional)
-    try {
-        if (typeof exports !== 'undefined') {
-            exports.receiveProductData = _receiveProductData;
-            exports.getProducts = _getProducts;
-        }
-    } catch (e) { /* ignore */ }
 })();
-
 
 // Save to DB function
 async function saveProductToDB(output) {
