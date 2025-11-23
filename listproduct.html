@@ -1,54 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Product Listing - LuxuryMoll</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f8f9fa; color: #333; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top:0; z-index:100; }
-        .header-content { display:flex; justify-content:space-between; align-items:center; padding:15px 0; }
-        .logo { font-size:24px; font-weight:700; color:#2c3e50; }
-        .logo span { color:#d4af37; }
-        .main-content { padding: 40px 0; }
-        .page-title { text-align:center; margin-bottom:30px; color:#2c3e50; }
-        .page-title h1 { font-size:32px; margin-bottom:10px; }
-        .form-container { background:#fff; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.05); padding:30px; margin-bottom:40px; }
-        .form-group { margin-bottom:20px; }
-        .form-group label { display:block; margin-bottom:8px; font-weight:500; color:#2c3e50; }
-        .form-control { width:100%; padding:12px 15px; border:1px solid #ddd; border-radius:5px; font-size:16px; transition:border .3s; }
-        .form-control:focus { border-color:#d4af37; outline:none; }
-        textarea.form-control { min-height:120px; resize:vertical; }
-        .image-upload-container { border:2px dashed #ddd; border-radius:5px; padding:20px; text-align:center; margin-bottom:20px; transition:border .3s; }
-        .image-upload-container:hover { border-color:#d4af37; }
-        .upload-btn { background:#d4af37; color:#fff; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-size:16px; }
-        .image-preview { display:flex; flex-wrap:wrap; gap:15px; margin-top:20px; }
-        .preview-item { position:relative; width:120px; height:120px; border-radius:5px; overflow:hidden; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-        .preview-item img { width:100%; height:100%; object-fit:cover; }
-        .remove-btn { position:absolute; top:5px; right:5px; background:rgba(231,76,60,0.8); color:#fff; border:none; width:24px; height:24px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; }
-        .price-container { display:flex; gap:15px; }
-        .submit-btn { background:#2c3e50; color:#fff; border:none; padding:12px 30px; border-radius:5px; cursor:pointer; font-size:16px; display:block; margin:0 auto; }
-        .loading { display:inline-block; width:20px; height:20px; border:3px solid rgba(255,255,255,.3); border-radius:50%; border-top-color:#fff; animation:spin 1s linear infinite; margin-right:10px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:25px; }
-        .product-card { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 5px 15px rgba(0,0,0,0.05); transition:transform .3s; }
-        .product-card:hover { transform:translateY(-5px); }
-        .product-image { height:200px; width:100%; object-fit:cover; }
-        .product-info { padding:20px; }
-        .product-title { font-size:18px; font-weight:600; margin-bottom:10px; color:#2c3e50; }
-        .product-description { color:#7f8c8d; font-size:14px; margin-bottom:15px; display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden; }
-        .product-price-container { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-        .product-original-price { font-size:16px; color:#7f8c8d; text-decoration:line-through; }
-        .product-selling-price { font-size:20px; font-weight:700; color:#d4af37; }
-        .message { padding:12px; border-radius:5px; margin-bottom:20px; text-align:center; display:none; }
-        .success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
-        .error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
-        footer { background:#2c3e50; color:#ecf0f1; padding:40px 0; margin-top:50px; }
-        .footer-content { display:flex; flex-wrap:wrap; justify-content:space-between; }
-        @media (max-width:768px){ .price-container { flex-direction:column; } .page-title h1 { font-size:28px; } }
-        @media (max-width:480px){ .product-image { height:150px; } .preview-item { width:100px; height:100px; } .page-title h1 { font-size:24px; } }
+        /* (same CSS as before - compacted) */
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma, Geneva, Verdana, sans-serif}
+        body{background:#f8f9fa;color:#333;line-height:1.6}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        header{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
+        .header-content{display:flex;justify-content:space-between;align-items:center;padding:15px 0}
+        .logo{font-size:24px;font-weight:700;color:#2c3e50}
+        .logo span{color:#d4af37}
+        .main-content{padding:40px 0}
+        .page-title{text-align:center;margin-bottom:30px;color:#2c3e50}
+        .page-title h1{font-size:32px;margin-bottom:10px}
+        .form-container{background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.05);padding:30px;margin-bottom:40px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;margin-bottom:8px;font-weight:500;color:#2c3e50}
+        .form-control{width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:border .3s}
+        .form-control:focus{border-color:#d4af37;outline:none}
+        textarea.form-control{min-height:120px;resize:vertical}
+        .image-upload-container{border:2px dashed #ddd;border-radius:5px;padding:20px;text-align:center;margin-bottom:20px;transition:border .3s}
+        .image-upload-container:hover{border-color:#d4af37}
+        .upload-btn{background:#d4af37;color:#fff;border:none;padding:10px 20px;border-radius:5px;cursor:pointer;font-size:16px}
+        .image-preview{display:flex;flex-wrap:wrap;gap:15px;margin-top:20px}
+        .preview-item{position:relative;width:120px;height:120px;border-radius:5px;overflow:hidden;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+        .preview-item img{width:100%;height:100%;object-fit:cover}
+        .remove-btn{position:absolute;top:5px;right:5px;background:rgba(231,76,60,.8);color:#fff;border:none;width:24px;height:24px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px}
+        .price-container{display:flex;gap:15px}
+        .submit-btn{background:#2c3e50;color:#fff;border:none;padding:12px 30px;border-radius:5px;cursor:pointer;font-size:16px;display:block;margin:0 auto}
+        .loading{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin 1s linear infinite;margin-right:10px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px}
+        .product-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.05);transition:transform .3s}
+        .product-card:hover{transform:translateY(-5px)}
+        .product-image{height:200px;width:100%;object-fit:cover}
+        .product-info{padding:20px}
+        .product-title{font-size:18px;font-weight:600;margin-bottom:10px;color:#2c3e50}
+        .product-description{color:#7f8c8d;font-size:14px;margin-bottom:15px}
+        .product-price-container{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+        .product-original-price{font-size:16px;color:#7f8c8d;text-decoration:line-through}
+        .product-selling-price{font-size:20px;font-weight:700;color:#d4af37}
+        .message{padding:12px;border-radius:5px;margin-bottom:20px;text-align:center;display:none}
+        .success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+        .error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+        footer{background:#2c3e50;color:#ecf0f1;padding:40px 0;margin-top:50px}
+        .footer-content{display:flex;flex-wrap:wrap;justify-content:space-between}
+        @media (max-width:768px){.price-container{flex-direction:column}.page-title h1{font-size:28px}}
+        @media (max-width:480px){.product-image{height:150px}.preview-item{width:100px;height:100px}.page-title h1{font-size:24px}}
     </style>
 </head>
 <body>
@@ -137,9 +138,15 @@
             </div>
         </div>
     </footer>
-    <script type="module">
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- DOM refs (same as before) ---
+
+    <!-- Load storage handler as regular script so functions attach to window -->
+    <script src="./listeddata.js"></script>
+
+    <!-- Main script (no modules, uses window.receiveProductData / window.getProducts) -->
+    <script>
+    (function () {
+        console.log('[index] script starting');
+
         const uploadTrigger = document.getElementById('uploadTrigger');
         const imageUpload = document.getElementById('imageUpload');
         const imagePreview = document.getElementById('imagePreview');
@@ -151,172 +158,175 @@
         const btnText = document.getElementById('btnText');
         const messageDiv = document.getElementById('message');
         const uploadContainer = document.getElementById('uploadContainer');
-    
+
         let uploadedImages = [];
         const maxImages = 7;
-    
+
         function showMessage(text, type = 'success') {
             messageDiv.textContent = text;
-            messageDiv.className = `message ${type}`;
+            messageDiv.className = 'message ' + type;
             messageDiv.style.display = 'block';
             setTimeout(() => { messageDiv.style.display = 'none'; }, 4000);
         }
-    
+
         function calculateDiscount(originalPrice, sellingPrice) {
             if (!originalPrice || originalPrice <= 0 || sellingPrice >= originalPrice) return 0;
             return Math.round(((originalPrice - sellingPrice) / originalPrice) * 100);
         }
-    
-        uploadTrigger.addEventListener('click', () => imageUpload.click());
-    
+
+        uploadTrigger.addEventListener('click', function () { imageUpload.click(); });
+
         function processFiles(fileList) {
-            const files = Array.from(fileList);
+            const files = Array.prototype.slice.call(fileList);
             if (uploadedImages.length + files.length > maxImages) {
-                showMessage(`You can upload up to ${maxImages} images.`, 'error');
+                showMessage('You can upload up to ' + maxImages + ' images.', 'error');
                 return;
             }
-            files.forEach(file => {
-                if (!file.type.startsWith('image/')) { showMessage('Please select only image files.', 'error'); return; }
-                const reader = new FileReader();
-                reader.onload = (e) => { uploadedImages.push({ src: e.target.result, file }); updateImagePreview(); };
+            files.forEach(function (file) {
+                if (!file.type || !file.type.startsWith('image/')) {
+                    showMessage('Please select only image files.', 'error');
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedImages.push({ src: e.target.result, file: file });
+                    updateImagePreview();
+                };
                 reader.readAsDataURL(file);
             });
         }
-    
-        imageUpload.addEventListener('change', (e) => { if (e.target.files && e.target.files.length) processFiles(e.target.files); imageUpload.value = ''; });
-    
-        uploadContainer.addEventListener('dragover', (e) => { e.preventDefault(); uploadContainer.style.borderColor = '#d4af37'; });
-        uploadContainer.addEventListener('dragleave', () => { uploadContainer.style.borderColor = '#ddd'; });
-        uploadContainer.addEventListener('drop', (e) => { e.preventDefault(); uploadContainer.style.borderColor = '#ddd'; if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) processFiles(e.dataTransfer.files); });
-    
+
+        imageUpload.addEventListener('change', function (e) { if (e.target.files && e.target.files.length) processFiles(e.target.files); imageUpload.value = ''; });
+
+        uploadContainer.addEventListener('dragover', function (e) { e.preventDefault(); uploadContainer.style.borderColor = '#d4af37'; });
+        uploadContainer.addEventListener('dragleave', function (e) { uploadContainer.style.borderColor = '#ddd'; });
+        uploadContainer.addEventListener('drop', function (e) { e.preventDefault(); uploadContainer.style.borderColor = '#ddd'; if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) processFiles(e.dataTransfer.files); });
+
         function updateImagePreview() {
             imagePreview.innerHTML = '';
-            uploadedImages.forEach((imgObj, idx) => {
-                const div = document.createElement('div'); div.className = 'preview-item';
-                const img = document.createElement('img'); img.src = imgObj.src; img.alt = 'Preview';
-                const btn = document.createElement('button'); btn.className = 'remove-btn'; btn.type = 'button'; btn.textContent = '×';
-                btn.addEventListener('click', () => { uploadedImages.splice(idx, 1); updateImagePreview(); });
-                div.appendChild(img); div.appendChild(btn); imagePreview.appendChild(div);
+            uploadedImages.forEach(function (imgObj, idx) {
+                var div = document.createElement('div');
+                div.className = 'preview-item';
+                var img = document.createElement('img');
+                img.src = imgObj.src;
+                img.alt = 'Preview';
+                var btn = document.createElement('button');
+                btn.className = 'remove-btn';
+                btn.type = 'button';
+                btn.textContent = '×';
+                btn.addEventListener('click', function () { uploadedImages.splice(idx, 1); updateImagePreview(); });
+                div.appendChild(img);
+                div.appendChild(btn);
+                imagePreview.appendChild(div);
             });
         }
-    
-        // helper to get storage handler (try module import first, else fallback to window)
-        async function getStorageHandler() {
-            // Try dynamic import
-            try {
-                const module = await import('./listeddata.js');
-                if (module && typeof module.receiveProductData === 'function' && typeof module.getProducts === 'function') {
-                    console.log('listeddata.js imported as module');
-                    return { receive: module.receiveProductData, getAll: module.getProducts };
-                }
-                console.warn('listeddata.js imported but exports not found, falling back to window');
-            } catch (err) {
-                console.warn('Dynamic import failed:', err);
-            }
-    
-            // Fallback to window functions (if listeddata.js included as plain script or attached to window)
-            if (window && typeof window.receiveProductData === 'function' && typeof window.getProducts === 'function') {
-                console.log('Using window.receiveProductData fallback');
-                return { receive: window.receiveProductData, getAll: window.getProducts };
-            }
-    
-            // nothing found
-            throw new Error('Storage handler not available (listeddata.js). Check that listeddata.js exists, is accessible, and exported functions properly.');
-        }
-    
-        productForm.addEventListener('submit', async (e) => {
+
+        // submit handler (uses window.receiveProductData)
+        productForm.addEventListener('submit', function (e) {
             e.preventDefault();
-    
-            const title = document.getElementById('productTitle').value.trim();
-            const description = document.getElementById('productDescription').value.trim();
-            const originalPrice = parseFloat(originalPriceInput.value || 0);
-            const sellingPrice = parseFloat(sellingPriceInput.value || 0);
-    
-            if (!title) { showMessage('Please enter product title.', 'error'); return; }
-            if (!description) { showMessage('Please enter product description.', 'error'); return; }
-            if (uploadedImages.length === 0) { showMessage('Please upload at least one image.', 'error'); return; }
-            if (sellingPrice > originalPrice) { showMessage('Selling price cannot be greater than original price.', 'error'); return; }
-    
-            submitBtn.disabled = true;
-            btnText.innerHTML = '<span class="loading"></span> Adding Product...';
-    
+
             try {
-                const product = {
+                var title = (document.getElementById('productTitle').value || '').trim();
+                var description = (document.getElementById('productDescription').value || '').trim();
+                var originalPrice = parseFloat(originalPriceInput.value || 0);
+                var sellingPrice = parseFloat(sellingPriceInput.value || 0);
+
+                if (!title) { showMessage('Please enter product title.', 'error'); return; }
+                if (!description) { showMessage('Please enter product description.', 'error'); return; }
+                if (uploadedImages.length === 0) { showMessage('Please upload at least one image.', 'error'); return; }
+                if (sellingPrice > originalPrice) { showMessage('Selling price cannot be greater than original price.', 'error'); return; }
+
+                submitBtn.disabled = true;
+                btnText.innerHTML = '<span class="loading"></span> Adding Product...';
+
+                var product = {
                     id: 'p_' + Date.now(),
-                    title,
-                    description,
-                    originalPrice,
-                    sellingPrice,
-                    images: uploadedImages.map(i => i.src),
+                    title: title,
+                    description: description,
+                    originalPrice: originalPrice,
+                    sellingPrice: sellingPrice,
+                    images: uploadedImages.map(function (i) { return i.src; }),
                     createdAt: new Date().toISOString()
                 };
-    
-                // get handler (module or fallback)
-                const handler = await getStorageHandler();
-                // call receive
-                handler.receive(product);
-    
-                // update UI
-                const discount = calculateDiscount(originalPrice, sellingPrice);
-                const productCard = document.createElement('div');
+
+                // Use receiveProductData on window (listeddata.js attaches it)
+                if (typeof window.receiveProductData === 'function') {
+                    var saved = window.receiveProductData(product);
+                    console.log('[index] receiveProductData returned:', saved);
+                } else {
+                    console.error('[index] receiveProductData not found on window. Did listeddata.js load?');
+                    showMessage('internal error: storage handler missing (see console)', 'error');
+                    throw new Error('receiveProductData_missing');
+                }
+
+                // update UI immediately
+                var discount = calculateDiscount(product.originalPrice, product.sellingPrice);
+                var productCard = document.createElement('div');
                 productCard.className = 'product-card';
-                productCard.innerHTML = `
-                    <img src="${product.images[0]}" alt="${product.title}" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">${product.title}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-price-container">
-                            <span class="product-selling-price">₹${product.sellingPrice.toFixed(2)}</span>
-                            ${product.originalPrice > product.sellingPrice ? `<span class="product-original-price">₹${product.originalPrice.toFixed(2)}</span><span class="product-discount">${discount}% OFF</span>` : ''}
-                        </div>
-                    </div>
-                `;
+                productCard.innerHTML = '\
+                    <img src="' + product.images[0] + '" alt="' + product.title + '" class="product-image">\
+                    <div class="product-info">\
+                        <h3 class="product-title">' + product.title + '</h3>\
+                        <p class="product-description">' + product.description + '</p>\
+                        <div class="product-price-container">\
+                            <span class="product-selling-price">₹' + product.sellingPrice.toFixed(2) + '</span>' +
+                            (product.originalPrice > product.sellingPrice ? ('<span class="product-original-price">₹' + product.originalPrice.toFixed(2) + '</span><span class="product-discount">' + discount + '% OFF</span>') : '') +
+                        '</div>\
+                    </div>';
+
                 productsList.prepend(productCard);
-    
+
                 showMessage('Product added successfully!', 'success');
-    
+
                 productForm.reset();
                 uploadedImages = [];
                 updateImagePreview();
-    
+
             } catch (err) {
-                console.error('Add product error:', err);
-                showMessage('Something went wrong. Check console for details.', 'error');
+                console.error('[index] add product error:', err);
+                // if err is our sentinel 'receiveProductData_missing', we already showed message
+                if (err.message !== 'receiveProductData_missing') {
+                    showMessage('Something went wrong. Check console for details.', 'error');
+                }
             } finally {
                 submitBtn.disabled = false;
                 btnText.textContent = 'Add Product';
             }
         });
-    
-        // load existing products (uses same handler logic)
-        (async function loadProducts() {
+
+        // load existing products from window.getProducts
+        (function loadProducts() {
             try {
-                const handler = await getStorageHandler();
-                const stored = handler.getAll() || [];
+                if (typeof window.getProducts !== 'function') {
+                    console.warn('[index] getProducts not found on window; skipping load');
+                    return;
+                }
+                var stored = window.getProducts() || [];
+                console.log('[index] loadProducts ->', stored.length, 'items');
                 productsList.innerHTML = '';
-                stored.forEach(product => {
-                    const discount = calculateDiscount(product.originalPrice, product.sellingPrice);
-                    const productCard = document.createElement('div');
+                stored.forEach(function (product) {
+                    var discount = calculateDiscount(product.originalPrice, product.sellingPrice);
+                    var productCard = document.createElement('div');
                     productCard.className = 'product-card';
-                    productCard.innerHTML = `
-                        <img src="${product.images[0]}" alt="${product.title}" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-title">${product.title}</h3>
-                            <p class="product-description">${product.description}</p>
-                            <div class="product-price-container">
-                                <span class="product-selling-price">₹${product.sellingPrice.toFixed(2)}</span>
-                                ${product.originalPrice > product.sellingPrice ? `<span class="product-original-price">₹${product.originalPrice.toFixed(2)}</span><span class="product-discount">${discount}% OFF</span>` : ''}
-                            </div>
-                        </div>
-                    `;
+                    productCard.innerHTML = '\
+                        <img src="' + product.images[0] + '" alt="' + product.title + '" class="product-image">\
+                        <div class="product-info">\
+                            <h3 class="product-title">' + product.title + '</h3>\
+                            <p class="product-description">' + product.description + '</p>\
+                            <div class="product-price-container">\
+                                <span class="product-selling-price">₹' + product.sellingPrice.toFixed(2) + '</span>' +
+                                (product.originalPrice > product.sellingPrice ? ('<span class="product-original-price">₹' + product.originalPrice.toFixed(2) + '</span><span class="product-discount">' + discount + '% OFF</span>') : '') +
+                            '</div>\
+                        </div>';
                     productsList.appendChild(productCard);
                 });
             } catch (err) {
-                console.error('Load products failed:', err);
+                console.error('[index] loadProducts error:', err);
             }
         })();
-    
-    });
+
+        console.log('[index] script ready');
+    })();
     </script>
 </body>
 </html>
