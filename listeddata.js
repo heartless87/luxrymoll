@@ -1,8 +1,8 @@
 // require("dotenv").config();
-const express = require("express");
-const multer = require("multer");
-const cors = require("cors");
-const { MongoClient } = require("mongodb");
+// const express = require("express");
+// const multer = require("multer");
+// const cors = require("cors");
+// const { MongoClient } = require("mongodb");
 const app = express();
 app.use(cors());
 const storage = multer.memoryStorage();
