@@ -137,10 +137,9 @@
             </div>
         </div>
     </footer>
-
-    <script>
-    // ---------- Main JS ----------
+    <script type="module">
     document.addEventListener('DOMContentLoaded', () => {
+        // --- DOM refs (same as before) ---
         const uploadTrigger = document.getElementById('uploadTrigger');
         const imageUpload = document.getElementById('imageUpload');
         const imagePreview = document.getElementById('imagePreview');
@@ -152,108 +151,96 @@
         const btnText = document.getElementById('btnText');
         const messageDiv = document.getElementById('message');
         const uploadContainer = document.getElementById('uploadContainer');
-
-        let uploadedImages = []; // array of { src: dataUrl, file: File }
+    
+        let uploadedImages = [];
         const maxImages = 7;
-
+    
         function showMessage(text, type = 'success') {
             messageDiv.textContent = text;
             messageDiv.className = `message ${type}`;
             messageDiv.style.display = 'block';
             setTimeout(() => { messageDiv.style.display = 'none'; }, 4000);
         }
-
+    
         function calculateDiscount(originalPrice, sellingPrice) {
             if (!originalPrice || originalPrice <= 0 || sellingPrice >= originalPrice) return 0;
             return Math.round(((originalPrice - sellingPrice) / originalPrice) * 100);
         }
-
-        // open file picker
+    
         uploadTrigger.addEventListener('click', () => imageUpload.click());
-
-        // process FileList (from input or drop)
+    
         function processFiles(fileList) {
             const files = Array.from(fileList);
             if (uploadedImages.length + files.length > maxImages) {
                 showMessage(`You can upload up to ${maxImages} images.`, 'error');
                 return;
             }
-
             files.forEach(file => {
-                if (!file.type.startsWith('image/')) {
-                    showMessage('Please select only image files.', 'error');
-                    return;
-                }
+                if (!file.type.startsWith('image/')) { showMessage('Please select only image files.', 'error'); return; }
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    uploadedImages.push({ src: e.target.result, file });
-                    updateImagePreview();
-                };
+                reader.onload = (e) => { uploadedImages.push({ src: e.target.result, file }); updateImagePreview(); };
                 reader.readAsDataURL(file);
             });
         }
-
-        imageUpload.addEventListener('change', (e) => {
-            if (e.target.files && e.target.files.length) processFiles(e.target.files);
-            imageUpload.value = ''; // reset
-        });
-
-        // drag & drop
+    
+        imageUpload.addEventListener('change', (e) => { if (e.target.files && e.target.files.length) processFiles(e.target.files); imageUpload.value = ''; });
+    
         uploadContainer.addEventListener('dragover', (e) => { e.preventDefault(); uploadContainer.style.borderColor = '#d4af37'; });
         uploadContainer.addEventListener('dragleave', () => { uploadContainer.style.borderColor = '#ddd'; });
-        uploadContainer.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadContainer.style.borderColor = '#ddd';
-            if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
-                processFiles(e.dataTransfer.files);
-            }
-        });
-
+        uploadContainer.addEventListener('drop', (e) => { e.preventDefault(); uploadContainer.style.borderColor = '#ddd'; if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) processFiles(e.dataTransfer.files); });
+    
         function updateImagePreview() {
             imagePreview.innerHTML = '';
             uploadedImages.forEach((imgObj, idx) => {
-                const div = document.createElement('div');
-                div.className = 'preview-item';
-
-                const img = document.createElement('img');
-                img.src = imgObj.src;
-                img.alt = 'Preview';
-
-                const btn = document.createElement('button');
-                btn.className = 'remove-btn';
-                btn.type = 'button';
-                btn.textContent = '×';
-                btn.addEventListener('click', () => {
-                    uploadedImages.splice(idx, 1);
-                    updateImagePreview();
-                });
-
-                div.appendChild(img);
-                div.appendChild(btn);
-                imagePreview.appendChild(div);
+                const div = document.createElement('div'); div.className = 'preview-item';
+                const img = document.createElement('img'); img.src = imgObj.src; img.alt = 'Preview';
+                const btn = document.createElement('button'); btn.className = 'remove-btn'; btn.type = 'button'; btn.textContent = '×';
+                btn.addEventListener('click', () => { uploadedImages.splice(idx, 1); updateImagePreview(); });
+                div.appendChild(img); div.appendChild(btn); imagePreview.appendChild(div);
             });
         }
-
-        // add product -> send to listeddata.js
+    
+        // helper to get storage handler (try module import first, else fallback to window)
+        async function getStorageHandler() {
+            // Try dynamic import
+            try {
+                const module = await import('./listeddata.js');
+                if (module && typeof module.receiveProductData === 'function' && typeof module.getProducts === 'function') {
+                    console.log('listeddata.js imported as module');
+                    return { receive: module.receiveProductData, getAll: module.getProducts };
+                }
+                console.warn('listeddata.js imported but exports not found, falling back to window');
+            } catch (err) {
+                console.warn('Dynamic import failed:', err);
+            }
+    
+            // Fallback to window functions (if listeddata.js included as plain script or attached to window)
+            if (window && typeof window.receiveProductData === 'function' && typeof window.getProducts === 'function') {
+                console.log('Using window.receiveProductData fallback');
+                return { receive: window.receiveProductData, getAll: window.getProducts };
+            }
+    
+            // nothing found
+            throw new Error('Storage handler not available (listeddata.js). Check that listeddata.js exists, is accessible, and exported functions properly.');
+        }
+    
         productForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
+    
             const title = document.getElementById('productTitle').value.trim();
             const description = document.getElementById('productDescription').value.trim();
             const originalPrice = parseFloat(originalPriceInput.value || 0);
             const sellingPrice = parseFloat(sellingPriceInput.value || 0);
-
+    
             if (!title) { showMessage('Please enter product title.', 'error'); return; }
             if (!description) { showMessage('Please enter product description.', 'error'); return; }
             if (uploadedImages.length === 0) { showMessage('Please upload at least one image.', 'error'); return; }
             if (sellingPrice > originalPrice) { showMessage('Selling price cannot be greater than original price.', 'error'); return; }
-
-            // UI loading
+    
             submitBtn.disabled = true;
             btnText.innerHTML = '<span class="loading"></span> Adding Product...';
-
+    
             try {
-                // prepare product object (store images as data URLs)
                 const product = {
                     id: 'p_' + Date.now(),
                     title,
@@ -263,18 +250,13 @@
                     images: uploadedImages.map(i => i.src),
                     createdAt: new Date().toISOString()
                 };
-
-                // dynamically import listeddata.js (from same folder)
-                const module = await import('listeddata.js');
-                if (typeof module.receiveProductData === 'function') {
-                    module.receiveProductData(product);
-                } else {
-                    console.warn('receiveProductData not found in listeddata.js');
-                    showMessage('internal error: storage handler missing', 'error');
-                    return;
-                }
-
-                // add to UI immediately
+    
+                // get handler (module or fallback)
+                const handler = await getStorageHandler();
+                // call receive
+                handler.receive(product);
+    
+                // update UI
                 const discount = calculateDiscount(originalPrice, sellingPrice);
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
@@ -290,28 +272,27 @@
                     </div>
                 `;
                 productsList.prepend(productCard);
-
+    
                 showMessage('Product added successfully!', 'success');
-
-                // reset form
+    
                 productForm.reset();
                 uploadedImages = [];
                 updateImagePreview();
-
+    
             } catch (err) {
-                console.error('Error adding product:', err);
-                showMessage('Something went wrong. Check console.', 'error');
+                console.error('Add product error:', err);
+                showMessage('Something went wrong. Check console for details.', 'error');
             } finally {
                 submitBtn.disabled = false;
                 btnText.textContent = 'Add Product';
             }
         });
-
-        // load products from listeddata.js (which uses localStorage)
-        async function loadProducts() {
+    
+        // load existing products (uses same handler logic)
+        (async function loadProducts() {
             try {
-                const module = await import('listeddata.js');
-                const stored = (typeof module.getProducts === 'function') ? module.getProducts() : [];
+                const handler = await getStorageHandler();
+                const stored = handler.getAll() || [];
                 productsList.innerHTML = '';
                 stored.forEach(product => {
                     const discount = calculateDiscount(product.originalPrice, product.sellingPrice);
@@ -331,11 +312,10 @@
                     productsList.appendChild(productCard);
                 });
             } catch (err) {
-                console.error('Error loading products:', err);
+                console.error('Load products failed:', err);
             }
-        }
-
-        loadProducts();
+        })();
+    
     });
     </script>
 </body>
