@@ -1,8 +1,3 @@
-// require("dotenv").config();
-// const express = require("express");
-// const multer = require("multer");
-// const cors = require("cors");
-// const { MongoClient } = require("mongodb");
 const app = express();
 app.use(cors());
 const storage = multer.memoryStorage();
@@ -10,48 +5,20 @@ const upload = multer({ storage: storage }).array("images", 7);
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 // listeddata.js
-// Stores products in localStorage
+console.log("[listeddata] loaded");
 
-(function () {
-    const STORAGE_KEY = 'luxuryProducts_v1';
+const STORAGE_KEY = "luxuryProducts_v1";
 
-    function _receiveProductData(product) {
-        try {
-            if (!product || !product.Title) {
-                console.warn('[listeddata] invalid product', product);
-                return false;
-            }
+window.receiveProductData = function (product) {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    data.push(product);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
+};
 
-            const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-            existing.push(product);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-
-            console.log('[listeddata] product saved', product);
-            return true;
-
-        } catch (err) {
-            console.error('[listeddata] error saving product', err);
-            return false;
-        }
-    }
-
-    function _getProducts() {
-        try {
-            return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        } catch (err) {
-            console.error('[listeddata] error reading products', err);
-            return [];
-        }
-    }
-
-    // attach to browser window
-    if (typeof window !== "undefined") {
-        window.receiveProductData = _receiveProductData;
-        window.getProducts = _getProducts;
-        console.log("[listeddata] attached to window");
-    }
-})();
-
+window.getProducts = function () {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+};
 // Save to DB function
 async function saveProductToDB(output) {
     try {
