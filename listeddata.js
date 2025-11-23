@@ -1,9 +1,3 @@
-const app = express();
-app.use(cors());
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage }).array("images", 7);
-const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri);
 // listeddata.js
 console.log("[listeddata] loaded");
 
