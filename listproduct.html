@@ -139,8 +139,13 @@
         </div>
     </footer>
 
-    <!-- Load storage handler as regular script so functions attach to window -->
+    <!-- LOAD THIS FIRST -->
     <script src="listeddata.js"></script>
+    
+    <!-- LOAD THIS AFTER -->
+    <script src="listproduct.js"></script>
+
+    
 
     <!-- Main script (no modules, uses window.receiveProductData / window.getProducts) -->
     <script>
