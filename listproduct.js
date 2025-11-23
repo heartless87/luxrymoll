@@ -8,15 +8,14 @@ const imageUpload = document.getElementById("imageUpload");
 const imagePreview = document.getElementById("imagePreview");
 const productForm = document.getElementById("productForm");
 const messageDiv = document.getElementById("message");
+const productsList = document.getElementById("productsList");
 
-// Store selected images
 let selectedImages = [];
 
 // ========================
-// IMAGE UPLOAD HANDLING
+// IMAGE UPLOAD
 // ========================
 uploadTrigger.addEventListener("click", () => {
-    console.log("Upload trigger clicked");
     imageUpload.click();
 });
 
@@ -36,6 +35,7 @@ imageUpload.addEventListener("change", function () {
 
 function previewImage(file) {
     const reader = new FileReader();
+
     reader.onload = function (event) {
         const div = document.createElement("div");
         div.classList.add("preview-item");
@@ -52,54 +52,84 @@ function previewImage(file) {
             div.remove();
         });
     };
+
     reader.readAsDataURL(file);
 }
 
 // ========================
-// FORM SUBMIT
+// FORM SUBMIT (LOCAL STORAGE)
 // ========================
 productForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
 
     if (selectedImages.length === 0) {
         showMessage("Please upload at least one image!", true);
         return;
     }
 
-    const formData = new FormData();
-    formData.append("title", document.getElementById("productTitle").value);
-    formData.append("description", document.getElementById("productDescription").value);
-    formData.append("originalPrice", document.getElementById("originalPrice").value);
-    formData.append("sellingPrice", document.getElementById("sellingPrice").value);
+    // Convert all selected images to base64
+    const base64Images = await Promise.all(selectedImages.map(file => toBase64(file)));
 
-    selectedImages.forEach(img => {
-        formData.append("images", img);
-    });
+    const product = {
+        title: document.getElementById("productTitle").value,
+        description: document.getElementById("productDescription").value,
+        originalPrice: document.getElementById("originalPrice").value,
+        sellingPrice: document.getElementById("sellingPrice").value,
+        images: base64Images
+    };
 
-    try {
-        const response = await fetch("http://localhost:3000/api/products", {
-            method: "POST",
-            body: formData
-        });
+    // Save to local storage using listeddata.js function
+    window.receiveProductData(product);
 
-        const result = await response.json();
-        console.log("Server:", result);
+    showMessage("Product added successfully!", false);
 
-        if (result.success) {
-            showMessage("Product added successfully!", false);
-            productForm.reset();
-            imagePreview.innerHTML = "";
-            selectedImages = [];
-        } else {
-            showMessage("Server error while saving product!", true);
-        }
+    // Reset form
+    productForm.reset();
+    imagePreview.innerHTML = "";
+    selectedImages = [];
 
-    } catch (err) {
-        console.error(err);
-        showMessage("Server connection failed!", true);
-    }
+    loadProducts(); // Refresh product list
 });
+
+// Convert File to Base64
+function toBase64(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+    });
+}
+
+// ========================
+// SHOW PRODUCTS FROM LOCAL STORAGE
+// ========================
+function loadProducts() {
+    const products = window.getProducts();
+    productsList.innerHTML = "";
+
+    products.forEach((p) => {
+        const div = document.createElement("div");
+        div.classList.add("product-card");
+
+        div.innerHTML = `
+            <img src="${p.images[0]}" class="product-image" />
+
+            <div class="product-info">
+                <h3 class="product-title">${p.title}</h3>
+                <p class="product-description">${p.description}</p>
+
+                <div class="product-price-container">
+                    <span class="product-original-price">₹${p.originalPrice}</span>
+                    <span class="product-selling-price">₹${p.sellingPrice}</span>
+                </div>
+            </div>
+        `;
+
+        productsList.appendChild(div);
+    });
+}
+
+loadProducts();
 
 // ========================
 // MESSAGE BOX
