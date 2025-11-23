@@ -238,7 +238,7 @@
         productForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const title = document.getElementById('/productTitle').value.trim();
+            const title = document.getElementById('./productTitle').value.trim();
             const description = document.getElementById('productDescription').value.trim();
             const originalPrice = parseFloat(originalPriceInput.value || 0);
             const sellingPrice = parseFloat(sellingPriceInput.value || 0);
@@ -265,7 +265,7 @@
                 };
 
                 // dynamically import listeddata.js (from same folder)
-                const module = await import('/listeddata.js');
+                const module = await import('./listeddata.js');
                 if (typeof module.receiveProductData === 'function') {
                     module.receiveProductData(product);
                 } else {
@@ -310,7 +310,7 @@
         // load products from listeddata.js (which uses localStorage)
         async function loadProducts() {
             try {
-                const module = await import('/listeddata.js');
+                const module = await import('./listeddata.js');
                 const stored = (typeof module.getProducts === 'function') ? module.getProducts() : [];
                 productsList.innerHTML = '';
                 stored.forEach(product => {
