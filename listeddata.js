@@ -10,45 +10,56 @@ const upload = multer({ storage: storage }).array("images", 7);
 const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 // listeddata.js
-const STORAGE_KEY = 'luxuryProducts_v1';
+// Simple storage handler that attaches functions to window for maximum compatibility.
+// Stores products in localStorage under key 'luxuryProducts_v1'
 
-function _receiveProductData(product) {
-    try {
-        if (!product || !product.title) {
-            console.warn('Invalid product', product);
-            return;
+(function () {
+    const STORAGE_KEY = 'luxuryProducts_v1';
+
+    function _receiveProductData(product) {
+        try {
+            if (!product || !product.title) {
+                console.warn('[listeddata] invalid product', product);
+                return false;
+            }
+            const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            existing.push(product);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
+            console.log('[listeddata] product saved', product);
+            return true;
+        } catch (err) {
+            console.error('[listeddata] error saving product', err);
+            return false;
         }
-        const existing = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-        existing.push(product);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-        console.log('Product saved to localStorage:', product);
-    } catch (err) {
-        console.error('Error saving product in listeddata.js', err);
     }
-}
 
-function _getProducts() {
+    function _getProducts() {
+        try {
+            const p = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            console.log('[listeddata] getProducts ->', p.length, 'items');
+            return p;
+        } catch (err) {
+            console.error('[listeddata] error reading products', err);
+            return [];
+        }
+    }
+
+    // Attach to window
+    if (typeof window !== 'undefined') {
+        window.receiveProductData = _receiveProductData;
+        window.getProducts = _getProducts;
+        console.log('[listeddata] attached to window');
+    }
+
+    // Also export for module-aware environments (optional)
     try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    } catch (err) {
-        console.error('Error reading products in listeddata.js', err);
-        return [];
-    }
-}
+        if (typeof exports !== 'undefined') {
+            exports.receiveProductData = _receiveProductData;
+            exports.getProducts = _getProducts;
+        }
+    } catch (e) { /* ignore */ }
+})();
 
-// Exports for ES module import
-export function receiveProductData(product) {
-    return _receiveProductData(product);
-}
-export function getProducts() {
-    return _getProducts();
-}
-
-// Also attach to window as fallback if someone loads this file as a plain <script>
-if (typeof window !== 'undefined') {
-    window.receiveProductData = _receiveProductData;
-    window.getProducts = _getProducts;
-}
 
 // Save to DB function
 async function saveProductToDB(output) {
