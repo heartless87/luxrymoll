@@ -1,31 +1,40 @@
 let page = 1;
 let loading = false;
 
+// 🔥 Replace this with your real Vercel backend URL
+const BACKEND_URL = "https://YOUR_BACKEND_URL.vercel.app";
+
 function loadProducts() {
     if (loading) return;
     loading = true;
     document.getElementById('loading').style.display = 'block';
 
-    fetch(`/api/products?page=${page}`)
+    fetch(`${BACKEND_URL}/api/products?page=${page}`)
         .then(res => res.json())
         .then(products => {
             const container = document.getElementById('products-container');
+
             products.forEach(p => {
                 const div = document.createElement('div');
                 div.className = 'product-card';
                 div.innerHTML = `
-                    <img src="${p.image}" alt="${p.title}">
+                    <img src="${p.images?.[0] || ''}" alt="${p.title}">
                     <i class="fas fa-heart"></i>
                     <h4>${p.title}</h4>
-                    <p><del>₹${p.original_price}</del> <strong>₹${p.sell_price}</strong></p>
+                    <p><del>₹${p.originalPrice}</del> <strong>₹${p.sellingPrice}</strong></p>
                 `;
-                div.onclick = () => location.href = `/product/${p.id}`;
+
+                div.onclick = () => location.href = `/product/${p._id}`;
                 container.appendChild(div);
             });
 
             page++;
             loading = false;
             document.getElementById('loading').style.display = products.length < 12 ? 'none' : 'block';
+        })
+        .catch(err => {
+            console.error("Fetch Error:", err);
+            loading = false;
         });
 }
 
