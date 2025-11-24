@@ -7,6 +7,9 @@ const imagePreview = document.getElementById("imagePreview");
 const productForm = document.getElementById("productForm");
 let selectedImages = [];
 
+// 🟦 CHANGE THIS — YOUR VERCEL API URL
+const API_URL = "https://YOUR-VERCEL-PROJECT-NAME.vercel.app/api/products";
+
 // Upload Button Click
 uploadTrigger.addEventListener("click", () => {
     imageUpload.click();
@@ -65,21 +68,27 @@ productForm.addEventListener("submit", async (e) => {
 
     selectedImages.forEach(img => formData.append("images", img));
 
-    const response = await fetch("http://localhost:3000/api/products", {
-        method: "POST",
-        body: formData
-    });
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            body: formData
+        });
 
-    const result = await response.json();
-    console.log(result);
+        const result = await response.json();
+        console.log(result);
 
-    if (result.success) {
-        alert("Product Added Successfully!");
+        if (result.success) {
+            alert("Product Added Successfully!");
 
-        productForm.reset();
-        imagePreview.innerHTML = "";
-        selectedImages = [];
-    } else {
-        alert("Error: " + result.message);
+            productForm.reset();
+            imagePreview.innerHTML = "";
+            selectedImages = [];
+        } else {
+            alert("Error: " + result.message);
+        }
+
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        alert("Network Error! API not reachable.");
     }
 });
