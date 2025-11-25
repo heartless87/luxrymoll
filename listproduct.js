@@ -8,8 +8,10 @@ const productForm = document.getElementById("productForm");
 let selectedImages = [];
 
 // 🟦 CHANGE THIS — YOUR VERCEL API URL
-const API_URL = "https://luxrymoll-pt1o.vercel.app/";
-
+const response = await fetch("https://luxrymoll-pt1o.vercel.app/api/products", {
+    method: "POST",
+    body: formData
+});
 // Upload Button Click
 uploadTrigger.addEventListener("click", () => {
     imageUpload.click();
