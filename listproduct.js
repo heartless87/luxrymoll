@@ -1,95 +1,89 @@
-console.log("[listproduct.js loaded]");
+// ---------------- IMAGE CONVERSION TO BASE64 ----------------
 
-// YOUR VERCEL API URL
-const API_URL = "https://luxrymoll-backend.vercel.app/api/products";
-
-// Selectors
 const uploadTrigger = document.getElementById("uploadTrigger");
 const imageUpload = document.getElementById("imageUpload");
 const imagePreview = document.getElementById("imagePreview");
-const productForm = document.getElementById("productForm");
-let selectedImages = [];
 
-// Upload Button Click
-uploadTrigger.addEventListener("click", () => {
-    imageUpload.click();
-});
+let base64Images = [];
 
-// Handle Image Selection
-imageUpload.addEventListener("change", function () {
-    const files = [...this.files];
+uploadTrigger.addEventListener("click", () => imageUpload.click());
 
-    if (selectedImages.length + files.length > 7) {
-        alert("Maximum 7 images allowed!");
+imageUpload.addEventListener("change", async function () {
+    base64Images = []; 
+    imagePreview.innerHTML = "";
+
+    let files = Array.from(this.files);
+
+    if (files.length < 1 || files.length > 7) {
+        alert("Please upload minimum 1 and maximum 7 images");
         return;
     }
 
-    files.forEach(file => {
-        selectedImages.push(file);
-        previewImage(file);
-    });
-});
+    for (let i = 0; i < files.length; i++) {
+        let file = files[i];
 
-// Preview Function
-function previewImage(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
+        // Convert to Base64
+        let base64 = await convertToBase64(file);
+        base64Images.push(base64);
+
+        // Preview
         const div = document.createElement("div");
-        div.className = "preview-item";
+        div.classList.add("preview-item");
 
         div.innerHTML = `
-            <img src="${e.target.result}">
-            <button class="remove-btn">&times;</button>
+            <img src="${base64}">
+            <button class="remove-btn" data-index="${i}">×</button>
         `;
 
-        div.querySelector(".remove-btn").onclick = () => {
-            selectedImages = selectedImages.filter(img => img !== file);
-            div.remove();
-        };
-
         imagePreview.appendChild(div);
-    };
-    reader.readAsDataURL(file);
+    }
+});
+
+// Convert File → Base64
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
 }
 
-// Form Submit
-productForm.addEventListener("submit", async (e) => {
+
+// ---------------- SUBMIT FORM ----------------
+
+document.getElementById("productForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    if (selectedImages.length === 0) {
-        alert("At least one image is required!");
+    if (base64Images.length < 1) {
+        alert("Upload at least 1 image.");
         return;
     }
 
-    const formData = new FormData();
-    formData.append("title", document.getElementById("productTitle").value);
-    formData.append("description", document.getElementById("productDescription").value);
-    formData.append("originalPrice", document.getElementById("originalPrice").value);
-    formData.append("sellingPrice", document.getElementById("sellingPrice").value);
+    const productData = {
+        title: document.getElementById("productTitle").value,
+        description: document.getElementById("productDescription").value,
+        originalPrice: document.getElementById("originalPrice").value,
+        sellingPrice: document.getElementById("sellingPrice").value,
+        images: base64Images
+    };
 
-    selectedImages.forEach(img => formData.append("images", img));
+    document.getElementById("btnText").innerText = "Saving...";
 
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            body: formData
-        });
+    let res = await fetch("https://YOUR-VERCEL-URL.vercel.app/api/addProduct", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productData)
+    });
 
-        const result = await response.json();
-        console.log(result);
+    let result = await res.json();
 
-        if (result.success) {
-            alert("Product Added Successfully!");
-
-            productForm.reset();
-            imagePreview.innerHTML = "";
-            selectedImages = [];
-        } else {
-            alert("Error: " + result.message);
-        }
-
-    } catch (error) {
-        console.error("Fetch Error:", error);
-        alert("Network Error! API not reachable.");
+    if (result.success) {
+        alert("Product Saved Successfully!");
+        location.reload();
+    } else {
+        alert("Error saving product.");
     }
+
+    document.getElementById("btnText").innerText = "Add Product";
 });
