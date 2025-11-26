@@ -11,8 +11,19 @@ if (!clientPromise) {
 }
 
 export default async function handler(req, res) {
+
+    // 🔥 FIX FOR CORS
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+    // Handle OPTIONS preflight
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+
     if (req.method !== "POST") {
-        return res.status(405).json({ success: false, message: "Only POST allowed" });
+        return res.status(405).json({ success: false, message: "Method Not Allowed" });
     }
 
     try {
@@ -22,7 +33,6 @@ export default async function handler(req, res) {
         const db = client.db("Product");
         const collection = db.collection("Prodlist");
 
-        // Format images as image-1, image-2, ...
         let imageObj = {};
         data.images.forEach((img, index) => {
             imageObj[`image-${index + 1}`] = img;
@@ -43,6 +53,6 @@ export default async function handler(req, res) {
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ success: false, message: "Something went wrong" });
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
