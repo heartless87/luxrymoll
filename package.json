@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "mongodb": "latest",
+    "multer": "latest",
+    "next-connect": "latest"
+  }
+}
