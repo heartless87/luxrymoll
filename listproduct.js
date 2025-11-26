@@ -70,7 +70,7 @@ document.getElementById("productForm").addEventListener("submit", async function
 
     document.getElementById("btnText").innerText = "Saving...";
 
-    let res = await fetch("https://YOUR-VERCEL-URL.vercel.app/api/addProduct", {
+    let res = await fetch("https://luxrymoll.vercel.app/api/addProducts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(productData)
