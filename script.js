@@ -2,7 +2,7 @@ let page = 1;
 let loading = false;
 
 // 🔥 Replace this with your real Vercel backend URL
-const BACKEND_URL = "https://YOUR_BACKEND_URL.vercel.app";
+const BACKEND_URL = "https://luxrymoll.vercel.app";
 
 function loadProducts() {
     if (loading) return;
