@@ -1,3 +1,13 @@
 {
-  "type": "module"
+  "name": "luxurymoll-backend",
+  "version": "1.0.0",
+  "description": "LuxuryMoll Product API using Vercel Serverless Functions",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "mongodb": "^5.9.0"
+  }
 }
