@@ -1,7 +1,7 @@
 console.log("[listproduct.js loaded]");
 
 // ✅ Vercel API URL (PUT YOUR URL HERE)
-const API_URL = "https://luxrymoll-pt1o.vercel.app/api/products";
+const API_URL = "https://luxrymoll-pt1o.vercel.app";
 
 // Selectors
 const uploadTrigger = document.getElementById("uploadTrigger");
