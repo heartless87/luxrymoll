@@ -1,38 +1,35 @@
-import { MongoClient } from "mongodb";
-
-let client;
-let clientPromise;
-
-const uri = process.env.MONGO_URI;
-
-if (!clientPromise) {
-    client = new MongoClient(uri);
-    clientPromise = client.connect();
-}
-
 export default async function handler(req, res) {
 
-    // 🔥 FIX FOR CORS
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    // ---------- CORS FIX (WORKING FOR VERCEL) ----------
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Origin", "https://heartless87.github.io");
+    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
-    // Handle OPTIONS preflight
+    // Handle OPTIONS request
     if (req.method === "OPTIONS") {
         return res.status(200).end();
     }
+    // -----------------------------------------------------
+
+    // Import inside function (Vercel fix)
+    const { MongoClient } = await import("mongodb");
 
     if (req.method !== "POST") {
-        return res.status(405).json({ success: false, message: "Method Not Allowed" });
+        return res.status(405).json({ success: false, message: "Method not allowed" });
     }
 
     try {
-        const data = req.body;
+        const uri = process.env.MONGO_URI;
+        const client = new MongoClient(uri);
+        await client.connect();
 
-        const client = await clientPromise;
         const db = client.db("Product");
         const collection = db.collection("Prodlist");
 
+        const data = req.body;
+
+        // Format images
         let imageObj = {};
         data.images.forEach((img, index) => {
             imageObj[`image-${index + 1}`] = img;
@@ -48,11 +45,12 @@ export default async function handler(req, res) {
         };
 
         await collection.insertOne(productToSave);
+        client.close();
 
-        res.json({ success: true, message: "Product saved" });
+        return res.status(200).json({ success: true, message: "Product saved successfully!" });
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).json({ success: false, message: "Server error" });
     }
 }
