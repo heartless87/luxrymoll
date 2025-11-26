@@ -1,5 +1,8 @@
 console.log("[listproduct.js loaded]");
 
+// ✅ Vercel API URL (PUT YOUR URL HERE)
+const API_URL = "https://luxrymoll-pt1o.vercel.app/api/products";
+
 // Selectors
 const uploadTrigger = document.getElementById("uploadTrigger");
 const imageUpload = document.getElementById("imageUpload");
@@ -7,11 +10,6 @@ const imagePreview = document.getElementById("imagePreview");
 const productForm = document.getElementById("productForm");
 let selectedImages = [];
 
-// 🟦 CHANGE THIS — YOUR VERCEL API URL
-const response = await fetch("https://luxrymoll-pt1o.vercel.app/api/products", {
-    method: "POST",
-    body: formData
-});
 // Upload Button Click
 uploadTrigger.addEventListener("click", () => {
     imageUpload.click();
@@ -77,7 +75,7 @@ productForm.addEventListener("submit", async (e) => {
         });
 
         const result = await response.json();
-        console.log(result);
+        console.log("API Response:", result);
 
         if (result.success) {
             alert("Product Added Successfully!");
