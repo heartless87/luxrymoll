@@ -1,7 +1,7 @@
 console.log("[listproduct.js loaded]");
 
-// ✅ Vercel API URL (PUT YOUR URL HERE)
-const API_URL = "https://luxrymoll-pt1o.vercel.app/api/products";
+// YOUR VERCEL API URL
+const API_URL = "https://luxrymoll.vercel.app/api/products";
 
 // Selectors
 const uploadTrigger = document.getElementById("uploadTrigger");
@@ -36,6 +36,7 @@ function previewImage(file) {
     reader.onload = (e) => {
         const div = document.createElement("div");
         div.className = "preview-item";
+
         div.innerHTML = `
             <img src="${e.target.result}">
             <button class="remove-btn">&times;</button>
@@ -75,7 +76,7 @@ productForm.addEventListener("submit", async (e) => {
         });
 
         const result = await response.json();
-        console.log("API Response:", result);
+        console.log(result);
 
         if (result.success) {
             alert("Product Added Successfully!");
