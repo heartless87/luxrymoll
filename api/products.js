@@ -1,15 +1,7 @@
 import { MongoClient } from "mongodb";
 import multer from "multer";
 import nextConnect from "next-connect";
-handler.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-    next();
-});
+
 const upload = multer({
     storage: multer.memoryStorage(),
     limits: { files: 7 }
@@ -17,8 +9,21 @@ const upload = multer({
 
 const handler = nextConnect();
 
-let client = null;
+// -------- CORS FIX --------
+handler.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+
+    next();
+});
+// --------------------------
+
+let client = null;
 async function connectDB() {
     if (!client) {
         client = new MongoClient(process.env.MONGO_URI);
@@ -65,4 +70,3 @@ export const config = {
 };
 
 export default handler;
-
