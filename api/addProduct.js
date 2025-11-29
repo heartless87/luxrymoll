@@ -1,50 +1,37 @@
 import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGO_URI;
-
-if (!uri) {
-    throw new Error("Missing MONGO_URI in Vercel Environment Variables");
-}
-
-let client;
-let clientPromise;
-
-if (process.env.NODE_ENV === "development") {
-    if (!global._mongoClientPromise) {
-        client = new MongoClient(uri);
-        global._mongoClientPromise = client.connect();
-    }
-    clientPromise = global._mongoClientPromise;
-} else {
-    client = new MongoClient(uri);
-    clientPromise = client.connect();
-}
-
 export default async function handler(req, res) {
 
-    // ---------------- CORS FIX ----------------
+    // ---------------- GLOBAL CORS (ALWAYS ON) ----------------
+    res.setHeader("Access-Control-Allow-Origin", "https://heartless87.github.io");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Origin", "https://heartless87.github.io"); 
-    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    // ----------------------------------------------------------
 
+    // Handle preflight
     if (req.method === "OPTIONS") {
-        return res.status(200).end();
+        return res.status(200).json({});
     }
-    // -------------------------------------------
 
+    // ----------------------------------------------------------
+    // Only POST allowed
     if (req.method !== "POST") {
         return res.status(405).json({ success: false, message: "Method not allowed" });
     }
+    // ----------------------------------------------------------
 
     try {
-        const client = await clientPromise;
+        const uri = process.env.MONGO_URI;
+        const client = new MongoClient(uri);
+        await client.connect();
+
         const db = client.db("Product");
         const collection = db.collection("Prodlist");
 
         const data = req.body;
 
-        // Convert images to image-1, image-2...
+        // Convert images array → image-1, image-2...
         let imageObj = {};
         data.images.forEach((img, index) => {
             imageObj[`image-${index + 1}`] = img;
@@ -60,11 +47,12 @@ export default async function handler(req, res) {
         };
 
         await collection.insertOne(newProduct);
+        client.close();
 
-        return res.status(200).json({ success: true, message: "Product saved successfully!" });
+        return res.status(200).json({ success: true });
 
-    } catch (error) {
-        console.error("Add Product Error:", error);
-        return res.status(500).json({ success: false, message: "Server error" });
+    } catch (err) {
+        console.error("AddProduct Error:", err);
+        return res.status(500).json({ success: false });
     }
 }
