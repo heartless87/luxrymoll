@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 export default async function handler(req, res) {
 
     // ---------------- GLOBAL CORS (ALWAYS ON) ----------------
-    res.setHeader("Access-Control-Allow-Origin", "https://heartless87.github.io/luxrymoll/listproduct");
+    res.setHeader("Access-Control-Allow-Origin", "https://heartless87.github.io/luxrymoll/");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
