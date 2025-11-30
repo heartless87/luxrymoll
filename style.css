@@ -51,35 +51,6 @@ body {
     position: relative;
 }
 
-.banner-content {
-    padding: 30px 20px;
-    flex: 1;
-    z-index: 2;
-}
-
-.banner h2 {
-    font-size: 22px;
-    margin-bottom: 12px;
-    line-height: 1.3;
-}
-
-.shop-now {
-    background: #ffb84d;
-    color: black;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.banner img {
-    width: 50%;
-    object-fit: cover;
-    opacity: 0.9;
-}
-
 /* ====================== CATEGORIES ====================== */
 .categories {
     display: flex;
