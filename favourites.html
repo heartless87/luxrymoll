@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background: #fff;
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        /* Main container for responsive layout */
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 70px; /* Space for bottom nav */
+        }
+        
+        header {
+            padding: 20px 0;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .favorites-container {
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .favorite-item {
+            background-color: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .favorite-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            background-color: #f2f2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #8e8e93;
+            flex-shrink: 0;
+        }
+        
+        .item-info {
+            flex: 1;
+            min-width: 0; /* Prevents flex item from overflowing */
+        }
+        
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .price-container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .current-price {
+            font-weight: 700;
+            font-size: 18px;
+            color: #1d1d1f;
+        }
+        
+        .original-price {
+            color: #8e8e93;
+            text-decoration: line-through;
+            font-size: 16px;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #e5e5e7;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: "More Items";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f5f5f7;
+            padding: 0 12px;
+            font-size: 14px;
+            color: #8e8e93;
+        }
+        
+        .heart-icon {
+            color: #ff3b30;
+            font-size: 20px;
+            align-self: flex-start;
+            flex-shrink: 0;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .nav-item i {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .nav-item.active {
+            color: #ffb400;
+        }
+        
+        .status-badge {
+            background-color: #34c759;
+            color: white;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+        }
+        
+        .discount-badge {
+            background-color: #ff3b30;
+            color: white;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            margin-left: 8px;
+        }
+
+        /* Grid layout for larger screens */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .favorites-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+            }
+            
+            .favorite-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .item-image {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto;
+            }
+            
+            .item-info {
+                width: 100%;
+            }
+            
+            .price-container {
+                justify-content: center;
+            }
+            
+            .heart-icon {
+                align-self: center;
+                margin-top: 10px;
+            }
+            
+            .divider {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .favorites-container {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 25px;
+            }
+            
+            .favorite-item {
+                padding: 25px;
+            }
+            
+            .item-image {
+                width: 120px;
+                height: 120px;
+                font-size: 32px;
+            }
+            
+            .item-name {
+                font-size: 20px;
+            }
+            
+            .current-price {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-container {
+                padding: 0 10px;
+            }
+            
+            header {
+                padding: 15px 0;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .favorite-item {
+                padding: 12px;
+                gap: 12px;
+            }
+            
+            .item-image {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+            
+            .item-name {
+                font-size: 16px;
+            }
+            
+            .current-price, .original-price {
+                font-size: 16px;
+            }
+            
+            .price-container {
+                gap: 8px;
+            }
+            
+            .nav-item {
+                font-size: 10px;
+            }
+            
+            .nav-item i {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 401px) {
+            .app-container {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                border-radius: 20px;
+                overflow: hidden;
+                margin: 20px auto;
+            }
+            
+            body {
+                background: #f5f5f7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Favorites</h1>
+        </header>
+        
+        <div class="favorites-container">
+            <div class="favorite-item">
+                <div class="item-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="item-info">
+                    <div class="item-name">iPhone 15 Pro</div>
+                    <div class="price-container">
+                        <div class="current-price">$900</div>
+                        <div class="original-price">$400</div>
+                        <div class="discount-badge">-55%</div>
+                    </div>
+                </div>
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <div class="favorite-item">
+                <div class="item-image">
+                    <i class="fas fa-shoe-prints"></i>
+                </div>
+                <div class="item-info">
+                    <div class="item-name">Nike Shoes</div>
+                    <div class="price-container">
+                        <div class="current-price">$250</div>
+                        <div class="original-price">$300</div>
+                        <div class="discount-badge">-17%</div>
+                    </div>
+                </div>
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="favorite-item">
+                <div class="item-image">
+                    <i class="far fa-clock"></i>
+                </div>
+                <div class="item-info">
+                    <div class="item-name">Hand clock</div>
+                    <div class="price-container">
+                        <div class="current-price">$250</div>
+                        <div class="original-price">$300</div>
+                        <div class="discount-badge">-17%</div>
+                    </div>
+                </div>
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <div class="favorite-item">
+                <div class="item-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="item-info">
+                    <div class="item-name">iPhone 13 Pro</div>
+                    <div class="price-container">
+                        <div class="current-price">$800</div>
+                        <div class="original-price">$1000</div>
+                        <div class="discount-badge">-20%</div>
+                        <div class="status-badge">Best Seller</div>
+                    </div>
+                </div>
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <!-- Additional items for demonstration -->
+            <div class="favorite-item">
+                <div class="item-image">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <div class="item-info">
+                    <div class="item-name">Wireless Headphones</div>
+                    <div class="price-container">
+                        <div class="current-price">$150</div>
+                        <div class="original-price">$200</div>
+                        <div class="discount-badge">-25%</div>
+                    </div>
+                </div>
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <div class="favorite-item">
+                <div class="item-image">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="item-info">
+                    <div class="item-name">MacBook Pro</div>
+                    <div class="price-container">
+                        <div class="current-price">$1999</div>
+                        <div class="original-price">$2299</div>
+                        <div class="discount-badge">-13%</div>
+                    </div>
+                </div>
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="favourites.html" class="nav-item active">
+                <i class="fa fa-heart"></i>
+                <span>Favourites</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa fa-shopping-cart"></i>
+                <span>Cart</span>
+            </a>
+            <a href="profile.html" class="nav-item">
+                <i class="fa fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.querySelectorAll('.favorite-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.backgroundColor = '#f8f8f8';
+                setTimeout(() => {
+                    this.style.backgroundColor = 'white';
+                }, 200);
+            });
+        });
+        
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Heart icon toggle functionality
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent triggering the item click
+                const heart = this.querySelector('i');
+                if (heart.classList.contains('fas')) {
+                    heart.classList.remove('fas');
+                    heart.classList.add('far');
+                    this.style.color = '#8e8e93';
+                } else {
+                    heart.classList.remove('far');
+                    heart.classList.add('fas');
+                    this.style.color = '#ff3b30';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
