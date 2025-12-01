@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #f5f5f7;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Main container for responsive layout */
+    .app-container {
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      min-height: calc(100vh - 70px);
+    }
+
+    .profile-section {
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .profile-header {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .profile-header h2 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 25px;
+    }
+
+    .profile-pic {
+      position: relative;
+      display: inline-block;
+    }
+
+    .profile-pic img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .edit-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background-color: #f7b733;
+      border-radius: 50%;
+      padding: 6px;
+      color: #fff;
+      border: 2px solid #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .user-info {
+      margin-top: 15px;
+    }
+
+    .user-info h3 {
+      font-size: 18px;
+      color: #222;
+      font-weight: 600;
+    }
+
+    .user-info p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .profile-content {
+      background: #fff;
+      margin-top: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .menu {
+      margin-top: 0;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      background-color: #fafafa;
+    }
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .menu-left i {
+      background-color: #fdeecf;
+      color: #f7b733;
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 16px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-left span {
+      font-size: 16px;
+      color: #333;
+    }
+
+    .menu-item i.fa-chevron-right {
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 12px 0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      text-decoration: none;
+      flex: 1;
+    }
+
+    .nav-item i {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .nav-item.active {
+      color: #ffb400;
+    }
+
+    /* Responsive adjustments */
+    @media (min-width: 768px) {
+      .app-container {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 0;
+        align-items: start;
+        padding-bottom: 0;
+      }
+      
+      .profile-section {
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        padding: 40px 30px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      
+      .profile-header {
+        text-align: left;
+        padding: 0;
+      }
+      
+      .profile-pic img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .menu {
+        margin-top: 40px;
+      }
+      
+      .profile-content {
+        margin-top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 40px 0;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .profile-section {
+        padding: 60px 40px;
+      }
+      
+      .profile-header h2 {
+        font-size: 26px;
+      }
+      
+      .profile-pic img {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .user-info h3 {
+        font-size: 22px;
+      }
+      
+      .user-info p {
+        font-size: 16px;
+      }
+      
+      .menu-item {
+        padding: 18px 30px;
+      }
+      
+      .menu-left i {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+      
+      .menu-left span {
+        font-size: 18px;
+      }
+      
+      .profile-content {
+        padding: 60px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-section {
+        padding: 15px;
+      }
+      
+      .profile-header {
+        padding: 15px 0;
+      }
+      
+      .profile-header h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .profile-pic img {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .edit-icon {
+        padding: 5px;
+        font-size: 12px;
+      }
+      
+      .user-info h3 {
+        font-size: 16px;
+      }
+      
+      .user-info p {
+        font-size: 13px;
+      }
+      
+      .menu-item {
+        padding: 12px 15px;
+      }
+      
+      .menu-left {
+        gap: 12px;
+      }
+      
+      .menu-left i {
+        width: 35px;
+        height: 35px;
+        padding: 8px;
+        font-size: 14px;
+      }
+      
+      .menu-left span {
+        font-size: 14px;
+      }
+      
+      .nav-item {
+        font-size: 10px;
+      }
+      
+      .nav-item i {
+        font-size: 20px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .app-container {
+        grid-template-columns: 1fr 3fr;
+      }
+      
+      .profile-section {
+        padding: 80px 50px;
+      }
+      
+      .profile-content {
+        padding: 80px 0;
+      }
+    }
+
+    /* Additional small screen optimization */
+    @media (max-width: 350px) {
+      .menu-item {
+        padding: 10px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="profile-section">
+      <div class="profile-header">
+        <h2>My Profile</h2>
+        <div class="profile-pic">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Profile Photo">
+          <span class="edit-icon"><i class="fa fa-pen"></i></span>
+        </div>
+        <div class="user-info">
+          <h3>USER NAME </h3>
+          <p>usermail@gmail.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <div class="menu">
+        <div class="menu-item" data-link="addresses.html">
+          <div class="menu-left">
+            <i class="fa fa-location-dot"></i>
+            <span>Saved Addresses</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="menu-item" data-link="wallet.html">
+          <div class="menu-left">
+            <i class="fa fa-wallet"></i>
+            <span>My Wallet</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="menu-item" data-link="myorder.html">
+          <div class="menu-left">
+            <i class="fa fa-gift"></i>
+            <span>My Orders</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="menu-item" data-link="favourites.html">
+          <div class="menu-left">
+            <i class="fa fa-heart"></i>
+            <span>My Favorites</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="menu-item" data-link="term&conditions.html">
+          <div class="menu-left">
+            <i class="fa fa-file-contract"></i>
+            <span>Terms & Conditions</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="menu-item" data-link="support.html">
+          <div class="menu-left">
+            <i class="fa fa-headset"></i>
+            <span>Help & Support</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+
+        <div class="menu-item" data-link="login.html">
+          <div class="menu-left">
+            <i class="fa fa-right-from-bracket"></i>
+            <span>Login</span>
+          </div>
+          <i class="fa fa-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a href="index.html" class="nav-item">
+      <i class="fa fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="favourites.html" class="nav-item">
+      <i class="fa fa-heart"></i>
+      <span>Favourites</span>
+    </a>
+    <a href="cart.html" class="nav-item">
+      <i class="fa fa-shopping-cart"></i>
+      <span>Cart</span>
+    </a>
+    <a href="profile.html" class="nav-item active">
+      <i class="fa fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </div>
+
+  <script>
+    // Add navigation functionality to menu items
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', function() {
+        // Get the target page from data-link attribute
+        const targetPage = this.getAttribute('data-link');
+        
+        // Navigate to the target page
+        if (targetPage) {
+          window.location.href = targetPage;
+        }
+      });
+    });
+    
+    // Edit profile picture functionality
+    document.querySelector('.edit-icon').addEventListener('click', function(e) {
+      e.stopPropagation();
+      alert('Edit profile picture functionality would go here!');
+    });
+    
+    // Navigation active state
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.nav-item').forEach(nav => {
+          nav.classList.remove('active');
+        });
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
