@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .order-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin: 30px 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .order-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .order-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .order-id {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .order-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .status-shipped {
+            background-color: #e8f4fd;
+            color: #3498db;
+        }
+        
+        .status-delivered {
+            background-color: #e6f7ee;
+            color: #27ae60;
+        }
+        
+        .status-pending {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+        
+        .product-details {
+            display: flex;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .product-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-right: 20px;
+            flex-shrink: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+        }
+        
+        .product-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .product-description {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #e74c3c;
+        }
+        
+        .tracking-container {
+            margin: 30px 0;
+        }
+        
+        .tracking-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e0e0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #bdc3c7;
+        }
+        
+        .timeline-item.active::before {
+            background: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .timeline-item.completed::before {
+            background: #27ae60;
+        }
+        
+        .timeline-date {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content {
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .btn-secondary:hover {
+            background: #d5dbdb;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .order-status {
+                margin-top: 10px;
+            }
+            
+            .product-details {
+                flex-direction: column;
+            }
+            
+            .product-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+                align-self: center;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .order-card {
+                padding: 20px;
+            }
+            
+            .order-title {
+                font-size: 1.3rem;
+            }
+            
+            .product-name {
+                font-size: 1.1rem;
+            }
+            
+            .timeline {
+                padding-left: 25px;
+            }
+            
+            .timeline-item::before {
+                left: -25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Order Tracking</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <h1 class="order-title">Your Order Details</h1>
+                    <p class="order-id">Order #ORD-7842-2023</p>
+                </div>
+                <div class="order-status status-shipped">Shipped</div>
+            </div>
+            
+            <div class="product-details">
+                <div class="product-image">
+                    <i class="fas fa-headphones fa-3x"></i>
+                </div>
+                <div class="product-info">
+                    <h2 class="product-name">Wireless Bluetooth Headphones</h2>
+                    <p class="product-description">Premium noise-cancelling over-ear headphones with 30-hour battery life</p>
+                    <div class="product-price">₹4,299</div>
+                </div>
+            </div>
+            
+            <div class="tracking-container">
+                <h2 class="tracking-title">Order Tracking</h2>
+                <div class="timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-date">Oct 12, 2023 - 10:30 AM</div>
+                        <div class="timeline-content">Order placed successfully</div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-date">Oct 13, 2023 - 02:15 PM</div>
+                        <div class="timeline-content">Order confirmed and processing</div>
+                    </div>
+                    <div class="timeline-item completed">
+                        <div class="timeline-date">Oct 14, 2023 - 11:20 AM</div>
+                        <div class="timeline-content">Order shipped from warehouse</div>
+                    </div>
+                    <div class="timeline-item active">
+                        <div class="timeline-date">Oct 15, 2023 - 09:45 AM</div>
+                        <div class="timeline-content">Out for delivery</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">Not yet</div>
+                        <div class="timeline-content">Delivered</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-primary">Contact Support</button>
+                <button class="btn btn-danger">Cancel Order</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Order Tracking. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
