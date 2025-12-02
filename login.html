@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>luxrymoll.shop/login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 350px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .otp-box {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .otp-box input {
+            width: 40px;
+            height: 45px;
+            font-size: 20px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005dc1;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="back-btn" id="backBtn" onclick="goBack()">✕</div>
+
+    <!-- Phone Number Section -->
+    <div id="phoneSection">
+        <h3>Enter Phone Number</h3>
+        <input type="text" id="phoneInput" placeholder="Enter phone number" style="width:100%; padding:10px; font-size:16px; border-radius:8px; border:1px solid #ccc;">
+        <br><br>
+        <button onclick="sendOTP()">Send OTP</button>
+    </div>
+
+    <!-- OTP Section -->
+    <div id="otpSection" class="hidden">
+        <h3>Enter OTP</h3>
+        
+        <div class="otp-box">
+            <input maxlength="1">
+            <input maxlength="1">
+            <input maxlength="1">
+            <input maxlength="1">
+            <input maxlength="1">
+            <input maxlength="1">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    function sendOTP() {
+        let phone = document.getElementById("phoneInput").value;
+
+        if (phone.length < 10) {
+            alert("Please enter valid phone number");
+            return;
+        }
+
+        document.getElementById("phoneSection").classList.add("hidden");
+        document.getElementById("otpSection").classList.remove("hidden");
+    }
+
+    function goBack() {
+        document.getElementById("otpSection").classList.add("hidden");
+        document.getElementById("phoneSection").classList.remove("hidden");
+    }
+</script>
+
+</body>
+</html>
