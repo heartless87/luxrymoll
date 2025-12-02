@@ -3,92 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>luxrymoll.shop</title>
+    <title>luxrymoll.shop - Best Online shoping website</title>
+
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
-  <!-- Header -->
+
+    <!-- Header Section -->
     <header>
         <div class="search-bar">
-            <input type="text" placeholder="Search...">
+            <input type="text" placeholder="Search products...">
             <i class="fas fa-bell"></i>
         </div>
+    </header>
 
-        <!-- Banner -->
-        <div class="banner">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7717875002370610"
-             crossorigin="anonymous"></script>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7717875002370610"
-                 crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                 style="display:block; text-align:center;"
-                 data-ad-layout="in-article"
-                 data-ad-format="fluid"
-                 data-ad-client="ca-pub-7717875002370610"
-                 data-ad-slot="9411978827"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+    <!-- Banner Ad -->
+    <section class="banner">
+        <ins class="adsbygoogle"
+            style="display:block; text-align:center;"
+            data-ad-layout="in-article"
+            data-ad-format="fluid"
+            data-ad-client="ca-pub-7717875002370610"
+            data-ad-slot="9411978827"></ins>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="category-item">
+            <div class="cat-icon">
+                <img src="https://cdn-icons-png.flaticon.com/512/2338/2338094.png" alt="Dresses">
+            </div>
+            <p>Dresses</p>
         </div>
 
-        <!-- Categories -->
-        <div class="categories">
-            <div class="category-item">
-                <div class="cat-icon"><img src="https://www.flaticon.com/free-icon/closet_2338094?term=dresses&page=1&position=83&origin=search&related_id=2338094" alt="Dresses"></div>
-                <p>Dresses</p>
+        <div class="category-item">
+            <div class="cat-icon">
+                <img src="https://via.placeholder.com/50?text=Watch" alt="Watch">
             </div>
-            <div class="category-item">
-                <div class="cat-icon"><img src="https://via.placeholder.com/50/333/fff?text=Watch" alt=""></div>
-                <p>Watch</p>
-            </div>
-            <div class="category-item">
-                <div class="cat-icon"><img src="https://via.placeholder.com/50/333/fff?text=Shoes" alt=""></div>
-                <p>Shoes</p>
-            </div>
-            <div class="category-item">
-                <div class="cat-icon"><img src="https://via.placeholder.com/50/333/fff?text=Cap" alt=""></div>
-                <p>Cap</p>
-            </div>
-            <div class="see-more">See more →</div>
+            <p>Watch</p>
         </div>
 
-        <!-- Popular Items -->
+        <div class="category-item">
+            <div class="cat-icon">
+                <img src="https://via.placeholder.com/50?text=Shoes" alt="Shoes">
+            </div>
+            <p>Shoes</p>
+        </div>
+
+        <div class="category-item">
+            <div class="cat-icon">
+                <img src="https://via.placeholder.com/50?text=Cap" alt="Cap">
+            </div>
+            <p>Cap</p>
+        </div>
+
+        <div class="see-more">See more →</div>
+    </section>
+
+    <!-- Popular Items Section -->
+    <section>
         <div class="section-title">
             <h3>Popular Items</h3>
         </div>
 
-        <div class="products-grid" id="products-container">
-            <script scr="infinitscrol.js"></script>
-        </div>
-
+        <div class="products-grid" id="products-container"></div>
         <div id="loading">Loading more products...</div>
-    </header>
+    </section>
 
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
-        <div class="nav-item active">
-          <a href="index.html" class="nav-item">
+        <a href="index.html" class="nav-item active">
             <i class="fas fa-home"></i>
             <span>Home</span>
-        </div>
-        <div class="nav-item">
-          <a href="favourites.html" class="nav-item">
+        </a>
+
+        <a href="favourites.html" class="nav-item">
             <i class="fas fa-heart"></i>
             <span>Favorites</span>
-        </div>
-        <div class="nav-item">
-          <a href="cart.html" class="nav-item">
+        </a>
+
+        <a href="cart.html" class="nav-item">
             <i class="fas fa-shopping-cart"></i>
             <span>Cart</span>
-        </div>
-        <div class="nav-item">
-          <a href="profile.html" class="nav-item">
+        </a>
+
+        <a href="profile.html" class="nav-item">
             <i class="fas fa-user"></i>
             <span>Profile</span>
-        </div>
+        </a>
     </nav>
 
-    <script src="/script.js"></script>
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="infinitscrol.js"></script>
+
+    <!-- Google Adsense (Best practice: placed at bottom) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7717875002370610"
+     crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
 </body>
 </html>
