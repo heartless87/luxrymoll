@@ -318,6 +318,88 @@
       .nav-item i {
         font-size: 20px;
       }
+      /* Open Login Button */
+      .open-login-btn {
+          background: purple;
+          color: white;
+          padding: 12px 22px;
+          border-radius: 6px;
+          text-decoration: none;
+          font-size: 18px;
+      }
+      
+      /* Popup Overlay (Hidden default) */
+      .popup-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.4);
+          display: none;
+          justify-content: center;
+          align-items: center;
+      }
+      
+      /* Show popup when targeted */
+      .popup-overlay:target {
+          display: flex;
+      }
+      
+      /* Popup Box */
+      .popup-box {
+          width: 330px;
+          background: #f4f4f4;
+          padding: 28px;
+          border-radius: 12px;
+      }
+      
+      /* Back button */
+      .back-btn {
+          font-size: 18px;
+          text-decoration: none;
+          color: black;
+          margin-bottom: 10px;
+          display: inline-block;
+      }
+      
+      /* Input Fields */
+      .input-box {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 14px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+      }
+      
+      .forgot {
+          font-size: 14px;
+          float: right;
+          color: purple;
+          margin-bottom: 20px;
+          text-decoration: none;
+      }
+      
+      /* Buttons */
+      .login-btn {
+          width: 100%;
+          padding: 12px;
+          background: purple;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          margin-top: 20px;
+          font-size: 16px;
+      }
+      
+      .signup-btn {
+          width: 100%;
+          padding: 12px;
+          background: white;
+          border: 2px solid purple;
+          color: purple;
+          border-radius: 6px;
+          font-size: 16px;
+          margin-top: 12px;
+      }
+
     }
 
     @media (min-width: 1200px) {
@@ -383,6 +465,31 @@
           </div>
           <i class="fa fa-chevron-right"></i>
         </div>
+        <!-- MAIN PAGE -->
+<!-- <a href="#login" class="open-login-btn">Login</a> -->
+
+<!-- POPUP -->
+<div id="login" class="popup-overlay">
+    <div class="popup-box">
+
+        <!-- BACK BUTTON -->
+        <a href="#" class="back-btn">← Back</a>
+
+        <h2 class="title">Login</h2>
+
+        <label>Email</label>
+        <input type="email" class="input-box" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" class="input-box" placeholder="Enter password">
+
+        <a href="#" class="forgot">Forgot Password?</a>
+
+        <button class="login-btn">Login</button>
+        <button class="signup-btn">Sign up</button>
+
+    </div>
+</div>
 
         <div class="menu-item" data-link="favourites.html">
           <div class="menu-left">
@@ -408,7 +515,7 @@
           <i class="fa fa-chevron-right"></i>
         </div>
 
-        <div class="menu-item" data-link="login.html">
+        <div class="menu-item" data-link="#login">
           <div class="menu-left">
             <i class="fa fa-right-from-bracket"></i>
             <span>Login</span>
