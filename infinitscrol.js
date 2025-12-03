@@ -9,7 +9,7 @@ async function loadProducts() {
     loading.style.display = "block";
 
     try {
-        const res = await fetch(`/api/products?page=${page}`);
+        const res = await fetch(`/api/Products?page=${page}`);
         const data = await res.json();
 
         if (!data || data.length === 0) {
