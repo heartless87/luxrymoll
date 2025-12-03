@@ -97,6 +97,15 @@
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
 
+    /* Popup Overlay (Hidden default) */
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
     .menu {
       margin-top: 0;
     }
@@ -328,15 +337,6 @@
           font-size: 18px;
       }
       
-      /* Popup Overlay (Hidden default) */
-      .popup-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.4);
-          display: none;
-          justify-content: center;
-          align-items: center;
-      }
       
       /* Show popup when targeted */
       .popup-overlay:target {
