@@ -359,3 +359,84 @@ body {
         margin: 60px auto 20px;
     }
 }
+/* Open Login Button */
+.open-login-btn {
+    background: purple;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Popup Overlay (Hidden default) */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Show popup when targeted */
+.popup-overlay:target {
+    display: flex;
+}
+
+/* Popup Box */
+.popup-box {
+    width: 330px;
+    background: #f4f4f4;
+    padding: 28px;
+    border-radius: 12px;
+}
+
+/* Back button */
+.back-btn {
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+/* Input Fields */
+.input-box {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.forgot {
+    font-size: 14px;
+    float: right;
+    color: purple;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+/* Buttons */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: purple;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border: 2px solid purple;
+    color: purple;
+    border-radius: 6px;
+    font-size: 16px;
+    margin-top: 12px;
+}
