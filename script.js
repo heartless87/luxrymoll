@@ -11,7 +11,7 @@ function loadProducts() {
     document.getElementById('loading').style.display = 'block';
 
     // FIXED → Correct API endpoint (Product.js)
-    fetch(`${BACKEND_URL}/api/Product?page=${page}`)
+    fetch(`${BACKEND_URL}/api/listproduct?page=${page}`)
         .then(res => res.json())
         .then(products => {
             const container = document.getElementById('products-container');
