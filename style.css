@@ -110,6 +110,7 @@ body {
 }
 
 /* ====================== PRODUCTS GRID ====================== */
+/* ====================== PRODUCTS GRID ====================== */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -117,45 +118,56 @@ body {
     padding: 15px;
 }
 
+/* PRODUCT CARD */
 .product-card {
     background: #fff;
     padding: 10px;
-    border-radius: 12px;
-    box-shadow: 0 0 6px rgba(0,0,0,0.1);
-    text-align: center;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
 }
 
+/* IMAGE */
 .product-card img {
     width: 100%;
-    height: 140px;
-    object-fit: cover;
+    height: 150px;
     border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
-.product-title {
-    margin: 8px 0 4px;
+/* TITLE */
+.product-card h4 {
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #222;
 }
 
-.prices {
+/* PRICE ROW */
+.product-card .price-row {
     display: flex;
-    justify-content: center;
+    align-items: center;
     gap: 8px;
-    margin-top: 4px;
 }
 
-.orig-price {
+/* ORIGINAL PRICE */
+.product-card .orig-price {
     text-decoration: line-through;
-    color: #999;
+    color: #888;
     font-size: 14px;
 }
 
-.sell-price {
-    font-size: 16px;
-    font-weight: bold;
+/* SELLING PRICE */
+.product-card .sell-price {
     color: #e63946;
+    font-weight: bold;
+    font-size: 16px;
 }
+
 
 /* ====================== LOADING ====================== */
 #loading {
