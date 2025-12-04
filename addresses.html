@@ -450,36 +450,83 @@
             </a>
         </div>
     </div>
-
     <script>
-        // Toggle address form visibility
-        document.getElementById('addAddressBtn').addEventListener('click', function() {
-            document.getElementById('addressForm').style.display = 'block';
-            document.getElementById('addAddressBtn').style.display = 'none';
+    // Load saved addresses
+    function loadAddresses() {
+        const list = document.getElementById("addressList");
+        const saved = JSON.parse(localStorage.getItem("addresses")) || [];
+        list.innerHTML = "";
+    
+        saved.forEach((addr, index) => {
+            const card = document.createElement("div");
+            card.className = "address-card";
+    
+            card.innerHTML = `
+                <span class="address-type">${addr.type}</span>
+                <h3>${addr.fullName}</h3>
+                <p>${addr.address1}</p>
+                <p>${addr.address2 || ""}</p>
+                <p>${addr.city}, ${addr.state} - ${addr.zip}</p>
+                <p>${addr.country}</p>
+                <p>Phone: ${addr.phone}</p>
+    
+                <div class="address-actions">
+                    <button onclick="deleteAddress(${index})">Delete</button>
+                </div>
+            `;
+    
+            list.appendChild(card);
         });
-        
-        document.getElementById('cancelBtn').addEventListener('click', function() {
-            document.getElementById('addressForm').style.display = 'none';
-            document.getElementById('addAddressBtn').style.display = 'block';
-        });
-        
-        // Form submission
-        document.getElementById('newAddressForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Address saved successfully!');
-            document.getElementById('addressForm').style.display = 'none';
-            document.getElementById('addAddressBtn').style.display = 'block';
-            document.getElementById('newAddressForm').reset();
-        });
-        
-        // Bottom navigation active state
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('click', function() {
-                navItems.forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+    }
+    
+    // Delete Address
+    function deleteAddress(index) {
+        let saved = JSON.parse(localStorage.getItem("addresses")) || [];
+        saved.splice(index, 1);
+        localStorage.setItem("addresses", JSON.stringify(saved));
+        loadAddresses();
+    }
+    
+    // Add New Address
+    document.getElementById("newAddressForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+    
+        const newAddr = {
+            fullName: document.getElementById("fullName").value,
+            phone: document.getElementById("phone").value,
+            address1: document.getElementById("addressLine1").value,
+            address2: document.getElementById("addressLine2").value,
+            city: document.getElementById("city").value,
+            state: document.getElementById("state").value,
+            zip: document.getElementById("zipCode").value,
+            country: document.getElementById("country").value,
+            type: document.getElementById("addressType").value
+        };
+    
+        let saved = JSON.parse(localStorage.getItem("addresses")) || [];
+        saved.push(newAddr);
+        localStorage.setItem("addresses", JSON.stringify(saved));
+    
+        this.reset();
+        document.getElementById("addressForm").style.display = "none";
+        document.getElementById("addAddressBtn").style.display = "block";
+    
+        loadAddresses();
+    });
+    
+    document.getElementById("addAddressBtn").addEventListener("click", () => {
+        document.getElementById("addressForm").style.display = "block";
+        document.getElementById("addAddressBtn").style.display = "none";
+    });
+    
+    document.getElementById("cancelBtn").addEventListener("click", () => {
+        document.getElementById("addressForm").style.display = "none";
+        document.getElementById("addAddressBtn").style.display = "block";
+    });
+    
+    // Load on start
+    loadAddresses();
     </script>
+
 </body>
 </html>
