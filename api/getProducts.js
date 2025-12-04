@@ -1,9 +1,10 @@
 import { MongoClient } from "mongodb";
 
 export default async function handler(req, res) {
-    // CORS Fix
-    res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
-    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
+
+    // CORS FIX
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     if (req.method === "OPTIONS") {
@@ -15,28 +16,36 @@ export default async function handler(req, res) {
     await client.connect();
 
     const db = client.db("Product");
-    const products = db.collection("Prodlist");
+    const col = db.collection("Prodlist");
 
     const page = Number(req.query.page) || 1;
     const limit = 12;
     const skip = (page - 1) * limit;
 
-    const data = await products.find({})
+    const data = await col.find({})
         .skip(skip)
         .limit(limit)
         .toArray();
 
-    // remove base64 prefix
-    const clean = str =>
-        str.replace("data:image/png;base64,", "")
-           .replace("data:image/jpeg;base64,", "");
+    // ⭐ Base64 Prefix Remove
+    function clean(str = "") {
+        return str
+            .replace(/^data:image\/png;base64,/i, "")
+            .replace(/^data:image\/jpeg;base64,/i, "")
+            .replace(/^data:image\/jpg;base64,/i, "");
+    }
 
     const formatted = data.map(p => ({
         _id: p._id,
         title: p.title,
+        description: p.description,
         originalPrice: p.originalPrice,
         sellingPrice: p.sellingPrice,
-        images: (p.images || []).map(clean)
+
+        // ⭐ अगर tum images array store कर रहे हो:
+        images: (p.images || []).map(img => clean(img)),
+
+        createdAt: p.createdAt
     }));
 
     res.status(200).json(formatted);
