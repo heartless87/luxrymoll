@@ -224,40 +224,6 @@ body {
     margin-bottom: 4px;
     display: block;
 }
-/* ====================== ACTION BUTTONS ====================== */
-.action-buttons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background: white;
-    display: flex;
-    gap: 15px;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
-}
-
-.add-to-cart, .buy-now {
-    flex: 1;
-    padding: 16px;
-    border-radius: 16px;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-}
-
-.add-to-cart {
-    background: white;
-    color: #ffb84d;
-    border: 2px solid #ffb84d;
-}
-
-.buy-now {
-    background: #ffb84d;
-    color: black;
-} */
-
 /* ====================== RESPONSIVE ====================== */
 @media (min-width: 768px) {
     .products-grid {
