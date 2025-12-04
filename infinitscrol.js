@@ -9,7 +9,7 @@ async function loadProducts() {
     loading.style.display = "block";
 
     try {
-        const res = await fetch(`/api/Products?page=${page}`);
+        const res = await fetch(`https://luxrymoll.vercel.app/api/getProducts?page=${page}`);
         const data = await res.json();
 
         if (!data || data.length === 0) {
@@ -23,13 +23,11 @@ async function loadProducts() {
             const card = document.createElement("div");
             card.classList.add("product-card");
 
-            // Base64 image
-            const imgBase64 = product.images?.[0] 
-                ? "data:image/jpeg;base64," + product.images[0]
-                : "";
+            // Backend returns FULL data-uri
+            const imgSrc = product.images?.[0] || "";
 
             card.innerHTML = `
-                <img src="${imgBase64}" alt="${product.title}" class="product-img">
+                <img src="${imgSrc}" alt="${product.title}" class="product-img">
 
                 <div class="product-details">
                     <h4 class="product-title">${product.title}</h4>
@@ -53,7 +51,6 @@ async function loadProducts() {
     isLoading = false;
 }
 
-// Infinite scroll trigger
 window.addEventListener("scroll", () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
         loadProducts();
