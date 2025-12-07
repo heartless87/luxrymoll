@@ -229,8 +229,28 @@
         document.getElementById("original").innerText = "₹" + p.originalPrice;
         document.getElementById("desc").innerText = p.description || "No description.";
 
-        const img = convertImg(p.images?.[0]);
-        document.getElementById("mainImg").src = img;
+        let rawImg = p.images?.[0];
+
+        // If no image
+        if (!rawImg) {
+            document.getElementById("mainImg").src = PLACEHOLDER;
+        }
+        // If image is URL
+        else if (typeof rawImg === "string" && rawImg.startsWith("http")) {
+            document.getElementById("mainImg").src = rawImg;
+        }
+        // If image is object (backend returns { data: "" })
+        else if (typeof rawImg === "object" && rawImg.data) {
+            document.getElementById("mainImg").src = convertImg(rawImg.data);
+        }
+        // If image is plain base64 string
+        else if (typeof rawImg === "string") {
+            document.getElementById("mainImg").src = convertImg(rawImg);
+        }
+        else {
+            document.getElementById("mainImg").src = PLACEHOLDER;
+        }
+
 
         // Colors (if available)
         let colorBox = document.getElementById("colors");
