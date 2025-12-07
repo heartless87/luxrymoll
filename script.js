@@ -61,7 +61,7 @@ async function loadProducts() {
                 </div>
             `;
 
-            div.onclick = () => location.href = "/product/" + p._id;
+            div.onclick = () => location.href = "product.html?id=" + p._id;
             container.appendChild(div);
         });
 
