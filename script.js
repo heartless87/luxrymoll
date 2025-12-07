@@ -46,7 +46,6 @@ async function loadProducts() {
             const div = document.createElement("div");
             div.className = "product-card";
 
-            // ⭐ Updated HTML (image wrapper + heart icon)
             div.innerHTML = `
                 <div class="image-wrapper">
                     <img src="${imgSrc}" alt="${p.title}">
@@ -61,7 +60,14 @@ async function loadProducts() {
                 </div>
             `;
 
-            div.onclick = () => location.href = "product.html?id=" + p._id;
+            /* ⭐ THE IMPORTANT FIX ⭐  
+               GitHub Pages does NOT support /product/<id>  
+               So we MUST use product.html?id=<id>
+            */
+            div.onclick = () => {
+                location.href = "product.html?id=" + p._id;
+            };
+
             container.appendChild(div);
         });
 
