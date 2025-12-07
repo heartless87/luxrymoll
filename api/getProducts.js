@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 
 export default async function handler(req, res) {
   // CORS
-  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop"); // या "*" during dev
+  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(200).end();
@@ -21,25 +21,40 @@ export default async function handler(req, res) {
 
     const docs = await col.find({}).skip(skip).limit(limit).toArray();
 
-    // helper: turn stored string into a full data URI
+    // ⭐ universal safe converter — does NOT break old behavior
     function toDataUri(str) {
       if (!str) return "";
+
       const s = String(str).trim();
-      // already a data URI?
+
+      // Already correct data URI?
       const m = s.match(/^data:(image\/[a-z0-9.+-]+);base64,(.*)$/i);
-      if (m) return `data:${m[1]};base64,${m[2]}`;
-      // if it looks like base64 without prefix (starts with /9j or iVBOR...)
-      const cleaned = s.replace(/^\/+/, ""); // remove accidental leading slashes
-      // default to jpeg if mime unknown
+      if (m) return s;
+
+      // If backend stored raw base64 like /9j... or iVBOR...
+      if (s.startsWith("/9j/")) {
+        return `data:image/jpeg;base64,${s}`;
+      }
+      if (s.startsWith("iVBOR")) {
+        return `data:image/png;base64,${s}`;
+      }
+
+      // Remove accidental leading slashes (your DB sometimes stores "//9j...")
+      const cleaned = s.replace(/^\/+/, "");
+
+      // Default = JPEG (same as before)
       return `data:image/jpeg;base64,${cleaned}`;
     }
 
     const out = docs.map(p => {
       const images = [];
+
+      // ⭐ same stable loop (old behavior untouched)
       for (let i = 1; i <= 7; i++) {
         const key = `image-${i}`;
         if (p[key]) images.push(toDataUri(p[key]));
       }
+
       return {
         _id: p._id,
         title: p.title,
@@ -51,6 +66,7 @@ export default async function handler(req, res) {
     });
 
     res.status(200).json(out);
+
   } catch (err) {
     console.error("getProducts Error:", err);
     res.status(500).json({ error: "Server error" });
