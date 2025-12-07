@@ -14,24 +14,16 @@
             font-family: Arial, sans-serif;
         }
 
-        /* UNIVERSAL RESPONSIVE CONTAINER */
         .container {
             max-width: 600px;
             margin: auto;
             padding: 15px;
         }
 
-        @media (min-width: 768px) {
-            .container { max-width: 700px; }
-        }
-        @media (min-width: 1024px) {
-            .container { max-width: 900px; }
-        }
-        @media (min-width: 1400px) {
-            .container { max-width: 1100px; }
-        }
+        @media (min-width: 768px) { .container { max-width: 700px; } }
+        @media (min-width: 1024px) { .container { max-width: 900px; } }
+        @media (min-width: 1400px) { .container { max-width: 1100px; } }
 
-        /* Top Bar */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -43,18 +35,14 @@
             cursor: pointer;
         }
 
-        .right-icons i {
-            margin-left: 12px;
-        }
+        .right-icons i { margin-left: 12px; }
 
-        /* Image Slider */
         .image-slider img {
             width: 100%;
             border-radius: 15px;
             margin-top: 10px;
         }
 
-        /* Product Info */
         .product-info {
             background: white;
             border-radius: 15px;
@@ -111,7 +99,6 @@
             cursor: pointer;
         }
 
-        /* Bottom Bar */
         .bottom-bar {
             position: fixed;
             bottom: 0;
@@ -164,29 +151,24 @@
             <span class="price-old" id="original"></span>
         </div>
 
-        <!-- Quantity box -->
         <div class="qty-box">
             <button onclick="decQty()">-</button>
             <span id="qty">1</span>
             <button onclick="incQty()">+</button>
         </div>
 
-        <!-- Colors -->
         <h4>Ring Colours</h4>
         <div class="colors" id="colors"></div>
 
-        <!-- Sizes -->
         <h4>Ring Size</h4>
         <div class="sizes" id="sizes"></div>
 
-        <!-- Description -->
         <h4>Description</h4>
         <p id="desc"></p>
     </div>
 
 </div>
 
-<!-- Bottom Bar -->
 <div class="bottom-bar">
     <button class="buy-btn">Buy Now</button>
 </div>
@@ -197,20 +179,19 @@
 
     function convertImg(str) {
         if (!str) return PLACEHOLDER;
-        const s = String(str).trim();
 
+        const s = String(str).trim();
         if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(s)) return s;
         if (s.startsWith("/9j/")) return `data:image/jpeg;base64,${s}`;
         if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
-
         return `data:image/jpeg;base64,${s}`;
     }
 
-    // Quantity
     function decQty() {
         let q = parseInt(document.getElementById("qty").innerText);
         if (q > 1) document.getElementById("qty").innerText = q - 1;
     }
+
     function incQty() {
         let q = parseInt(document.getElementById("qty").innerText);
         document.getElementById("qty").innerText = q + 1;
@@ -220,55 +201,38 @@
         const id = new URLSearchParams(window.location.search).get("id");
         if (!id) return alert("Product ID missing!");
 
-        const res = await fetch(`${BACKEND_URL}/api/getProduct/${id}`);
+        // ⭐ Correct Vercel-compatible URL (MAIN FIX)
+        const res = await fetch(`${BACKEND_URL}/api/getProduct?id=${id}`);
+
+        if (!res.ok) {
+            console.error("API Error:", res.status);
+            alert("Failed to load product!");
+            return;
+        }
+
         const p = await res.json();
 
-        // Fill details
         document.getElementById("title").innerText = p.title;
         document.getElementById("selling").innerText = "₹" + p.sellingPrice;
         document.getElementById("original").innerText = "₹" + p.originalPrice;
         document.getElementById("desc").innerText = p.description || "No description.";
 
-        let rawImg = p.images?.[0];
+        const imgData = p.images?.[0];
+        document.getElementById("mainImg").src = imgData ? convertImg(imgData) : PLACEHOLDER;
 
-        // If no image
-        if (!rawImg) {
-            document.getElementById("mainImg").src = PLACEHOLDER;
-        }
-        // If image is URL
-        else if (typeof rawImg === "string" && rawImg.startsWith("http")) {
-            document.getElementById("mainImg").src = rawImg;
-        }
-        // If image is object (backend returns { data: "" })
-        else if (typeof rawImg === "object" && rawImg.data) {
-            document.getElementById("mainImg").src = convertImg(rawImg.data);
-        }
-        // If image is plain base64 string
-        else if (typeof rawImg === "string") {
-            document.getElementById("mainImg").src = convertImg(rawImg);
-        }
-        else {
-            document.getElementById("mainImg").src = PLACEHOLDER;
-        }
-
-
-        // Colors (if available)
-        let colorBox = document.getElementById("colors");
-        if (p.colors?.length) {
+        if (p.colors) {
             p.colors.forEach(c => {
-                let div = document.createElement("div");
+                const div = document.createElement("div");
                 div.innerText = c;
-                colorBox.appendChild(div);
+                document.getElementById("colors").appendChild(div);
             });
         }
 
-        // Sizes (if available)
-        let sizeBox = document.getElementById("sizes");
-        if (p.sizes?.length) {
+        if (p.sizes) {
             p.sizes.forEach(s => {
-                let div = document.createElement("div");
+                const div = document.createElement("div");
                 div.innerText = s;
-                sizeBox.appendChild(div);
+                document.getElementById("sizes").appendChild(div);
             });
         }
     }
