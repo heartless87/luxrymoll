@@ -45,25 +45,51 @@ async function loadProducts() {
 
             const div = document.createElement("div");
             div.className = "product-card";
-
             div.innerHTML = `
-                <div class="image-wrapper">
+                <div class="image-wrapper" style="position:relative;">
                     <img src="${imgSrc}" alt="${p.title}">
-                    <i class="fas fa-heart heart-icon"></i>
+            
+                    <!-- ❤️ Custom Animated Heart -->
+                    <label class="ui-bookmark" style="position:absolute; top:8px; right:8px;">
+                        <input type="checkbox" />
+                        <div class="image-wrapper">
+                            <svg
+                              viewBox="0 0 16 16"
+                              class="bi bi-heart-fill"
+                              height="22"
+                              width="22"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                                fill-rule="evenodd"
+                              ></path>
+                            </svg>
+                        </div>
+                    </label>
                 </div>
-
+            
                 <h4 class="product-title">${p.title}</h4>
-
+            
                 <div class="price-row">
                     <span class="orig-price">₹${p.originalPrice}</span>
                     <span class="sell-price">₹${p.sellingPrice}</span>
                 </div>
             `;
 
-            /* ⭐ THE IMPORTANT FIX ⭐  
-               GitHub Pages does NOT support /product/<id>  
-               So we MUST use product.html?id=<id>
-            */
+            // div.innerHTML = `
+            //     <div class="image-wrapper">
+            //         <img src="${imgSrc}" alt="${p.title}">
+            //         <i class="fas fa-heart heart-icon"></i>
+            //     </div>
+
+            //     <h4 class="product-title">${p.title}</h4>
+
+            //     <div class="price-row">
+            //         <span class="orig-price">₹${p.originalPrice}</span>
+            //         <span class="sell-price">₹${p.sellingPrice}</span>
+            //     </div>
+            // `;
             div.onclick = () => {
                 location.href = "product.html?id=" + p._id;
             };
