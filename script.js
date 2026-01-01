@@ -50,9 +50,9 @@ async function loadProducts() {
                     <img src="${imgSrc}" alt="${p.title}">
             
                     <!-- ❤️ Custom Animated Heart -->
-                    <label class="ui-bookmark" style="position:absolute; top:8px; right:8px;">
+                    <label class="ui-bookmark" onclick="event.stopPropagation()">
                         <input type="checkbox" />
-                        <div class="image-wrapper">
+                        <div class="bookmark-icon">
                             <svg
                               viewBox="0 0 16 16"
                               class="bi bi-heart-fill"
