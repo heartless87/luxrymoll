@@ -145,49 +145,12 @@ header {
 }
 
 /* ⭐ IMAGE WRAPPER */
-.product-card .image-wrapper {
+.product-card .product-image {
     position: relative;
     width: 100%;
     height: 160px;   /* ← FIXED perfect image height */
     border-radius: 12px;
     overflow: hidden;
-}
-.ui-bookmark .bookmark-icon {
-  width: var(--icon-size);
-  fill: var(--icon-secondary-color);
-  cursor: pointer;
-  transition: 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transform-origin: top;
-}
-
-.ui-bookmark .bookmark-icon::after {
-  content: "";
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  box-shadow:
-    0 30px 0 -4px var(--icon-primary-color),
-    30px 0 0 -4px var(--icon-primary-color),
-    0 -30px 0 -4px var(--icon-primary-color),
-    -30px 0 0 -4px var(--icon-primary-color),
-    -22px 22px 0 -4px var(--icon-primary-color),
-    -22px -22px 0 -4px var(--icon-primary-color),
-    22px -22px 0 -4px var(--icon-primary-color),
-    22px 22px 0 -4px var(--icon-primary-color);
-  border-radius: 50%;
-  transform: scale(0);
-}
-
-.ui-bookmark .bookmark-icon::before {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  border: var(--icon-circle-border);
-  opacity: 0;
 }
 
 /* ⭐ PRODUCT IMAGE */
@@ -197,7 +160,114 @@ header {
     object-fit: cover;  /* ← Proper cropping */
     display: block;
 }
+.ui-bookmark {
+    --icon-size: 22px;
+    --icon-secondary-color: #555;
+    --icon-hover-color: #777;
+    --icon-primary-color: #fc3636;
+    --icon-circle-border: 1px solid var(--icon-primary-color);
+    --icon-circle-size: 34px;
+    --icon-anmt-duration: 0.3s;
 
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+}
+
+.ui-bookmark input {
+    display: none;
+}
+
+/* HEART ICON WRAPPER (UNIQUE CLASS) */
+.ui-bookmark .bookmark-icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    fill: var(--icon-secondary-color);
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+}
+
+.ui-bookmark:hover .bookmark-icon {
+    fill: var(--icon-hover-color);
+}
+
+/* BURST CIRCLES */
+.ui-bookmark .bookmark-icon::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow:
+        0 28px 0 -4px var(--icon-primary-color),
+        28px 0 0 -4px var(--icon-primary-color),
+        0 -28px 0 -4px var(--icon-primary-color),
+        -28px 0 0 -4px var(--icon-primary-color),
+        20px 20px 0 -4px var(--icon-primary-color),
+        -20px 20px 0 -4px var(--icon-primary-color),
+        20px -20px 0 -4px var(--icon-primary-color),
+        -20px -20px 0 -4px var(--icon-primary-color);
+    transform: scale(0);
+}
+
+.ui-bookmark .bookmark-icon::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    border: var(--icon-circle-border);
+    opacity: 0;
+}
+
+/* CHECKED STATE */
+.ui-bookmark input:checked + .bookmark-icon {
+    fill: var(--icon-primary-color);
+    animation: heart-pop var(--icon-anmt-duration) forwards;
+}
+
+.ui-bookmark input:checked + .bookmark-icon::after {
+    animation: heart-burst var(--icon-anmt-duration) forwards;
+}
+
+.ui-bookmark input:checked + .bookmark-icon::before {
+    animation: heart-circle var(--icon-anmt-duration) forwards;
+}
+
+/* ===============================
+   HEART ANIMATIONS
+================================ */
+@keyframes heart-pop {
+    50% { transform: scale(0.7); }
+    100% { transform: scale(1); }
+}
+
+@keyframes heart-circle {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+    90% {
+        width: var(--icon-circle-size);
+        height: var(--icon-circle-size);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes heart-burst {
+    0% { transform: scale(0); opacity: 0; }
+    40% { opacity: 1; }
+    100% { transform: scale(0.8); opacity: 0; }
+}
 /* ⭐ HEART ICON */
 .product-card .heart-icon {
     position: absolute;
