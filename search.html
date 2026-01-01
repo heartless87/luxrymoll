@@ -113,6 +113,7 @@ body {
 <div id="loading">Loading more products...</div>
 
 <script>
+const BACKEND_URL = "https://luxrymoll.vercel.app";    
 const params = new URLSearchParams(window.location.search);
 let query = params.get("q") || "";
 let page = 1;
@@ -135,7 +136,9 @@ async function loadProducts() {
     if (loading || finished) return;
     loading = true;
 
-    const res = await fetch(`/api/search?q=${query}&page=${page}`);
+    const res = await fetch(
+      `${BACKEND_URL}/api/search?q=${encodeURIComponent(query)}&page=${page}`
+    );
     const data = await res.json();
 
     if (!data || data.length === 0) {
