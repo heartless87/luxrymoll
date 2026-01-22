@@ -142,13 +142,16 @@ header {
     box-shadow: 0 2px 6px rgba(0,0,0,0.12);
     display: flex;
     flex-direction: column;
+    height: 280px;
+    min-height: 280px;
+    max-height: 280px;
 }
 
 /* ⭐ IMAGE WRAPPER */
 .product-card .product-image {
     position: relative;
     width: 100%;
-    height: 140px;   /* ← FIXED perfect image height */
+    height: 140px;
     overflow: hidden;
 }
 .product-card .product-image img {
