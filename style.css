@@ -12,17 +12,12 @@ body {
     min-height: 100vh;
 }
 
-header {
-    padding: 15px;
-}
-
 .search-bar {
     max-width: 900px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 12px;
-
     background: #b9adad;
     padding: 12px 18px;
     border-radius: 30px;
