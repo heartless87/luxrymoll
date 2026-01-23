@@ -4,35 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>luxrymoll.shop - Best Online shoping website</title>
-
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7717875002370610"
          crossorigin="anonymous"></script>
 </head>
-
 <body>
-
-    <!-- Header Section -->
     <header>
-        <div class="search-bar">
-    
+        <div class="search-bar">  
             <form action="search.html" method="GET" style="display:flex;flex:1;gap:10px;">
                 <input 
                     type="text" 
                     name="q" 
-                    placeholder="Search products..." 
+                    placeholder="Search products..."
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
                     required
-                >
+                />
                 <button type="submit" style="background:none;border:none;">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-    
-            <!-- Right Side Icons -->
+            
             <div class="header-icons">
                 <a href="cart.html">
                     <i class="fas fa-shopping-cart"></i>
@@ -44,9 +39,7 @@
     
         </div>
     </header>
-
-
-    <!-- Banner Ad -->
+    
     <section class="banner">
         <ins class="adsbygoogle"
             style="display:block; text-align:center;"
@@ -56,7 +49,6 @@
             data-ad-slot="9411978827"></ins>
     </section>
 
-    <!-- Categories Section -->
     <section class="categories">
         <div class="category-item">
             <div class="cat-icon">
@@ -87,7 +79,6 @@
         </div>
     </section>
 
-    <!-- Popular Items Section -->
     <section>
         <div class="section-title">
             <h3>Popular Items</h3>
@@ -97,7 +88,6 @@
         <div id="loading">Loading more products...</div>
     </section>
 
-    <!-- Scripts -->
     <script src="script.js"></script>
 
 </body>
