@@ -1,4 +1,3 @@
-/* ====================== RESET & BASE ====================== */
 * {
     margin: 0;
     padding: 0;
@@ -13,8 +12,6 @@ body {
     min-height: 100vh;
 }
 
-
-/* ====================== SEARCH BAR ====================== */
 header {
     padding: 15px;
 }
@@ -43,7 +40,6 @@ header {
     color: #666;
 }
 
-/* Right icons */
 .header-icons {
     display: flex;
     gap: 15px;
@@ -55,7 +51,6 @@ header {
     cursor: pointer;
 }
 
-/* ====================== BANNER ====================== */
 .banner {
     margin: 20px 20px 10px;
     background: #000;
@@ -67,7 +62,6 @@ header {
     position: relative;
 }
 
-/* ====================== CATEGORIES ====================== */
 .categories {
     display: flex;
     overflow-x: auto;
@@ -114,7 +108,6 @@ header {
     align-self: center;
 }
 
-/* ====================== SECTION TITLE ====================== */
 .section-title {
     padding: 0 20px;
     margin: 20px 0 15px;
@@ -125,8 +118,6 @@ header {
     font-weight: 700;
 }
 
-/* ====================== PRODUCTS GRID ====================== */
-/* ⭐ PRODUCT GRID - Perfect Mobile Layout */
 .products-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -134,7 +125,6 @@ header {
     padding: 12px;
 }
 
-/* ⭐ PRODUCT CARD */
 .product-card {
     background: #fff;
     border-radius: 14px;
@@ -142,21 +132,8 @@ header {
     box-shadow: 0 2px 6px rgba(0,0,0,0.12);
     display: flex;
     flex-direction: column;
-    /* height: 285px;
-    min-height: 285px;
-    max-height: 285px; */
 }
 
-/* ⭐ IMAGE WRAPPER */
-/* .product-card .product-image {
-    height: 150px;
-    min-height: 150px;
-    max-height: 150px;
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    flex-shrink: 0;
-} */
 .product-card .image-wrapper {
     height: 150px;
     min-height: 150px;
@@ -199,7 +176,6 @@ header {
     display: none;
 }
 
-/* HEART ICON WRAPPER (UNIQUE CLASS) */
 .ui-bookmark .bookmark-icon {
     width: var(--icon-size);
     height: var(--icon-size);
@@ -216,7 +192,6 @@ header {
     fill: var(--icon-hover-color);
 }
 
-/* BURST CIRCLES */
 .ui-bookmark .bookmark-icon::after {
     content: "";
     position: absolute;
@@ -245,7 +220,6 @@ header {
     opacity: 0;
 }
 
-/* CHECKED STATE */
 .ui-bookmark input:checked + .bookmark-icon {
     fill: var(--icon-primary-color);
     animation: heart-pop var(--icon-anmt-duration) forwards;
@@ -259,9 +233,6 @@ header {
     animation: heart-circle var(--icon-anmt-duration) forwards;
 }
 
-/* ===============================
-   HEART ANIMATIONS
-================================ */
 @keyframes heart-pop {
     50% { transform: scale(0.7); }
     100% { transform: scale(1); }
@@ -289,7 +260,6 @@ header {
     100% { transform: scale(0.8); opacity: 0; }
 }
 
-/* ⭐ TITLE */
 .product-card h4 {
     font-size: 15px;
     font-weight: 600;
@@ -305,7 +275,6 @@ header {
     line-height: 1.3;
 }
 
-/* ⭐ PRICE ROW */
 .product-card .price-row {
     display: flex;
     align-items: center;
@@ -315,21 +284,18 @@ header {
     margin-top: auto;
 }
 
-/* ⭐ ORIGINAL PRICE */
 .product-card .orig-price {
     text-decoration: line-through;
     color: #888;
     font-size: 13px;
 }
 
-/* ⭐ SELLING PRICE */
 .product-card .sell-price {
     color: #e63946;
     font-weight: bold;
     font-size: 15px;
 }
 
-/* ====================== LOADING ====================== */
 #loading {
     text-align: center;
     padding: 30px;
@@ -338,7 +304,6 @@ header {
     display: none;
 }
 
-/* ====================== RESPONSIVE ====================== */
 @media (min-width: 768px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -358,7 +323,6 @@ header {
         margin: 60px auto 20px;
     }
 }
-/* Open Login Button */
 .open-login-btn {
     background: purple;
     color: white;
@@ -368,7 +332,6 @@ header {
     font-size: 18px;
 }
 
-/* Popup Overlay (Hidden default) */
 .popup-overlay {
     position: fixed;
     inset: 0;
@@ -378,12 +341,10 @@ header {
     align-items: center;
 }
 
-/* Show popup when targeted */
 .popup-overlay:target {
     display: flex;
 }
 
-/* Popup Box */
 .popup-box {
     width: 330px;
     background: #f4f4f4;
@@ -391,7 +352,6 @@ header {
     border-radius: 12px;
 }
 
-/* Back button */
 .back-btn {
     font-size: 18px;
     text-decoration: none;
@@ -400,7 +360,6 @@ header {
     display: inline-block;
 }
 
-/* Input Fields */
 .input-box {
     width: 100%;
     padding: 10px;
@@ -408,7 +367,6 @@ header {
     border: 1px solid #ccc;
     border-radius: 6px;
 }
-
 .forgot {
     font-size: 14px;
     float: right;
@@ -416,8 +374,6 @@ header {
     margin-bottom: 20px;
     text-decoration: none;
 }
-
-/* Buttons */
 .login-btn {
     width: 100%;
     padding: 12px;
