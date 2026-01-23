@@ -20,7 +20,7 @@ body {
     gap: 12px;
     background: #b9adad;
     padding: 12px 18px;
-    border-radius: 30px;
+    border-radius: 20px;
 }
 
 .search-bar input {
@@ -93,14 +93,6 @@ body {
 .category-item p {
     font-size: 13px;
     color: #555;
-}
-
-.see-more {
-    color: #ffb84d;
-    font-weight: 600;
-    white-space: nowrap;
-    margin-left: 10px;
-    align-self: center;
 }
 
 .section-title {
