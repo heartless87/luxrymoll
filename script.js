@@ -4,20 +4,16 @@ let loading = false;
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 const PLACEHOLDER = "/placeholder.png";
 
-/* Detect raw base64 or full data URI */
 function convertImg(str) {
     if (!str) return "";
 
     const s = String(str).trim();
 
-    // Already full data URI
     if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(s)) return s;
 
-    // Guess mime
     if (s.startsWith("/9j/")) return `data:image/jpeg;base64,${s}`;
     if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
 
-    // Default jpeg
     return `data:image/jpeg;base64,${s}`;
 }
 
@@ -77,19 +73,7 @@ async function loadProducts() {
                 </div>
             `;
 
-            // div.innerHTML = `
-            //     <div class="image-wrapper">
-            //         <img src="${imgSrc}" alt="${p.title}">
-            //         <i class="fas fa-heart heart-icon"></i>
-            //     </div>
-
-            //     <h4 class="product-title">${p.title}</h4>
-
-            //     <div class="price-row">
-            //         <span class="orig-price">₹${p.originalPrice}</span>
-            //         <span class="sell-price">₹${p.sellingPrice}</span>
-            //     </div>
-            // `;
+            
             div.onclick = () => {
                 location.href = "product.html?id=" + p._id;
             };
@@ -117,5 +101,4 @@ window.addEventListener("scroll", () => {
     }
 });
 
-// Load first page
 loadProducts();
