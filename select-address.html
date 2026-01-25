@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Delivery Address | E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e1e5eb;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .product-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        
+        .product-image-container {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .product-image {
+            width: 100%;
+            max-width: 350px;
+            height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #e1e5eb;
+        }
+        
+        .product-info {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .product-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .product-description {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .pricing {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .original-price {
+            color: #95a5a6;
+            text-decoration: line-through;
+            font-size: 1.3rem;
+        }
+        
+        .selling-price {
+            color: #e74c3c;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+        
+        .discount-badge {
+            background-color: #2ecc71;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        .product-features {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5eb;
+        }
+        
+        .feature-list {
+            list-style-type: none;
+            margin-top: 10px;
+        }
+        
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: #2ecc71;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .address-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e1e5eb;
+            font-size: 1.4rem;
+        }
+        
+        .address-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .address-option {
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .address-option:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .address-option.selected {
+            border-color: #3498db;
+            background-color: #f0f9ff;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.1);
+        }
+        
+        .address-option input {
+            margin-right: 10px;
+        }
+        
+        .address-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 1.1rem;
+        }
+        
+        .address-text {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .address-text p {
+            margin-bottom: 5px;
+        }
+        
+        .add-new-address {
+            color: #3498db;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-weight: 600;
+            padding: 10px 0;
+        }
+        
+        .add-new-address:hover {
+            color: #2980b9;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 14px 35px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-back {
+            background-color: #f8f9fa;
+            color: #7f8c8d;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-back:hover {
+            background-color: #e9ecef;
+        }
+        
+        .btn-confirm {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .btn-confirm:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+        
+        .btn-proceed {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .btn-proceed:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .order-summary {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid #e1e5eb;
+        }
+        
+        .summary-title {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5eb;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            .product-container {
+                flex-direction: column;
+            }
+            
+            .product-image {
+                max-width: 100%;
+                height: 250px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">Select Delivery Address</h1>
+        
+        <div class="content-wrapper">
+            <div class="product-section">
+                <div class="product-container">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Wireless Headphones" class="product-image">
+                    </div>
+                    
+                    <div class="product-info">
+                        <h2 class="product-title">Premium Wireless Bluetooth Headphones</h2>
+                        <p class="product-description">Experience premium sound quality with these noise-cancelling wireless headphones. Features 30-hour battery life, comfortable ear cushions, and crystal clear call quality.</p>
+                        
+                        <div class="pricing">
+                            <span class="original-price">₹4,999</span>
+                            <span class="selling-price">₹3,499</span>
+                            <span class="discount-badge">30% OFF</span>
+                        </div>
+                        
+                        <div class="order-summary">
+                            <div class="summary-title">Order Summary</div>
+                            <div class="summary-row">
+                                <span>Product Price</span>
+                                <span>₹3,499</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Delivery Charges</span>
+                                <span>₹49</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (GST 18%)</span>
+                                <span>₹630</span>
+                            </div>
+                            <div class="summary-row summary-total">
+                                <span>Total Amount</span>
+                                <span>₹4,178</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="address-section">
+                <h2 class="section-title">Choose Delivery Address</h2>
+                
+                <div class="address-options">
+                    <div class="address-option selected">
+                        <input type="radio" id="address1" name="address" checked>
+                        <div>
+                            <span class="address-label">Home Address</span>
+                            <div class="address-text">
+                                <p><strong>John Doe</strong></p>
+                                <p>123 Main Street, Apt 4B</p>
+                                <p>Mumbai, Maharashtra 400001</p>
+                                <p>Phone: +91 98765 43210</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="address-option">
+                        <input type="radio" id="address2" name="address">
+                        <div>
+                            <span class="address-label">Office Address</span>
+                            <div class="address-text">
+                                <p><strong>John Doe</strong></p>
+                                <p>Tech Park, Building C, Floor 7</p>
+                                <p>Andheri East, Mumbai, Maharashtra 400093</p>
+                                <p>Phone: +91 98765 43210</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="address-option">
+                        <input type="radio" id="address3" name="address">
+                        <div>
+                            <span class="address-label">Parents' Home</span>
+                            <div class="address-text">
+                                <p><strong>John Doe</strong></p>
+                                <p>456 Oak Avenue, Green Park</p>
+                                <p>Pune, Maharashtra 411001</p>
+                                <p>Phone: +91 98765 43210</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="add-new-address" id="addAddressBtn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add New Address</span>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-back" id="backBtn">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <button class="btn btn-proceed" id="proceedBtn">
+                        Proceed to Payment <i class="fas fa-credit-card"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 MyShop E-commerce. All rights reserved. | Secure Checkout with SSL Encryption</p>
+        </div>
+    </div>
+    
+    <!-- Add New Address Modal -->
+    <div class="modal" id="addressModal">
+        <div class="modal-content">
+            <h2 class="section-title">Add New Address</h2>
+            <form id="addressForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="Enter your 10-digit mobile number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Full Address *</label>
+                    <textarea id="address" class="form-control" rows="3" placeholder="Enter your full address with house number, street, etc." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">City *</label>
+                    <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="state">State *</label>
+                    <input type="text" id="state" class="form-control" placeholder="Enter your state" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pincode">PIN Code *</label>
+                    <input type="text" id="pincode" class="form-control" placeholder="Enter 6-digit PIN code" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="addressType">Address Type</label>
+                    <select id="addressType" class="form-control">
+                        <option value="home">Home</option>
+                        <option value="office">Office</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-back" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-confirm">Save Address</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Select address functionality
+        const addressOptions = document.querySelectorAll('.address-option');
+        
+        addressOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                addressOptions.forEach(opt => opt.classList.remove('selected'));
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                // Check the radio button
+                const radioBtn = this.querySelector('input[type="radio"]');
+                radioBtn.checked = true;
+            });
+        });
+        
+        // Modal functionality
+        const addAddressBtn = document.getElementById('addAddressBtn');
+        const addressModal = document.getElementById('addressModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const addressForm = document.getElementById('addressForm');
+        
+        addAddressBtn.addEventListener('click', function() {
+            addressModal.style.display = 'flex';
+        });
+        
+        cancelBtn.addEventListener('click', function() {
+            addressModal.style.display = 'none';
+        });
+        
+        addressForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const pincode = document.getElementById('pincode').value;
+            const addressType = document.getElementById('addressType').value;
+            
+            // Create new address option
+            const addressOptionsContainer = document.querySelector('.address-options');
+            const newAddressOption = document.createElement('div');
+            newAddressOption.className = 'address-option';
+            newAddressOption.innerHTML = `
+                <input type="radio" id="newAddress" name="address">
+                <div>
+                    <span class="address-label">${addressType.charAt(0).toUpperCase() + addressType.slice(1)} Address</span>
+                    <div class="address-text">
+                        <p><strong>${name}</strong></p>
+                        <p>${address}</p>
+                        <p>${city}, ${state} ${pincode}</p>
+                        <p>Phone: ${phone}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Add click event to new address
+            newAddressOption.addEventListener('click', function() {
+                addressOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input[type="radio"]').checked = true;
+            });
+            
+            // Insert new address before the add new address link
+            addressOptionsContainer.appendChild(newAddressOption);
+            
+            // Close modal and reset form
+            addressModal.style.display = 'none';
+            addressForm.reset();
+            
+            // Show success message
+            alert('New address added successfully!');
+        });
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', function(e) {
+            if (e.target === addressModal) {
+                addressModal.style.display = 'none';
+            }
+        });
+        
+        // Button actions
+        const backBtn = document.getElementById('backBtn');
+        const proceedBtn = document.getElementById('proceedBtn');
+        
+        backBtn.addEventListener('click', function() {
+            alert('Going back to product page...');
+            // In a real application, this would redirect to the product page
+        });
+        
+        proceedBtn.addEventListener('click', function() {
+            const selectedAddress = document.querySelector('.address-option.selected .address-label').textContent;
+            alert(`Proceeding to payment with delivery to: ${selectedAddress}`);
+            // In a real application, this would redirect to the payment page
+        });
+        
+        // Initialize the page with the first address selected
+        document.addEventListener('DOMContentLoaded', function() {
+            addressOptions[0].classList.add('selected');
+            addressOptions[0].querySelector('input[type="radio"]').checked = true;
+        });
+    </script>
+</body>
+</html>
