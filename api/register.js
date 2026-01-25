@@ -11,7 +11,6 @@ if (!cached) {
 
 async function connectDB() {
   if (cached.conn) return cached.conn;
-
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGODB_URI).then(m => m);
   }
@@ -32,11 +31,12 @@ const User =
 // ---- HANDLER ----
 export default async function handler(req, res) {
 
-  // CORS (important since frontend domain is different)
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // ✅ CORS HEADERS (MOST IMPORTANT)
+  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
+  // ✅ PRE-FLIGHT REQUEST HANDLE
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
@@ -54,13 +54,13 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    // ❌ duplicate email block
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    // duplicate email check
+    const exists = await User.findOne({ email });
+    if (exists) {
       return res.status(409).json({ message: "Email already registered" });
     }
 
-    // 🔐 password hash
+    // password hash
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
@@ -73,8 +73,8 @@ export default async function handler(req, res) {
       message: "Account created successfully ✅",
     });
 
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({
       message: "Server error ❌",
     });
