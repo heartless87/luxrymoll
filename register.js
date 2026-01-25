@@ -1,14 +1,14 @@
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 
-document
-  .getElementById("registerForm")
-  .addEventListener("submit", async function (e) {
+const form = document.getElementById("registerForm");
 
+if (form) {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const name = document.getElementById("reg_name").value;
+    const email = document.getElementById("reg_email").value;
+    const password = document.getElementById("reg_password").value;
 
     try {
       const res = await fetch(`${BACKEND_URL}/api/register`, {
@@ -25,9 +25,9 @@ document
       if (res.ok) {
         location.href = "#login";
       }
-
     } catch (err) {
       console.error(err);
       alert("Register failed ❌");
     }
-});
+  });
+}
