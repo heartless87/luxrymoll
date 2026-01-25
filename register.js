@@ -1,5 +1,3 @@
-const BACKEND_URL = "https://luxrymoll.vercel.app";
-
 const form = document.getElementById("registerForm");
 
 if (form) {
@@ -11,7 +9,7 @@ if (form) {
     const password = document.getElementById("reg_password").value;
 
     try {
-      const res = await fetch(`${BACKEND_URL}/api/register`, {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
