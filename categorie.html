@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Search Results - luxrymoll.shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/* Search header */
+.search-header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.search-header input {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.search-header button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Result text */
+.result-text {
+    padding: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Products */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 15px;
+}
+
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.product-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.price-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.orig-price {
+    color: #999;
+    font-size: 13px;
+    text-decoration: line-through;   /* ⭐ CUT LINE */
+}
+
+.sell-price {
+    color: #000000;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.product-card h4 {
+    margin: 8px 0 4px;
+    font-size: 14px;
+}
+
+.product-card p {
+    margin: 0;
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Loading */
+#loading {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="result-text" id="resultText"></div>
+
+<div class="products-grid" id="products"></div>
+<div id="loading">Loading more products...</div>
+
+<script>
+const BACKEND_URL = "https://luxrymoll.vercel.app";    
+const params = new URLSearchParams(window.location.search);
+let query = params.get("q") || "";
+let page = 1;
+let loading = false;
+let finished = false;
+
+const input = document.getElementById("searchInput");
+input.value = query;
+
+document.getElementById("resultText").innerText =
+    `Results for "${query}"`;
+
+function clearSearch() {
+    input.value = "";
+    document.getElementById("products").innerHTML = "";
+    document.getElementById("resultText").innerText = "Search cleared";
+}
+
+async function loadProducts() {
+    if (loading || finished) return;
+    loading = true;
+
+    const res = await fetch(
+      `${BACKEND_URL}/api/search?q=${encodeURIComponent(query)}&page=${page}`
+    );
+    const data = await res.json();
+
+    if (!data || data.length === 0) {
+        finished = true;
+        document.getElementById("loading").innerText = "No more products";
+        return;
+    }
+
+    const container = document.getElementById("products");
+
+    data.forEach(p => {
+        const imgSrc = p.images && p.images.length > 0
+            ? p.images[0]
+            : "/placeholder.png";
+    
+        container.innerHTML += `
+        <div class="product-card" onclick="location.href='product.html?id=${p._id}'">
+            <img src="${imgSrc}" alt="${p.title}">
+            <h4>${p.title}</h4>
+    
+            <div class="price-row">
+                <span class="orig-price">₹${p.originalPrice}</span>
+                <span class="sell-price">₹${p.sellingPrice}</span>
+            </div>
+        </div>`;
+    });
+
+    page++;
+    loading = false;
+}
+
+window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        loadProducts();
+    }
+});
+
+loadProducts();
+</script>
+
+</body>
+</html>
