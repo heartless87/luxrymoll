@@ -19,35 +19,46 @@ if (!form) {
     const email = emailInput.value.trim();
     const password = passInput.value.trim();
 
+    if (!name || !email || !password) {
+      alert("All fields required ❌");
+      return;
+    }
+
     try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name, email, password })
-      });
+      const res = await fetch(
+        "https://luxrymoll.vercel.app/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, password })
+        }
+      );
 
-      // 🔐 IMPORTANT: agar JSON na aaye to handle karo
-      const contentType = res.headers.get("content-type");
+      // 👉 response text pehle padho (safe)
+      const text = await res.text();
 
-      if (!contentType || !contentType.includes("application/json")) {
-        const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
         console.error("Non-JSON response:", text);
-        alert("Server routing error ❌ (check vercel.json)");
+        alert("Server error ❌ (API not reached)");
         return;
       }
 
-      const data = await res.json();
-      alert(data.message);
-
-      if (res.ok) {
-        location.href = "#login";
+      if (!res.ok) {
+        alert(data.message || "Register failed ❌");
+        return;
       }
 
+      alert(data.message || "Account created ✅");
+      location.href = "#login";
+
     } catch (err) {
-      console.error("Fetch failed:", err);
-      alert("Network / Proxy error ❌");
+      console.error("Network error:", err);
+      alert("Network error ❌");
     }
   });
 }
