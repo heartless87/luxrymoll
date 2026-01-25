@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Search Results - luxrymoll.shop</title>
+<title>Watch Results - luxrymoll.shop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -14,39 +14,30 @@ body {
     background: #f4f4f4;
 }
 
-/* Search header */
-.search-header {
+/* Top Title Bar */
+.title-bar {
     position: sticky;
     top: 0;
     background: #fff;
-    padding: 12px;
+    padding: 14px 16px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 10;
 }
 
-.search-header input {
-    flex: 1;
-    padding: 10px 14px;
-    border-radius: 25px;
-    border: 1px solid #ddd;
-    font-size: 14px;
+.title-bar h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 1px;
 }
 
-.search-header button {
+.title-bar button {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
-}
-
-/* Result text */
-.result-text {
-    padding: 15px;
-    font-size: 14px;
-    color: #555;
 }
 
 /* Products */
@@ -62,6 +53,7 @@ body {
     border-radius: 12px;
     padding: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    cursor: pointer;
 }
 
 .product-card img {
@@ -70,6 +62,12 @@ body {
     object-fit: cover;
     border-radius: 8px;
 }
+
+.product-card h4 {
+    margin: 8px 0 4px;
+    font-size: 14px;
+}
+
 .price-row {
     display: flex;
     gap: 8px;
@@ -79,25 +77,13 @@ body {
 .orig-price {
     color: #999;
     font-size: 13px;
-    text-decoration: line-through;   /* ⭐ CUT LINE */
+    text-decoration: line-through;
 }
 
 .sell-price {
-    color: #000000;
+    color: #000;
     font-size: 15px;
     font-weight: bold;
-}
-
-.product-card h4 {
-    margin: 8px 0 4px;
-    font-size: 14px;
-}
-
-.product-card p {
-    margin: 0;
-    color: red;
-    font-weight: bold;
-    font-size: 14px;
 }
 
 /* Loading */
@@ -111,37 +97,31 @@ body {
 
 <body>
 
-<div class="result-text" id="resultText"></div>
+<!-- Title Bar -->
+<div class="title-bar">
+    <h1>WATCH</h1>
+    <button onclick="history.back()">
+        <i class="fa fa-xmark"></i>
+    </button>
+</div>
 
+<!-- Products -->
 <div class="products-grid" id="products"></div>
 <div id="loading">Loading more products...</div>
 
 <script>
-const BACKEND_URL = "https://luxrymoll.vercel.app";    
-const params = new URLSearchParams(window.location.search);
-let query = params.get("q") || "";
+const BACKEND_URL = "https://luxrymoll.vercel.app";
+const query = "watch";   // 🔥 fixed search keyword
 let page = 1;
 let loading = false;
 let finished = false;
-
-const input = document.getElementById("searchInput");
-input.value = query;
-
-document.getElementById("resultText").innerText =
-    `Results for "${query}"`;
-
-function clearSearch() {
-    input.value = "";
-    document.getElementById("products").innerHTML = "";
-    document.getElementById("resultText").innerText = "Search cleared";
-}
 
 async function loadProducts() {
     if (loading || finished) return;
     loading = true;
 
     const res = await fetch(
-      `${BACKEND_URL}/api/search?q=${encodeURIComponent(query)}&page=${page}`
+      `${BACKEND_URL}/api/search?q=${query}&page=${page}`
     );
     const data = await res.json();
 
@@ -157,12 +137,11 @@ async function loadProducts() {
         const imgSrc = p.images && p.images.length > 0
             ? p.images[0]
             : "/placeholder.png";
-    
+
         container.innerHTML += `
         <div class="product-card" onclick="location.href='product.html?id=${p._id}'">
             <img src="${imgSrc}" alt="${p.title}">
             <h4>${p.title}</h4>
-    
             <div class="price-row">
                 <span class="orig-price">₹${p.originalPrice}</span>
                 <span class="sell-price">₹${p.sellingPrice}</span>
