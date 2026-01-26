@@ -590,25 +590,33 @@
   </div>
   <script>
     document.querySelectorAll('.menu-item').forEach(item => {
-      item.addEventListener('click', function() {
+      item.addEventListener('click', function (e) {
         const targetPage = this.getAttribute('data-link');
-        if (targetPage) {
+        if (!targetPage) return;
+        if (targetPage.startsWith('#')) {
+          e.preventDefault();
+          window.location.hash = targetPage;
+        } else {
           window.location.href = targetPage;
         }
       });
     });
-    document.querySelector('.edit-icon').addEventListener('click', function(e) {
-      e.stopPropagation();
-      alert('Edit profile picture functionality would go here!');
-    });
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', function() {
-        document.querySelectorAll('.nav-item').forEach(nav => {
-          nav.classList.remove('active');
-        });
-        this.classList.add('active');
+    const editIcon = document.querySelector('.edit-icon');
+    if (editIcon) {
+      editIcon.addEventListener('click', function (e) {
+        e.stopPropagation();
+        alert('Edit profile picture functionality would go here!');
       });
-    });
+    }
+    const navItems = document.querySelectorAll('.nav-item');
+    if (navItems.length > 0) {
+      navItems.forEach(item => {
+        item.addEventListener('click', function () {
+          navItems.forEach(nav => nav.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+    }
   </script>
   <script src="register.js"></script>
 </body>
