@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-// 🔥 CHANGE HERE (MONGO_URI use)
 const MONGODB_URI = process.env.MONGO_URI;
 
 // ---- DB CACHE ----
@@ -25,11 +24,21 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User =
-  mongoose.models.data || mongoose.model("data", UserSchema);
+  mongoose.models.User || mongoose.model("User", UserSchema);
 
 // ---- HANDLER ----
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
+  const allowedOrigins = [
+    "https://luxrymoll.shop",
+    "http://localhost:3000",
+    "http://127.0.0.1:5500"
+  ];
+
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -40,13 +49,15 @@ export default async function handler(req, res) {
   try {
     await connectDB();
 
-    const { name, email, password } = req.body;
+    const { name, email, password } = req.body || {};
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    const exists = await User.findOne({ email });
+    const cleanEmail = email.toLowerCase();
+
+    const exists = await User.findOne({ email: cleanEmail });
     if (exists) {
       return res.status(409).json({ message: "Email already registered" });
     }
@@ -55,7 +66,7 @@ export default async function handler(req, res) {
 
     await User.create({
       name,
-      email,
+      email: cleanEmail,
       password: hashedPassword,
     });
 
