@@ -25,30 +25,25 @@ if (!form) {
     }
 
     try {
-      // 🔥 IMPORTANT: PHP proxy hit karo (same-origin)
-      const res = await fetch("/api/register.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name, email, password })
-      });
+      const res = await fetch(
+        "https://luxrymoll.vercel.app/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, email, password })
+        }
+      );
 
-      const text = await res.text();
-
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch {
-        console.error("Non-JSON response:", text);
-        alert("Server error ❌");
-        return;
-      }
+      const data = await res.json();
 
       alert(data.message || "Response received");
 
       if (res.ok) {
-        location.href = "#login";
+        // popup switch (no reload)
+        window.location.hash = "#login";
+        form.reset();
       }
 
     } catch (err) {
