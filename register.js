@@ -26,7 +26,7 @@ if (!form) {
 
     try {
       // 🔥 IMPORTANT: PHP proxy hit karo (same-origin)
-      const res = await fetch("/api/register.php", {
+      const res = await fetch("/register.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
