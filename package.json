@@ -4,6 +4,8 @@
   "type": "module",
   "dependencies": {
     "googleapis": "^118.0.0",
-    "mongodb": "^5.9.0"
+    "mongodb": "^5.9.0",
+    "mongoose": "^8.0.0",
+    "bcryptjs": "^2.4.3"
   }
 }
