@@ -6,11 +6,7 @@
   <title>Profile | Luxrymoll – Premium Luxury Mall Online</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif;
     }
 
     body {
@@ -543,7 +539,13 @@
 <div id="register" class="popup-overlay">
   <div class="popup-box">
     <div class="heading">Create Account</div>
-    <form class="form" id="registerForm" method="post" action="javascript:void(0);">
+    <form
+      class="form"
+      id="registerForm"
+      method="post"
+      action="javascript:void(0)"
+      onsubmit="return false;"
+    >
       <div class="title">Welcome</div>
       <div class="subtitle">Let's create your account!</div>
       <input required class="input" type="text" id="reg_name" placeholder="Name" autocomplete="off">
