@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// ✅ MongoDB URL from env
 const MONGODB_URI = process.env.MONGO_URI;
 
 // ---- DB CACHE ----
@@ -10,41 +11,46 @@ if (!cached) cached = global.mongoose = { conn: null, promise: null };
 async function connectDB() {
   if (cached.conn) return cached.conn;
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI).then(m => m);
+    cached.promise = mongoose.connect(MONGODB_URI, {
+      dbName: "user", // 🎯 DATABASE NAME
+    }).then(m => m);
   }
   cached.conn = await cached.promise;
   return cached.conn;
 }
 
 // ---- SCHEMA ----
-const UserSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
-});
+const UserSchema = new mongoose.Schema(
+  {
+    name: String,
+    email: String,
+    password: String,
+  },
+  {
+    collection: "data", // 🎯 COLLECTION NAME
+  }
+);
 
+// Model name internal hai, collection fixed rahegi
 const User =
-  mongoose.models.User || mongoose.model("User", UserSchema);
+  mongoose.models.Data || mongoose.model("Data", UserSchema);
 
 // ---- HANDLER ----
 export default async function handler(req, res) {
-  const allowedOrigins = [
-    "https://luxrymoll.shop",
-    "http://localhost:3000",
-    "http://127.0.0.1:5500"
-  ];
-
   const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
 
+  // ✅ CORS (safe for Vercel + custom domain)
+  res.setHeader("Access-Control-Allow-Origin", origin || "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST")
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
+  }
 
   try {
     await connectDB();
@@ -57,6 +63,7 @@ export default async function handler(req, res) {
 
     const cleanEmail = email.toLowerCase();
 
+    // Duplicate check
     const exists = await User.findOne({ email: cleanEmail });
     if (exists) {
       return res.status(409).json({ message: "Email already registered" });
