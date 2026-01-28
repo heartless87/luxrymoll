@@ -480,8 +480,14 @@
   function toggleLoginMenu() {
     const user = localStorage.getItem("luxuryUser");
     const signInItem = document.querySelector('[data-link="#login"]');
-    if (!signInItem) return;
-    signInItem.style.display = user ? "none" : "flex";
+    const logoutItem = document.getElementById("logoutItem");
+    if (user) {
+    if (signInItem) signInItem.style.display = "none";
+    if (logoutItem) logoutItem.style.display = "flex";
+    } else {
+      if (signInItem) signInItem.style.display = "flex";
+      if (logoutItem) logoutItem.style.display = "none";
+    }
   } 
   document.addEventListener("DOMContentLoaded", () => {
     updateProfileUI();
