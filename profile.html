@@ -520,6 +520,7 @@
   if (logoutItem) {
     logoutItem.addEventListener("click", function (e) {
       e.preventDefault();
+      e.stopImmediatePropagation();
       localStorage.removeItem("luxuryUser");
       const nameEl = document.querySelector(".user-info h3");
       const emailEl = document.querySelector(".user-info p");
