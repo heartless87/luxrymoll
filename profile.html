@@ -560,6 +560,33 @@
     </div>
   </div>
   <script>
+  function updateProfileUI() {
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    if (!user) return;
+  
+    const nameEl = document.querySelector(".user-info h3");
+    const emailEl = document.querySelector(".user-info p");
+  
+    if (nameEl && emailEl) {
+      nameEl.innerText = user.name;
+      emailEl.innerText = user.email;
+    }
+  }
+  
+  function toggleLoginMenu() {
+    const user = localStorage.getItem("luxuryUser");
+    const signInItem = document.querySelector('[data-link="#login"]');
+    if (!signInItem) return;
+  
+    signInItem.style.display = user ? "none" : "flex";
+  }
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    updateProfileUI();
+    toggleLoginMenu();
+  });
+  </script>
+  <script>
     document.querySelectorAll('.menu-item').forEach(item => {
       item.addEventListener('click', function (e) {
         const targetPage = this.getAttribute('data-link');
@@ -656,22 +683,6 @@
   
   // 🔥 Page load hote hi auto-login check
   document.addEventListener("DOMContentLoaded", updateProfileUI);
-  </script>
-  <script>
-  function toggleLoginMenu() {
-    const user = localStorage.getItem("luxuryUser");
-    const signInItem = document.querySelector('[data-link="#login"]');
-  
-    if (!signInItem) return;
-  
-    if (user) {
-      signInItem.style.display = "none";
-    } else {
-      signInItem.style.display = "flex";
-    }
-  }
-  
-  document.addEventListener("DOMContentLoaded", toggleLoginMenu);
   </script>
 </body>
 </html>
