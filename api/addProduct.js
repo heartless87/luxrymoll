@@ -1,53 +1,71 @@
 import { MongoClient } from "mongodb";
 
+let cachedClient = null;
+
 export default async function handler(req, res) {
 
-    // ---------------- GLOBAL CORS (ALWAYS ON) ----------------
+    // ---------------- CORS ----------------
     res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    // ----------------------------------------------------------
+    // --------------------------------------
 
-    // Handle preflight
     if (req.method === "OPTIONS") {
-        return res.status(200).json({});
+        return res.status(200).end();
     }
 
-    // ----------------------------------------------------------
-    // Only POST allowed
     if (req.method !== "POST") {
         return res.status(405).json({ success: false, message: "Method not allowed" });
     }
-    // ----------------------------------------------------------
+
+    let client;
 
     try {
         const uri = process.env.MONGO_URI;
-        const client = new MongoClient(uri);
-        await client.connect();
+
+        // 🔥 reuse Mongo connection (Vercel safe)
+        if (!cachedClient) {
+            cachedClient = new MongoClient(uri);
+            await cachedClient.connect();
+        }
+
+        client = cachedClient;
 
         const db = client.db("Product");
         const collection = db.collection("Prodlist");
 
         const data = req.body;
 
+        // 🔒 validation
+        if (
+            !data ||
+            !data.title ||
+            !data.description ||
+            !data.originalPrice ||
+            !data.sellingPrice ||
+            !Array.isArray(data.images) ||
+            data.images.length < 1
+        ) {
+            return res.status(400).json({ success: false, message: "Invalid product data" });
+        }
+
         // Convert images array → image-1, image-2...
-        let imageObj = {};
-        data.images.forEach((img, index) => {
+        const imageObj = {};
+        data.images.slice(0, 7).forEach((img, index) => {
             imageObj[`image-${index + 1}`] = img;
         });
 
         const newProduct = {
             title: data.title,
             description: data.description,
-            originalPrice: data.originalPrice,
-            sellingPrice: data.sellingPrice,
+            originalPrice: Number(data.originalPrice),
+            sellingPrice: Number(data.sellingPrice),
             ...imageObj,
             createdAt: new Date()
         };
 
         await collection.insertOne(newProduct);
-        client.close();
 
         return res.status(200).json({ success: true });
 
