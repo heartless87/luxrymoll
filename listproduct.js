@@ -1,28 +1,32 @@
-// ---------------- IMAGE CONVERSION TO BASE64 ----------------
-
 const uploadTrigger = document.getElementById("uploadTrigger");
 const imageUpload = document.getElementById("imageUpload");
 const imagePreview = document.getElementById("imagePreview");
 
 let base64Images = [];
 
+const MAX_IMAGES = 7;
+const MAX_FILE_SIZE = 800 * 1024; // 800 KB per image
+
 uploadTrigger.addEventListener("click", () => imageUpload.click());
 
 imageUpload.addEventListener("change", async function () {
-    base64Images = []; 
-    imagePreview.innerHTML = "";
-
     let files = Array.from(this.files);
 
-    if (files.length < 1 || files.length > 7) {
-        alert("Please upload minimum 1 and maximum 7 images");
-        return;
-    }
+    for (let file of files) {
 
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
+        if (base64Images.length >= MAX_IMAGES) {
+            alert("Maximum 7 images allowed");
+            break;
+        }
 
-        // Convert to Base64
+        if (!file.type.startsWith("image/")) continue;
+
+        if (file.size > MAX_FILE_SIZE) {
+            alert("Each image must be under 800 KB");
+            continue;
+        }
+
+        // Convert to Base64 (compressed)
         let base64 = await convertToBase64(file);
         base64Images.push(base64);
 
@@ -32,20 +36,48 @@ imageUpload.addEventListener("change", async function () {
 
         div.innerHTML = `
             <img src="${base64}">
-            <button class="remove-btn" data-index="${i}">×</button>
+            <button class="remove-btn">×</button>
         `;
+
+        // Remove image
+        div.querySelector(".remove-btn").onclick = () => {
+            const index = base64Images.indexOf(base64);
+            if (index > -1) base64Images.splice(index, 1);
+            div.remove();
+        };
 
         imagePreview.appendChild(div);
     }
+
+    // Allow re-selecting same file again
+    imageUpload.value = "";
 });
 
-// Convert File → Base64
+// Convert File → Base64 (Resize + Compress for Vercel Free Tier)
 function convertToBase64(file) {
-    return new Promise((resolve, reject) => {
-        let reader = new FileReader();
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        const img = new Image();
+
+        reader.onload = (e) => img.src = e.target.result;
+
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+
+            const MAX_WIDTH = 900;
+            const scale = Math.min(1, MAX_WIDTH / img.width);
+
+            canvas.width = img.width * scale;
+            canvas.height = img.height * scale;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // JPEG compression (0.7 = best balance)
+            resolve(canvas.toDataURL("image/jpeg", 0.7));
+        };
+
         reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
     });
 }
 
