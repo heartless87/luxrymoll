@@ -27,17 +27,7 @@
     .popup-box { width: 330px; background: #f4f4f4; padding: 28px; border-radius: 12px; }
     .heading { text-align: center; font-weight: 900; font-size: 30px; color: rgb(16, 137, 211); }   
     .form { margin-top: 20px; }
-    .form .input {
-        width: 100%;
-        background: white;
-        border: none;
-        padding: 15px 20px;
-        border-radius: 20px;
-        margin-top: 15px;
-        box-shadow: #cff0ff 0px 10px 10px -5px;
-        border-inline: 2px solid transparent;
-    }
-
+    .form .input { width: 100%; background: white; border: none; padding: 15px 20px; border-radius: 20px; margin-top: 15px; box-shadow: #cff0ff 0px 10px 10px -5px; border-inline: 2px solid transparent; }
     .form .input::-moz-placeholder {
         color: rgb(170, 170, 170);
     }
@@ -525,6 +515,24 @@
     }
   </script>
   <script src="register.js"></script>
+  <script>
+  const logoutItem = document.getElementById("logoutItem"); 
+  if (logoutItem) {
+    logoutItem.addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.removeItem("luxuryUser");
+      const nameEl = document.querySelector(".user-info h3");
+      const emailEl = document.querySelector(".user-info p");
+      if (nameEl && emailEl) {
+        nameEl.innerText = "USER NAME";
+        emailEl.innerText = "usermail@gmail.com";
+      }
+      alert("Logged out successfully 👋");
+      toggleLoginMenu();
+      window.location.hash = "";
+    });
+  }
+  </script>
   <script>
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
