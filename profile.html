@@ -657,6 +657,21 @@
   // 🔥 Page load hote hi auto-login check
   document.addEventListener("DOMContentLoaded", updateProfileUI);
   </script>
-
+  <script>
+  function toggleLoginMenu() {
+    const user = localStorage.getItem("luxuryUser");
+    const signInItem = document.querySelector('[data-link="#login"]');
+  
+    if (!signInItem) return;
+  
+    if (user) {
+      signInItem.style.display = "none";
+    } else {
+      signInItem.style.display = "flex";
+    }
+  }
+  
+  document.addEventListener("DOMContentLoaded", toggleLoginMenu);
+  </script>
 </body>
 </html>
