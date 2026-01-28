@@ -562,6 +562,7 @@
           alert("Login successful ✅");
           window.location.hash = "";
           updateProfileUI();
+          toggleLoginMenu();
         } catch (err) {
           console.error(err);
           alert("Network error ❌");
