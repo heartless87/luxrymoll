@@ -590,5 +590,51 @@
     }
   </script>
   <script src="register.js"></script>
+  <script>
+    const loginForm = document.getElementById("loginForm");
+  
+    if (loginForm) {
+      loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault(); // ❌ page reload stop
+  
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+  
+        if (!email || !password) {
+          alert("All fields required ❌");
+          return;
+        }
+  
+        try {
+          const res = await fetch("https://luxrymoll.vercel.app/api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+          });
+  
+          const data = await res.json();
+  
+          if (!res.ok) {
+            alert(data.message); // Email not registered / wrong password
+            return;
+          }
+  
+          // ✅ LOGIN SUCCESS
+          localStorage.setItem("luxuryUser", JSON.stringify(data.user));
+  
+          alert("Login successful ✅");
+          window.location.hash = ""; // popup close
+  
+          updateProfileUI(); // profile name/email update
+  
+        } catch (err) {
+          console.error(err);
+          alert("Network error ❌");
+        }
+      });
+    }
+  </script>
 </body>
 </html>
