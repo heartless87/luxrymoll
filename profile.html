@@ -636,5 +636,27 @@
       });
     }
   </script>
+  <script>
+  function updateProfileUI() {
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
+  
+    if (!user) {
+      // ❌ user logged in nahi hai
+      return;
+    }
+  
+    const nameEl = document.querySelector(".user-info h3");
+    const emailEl = document.querySelector(".user-info p");
+  
+    if (nameEl && emailEl) {
+      nameEl.innerText = user.name;
+      emailEl.innerText = user.email;
+    }
+  }
+  
+  // 🔥 Page load hote hi auto-login check
+  document.addEventListener("DOMContentLoaded", updateProfileUI);
+  </script>
+
 </body>
 </html>
