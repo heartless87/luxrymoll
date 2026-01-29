@@ -41,7 +41,7 @@ input[type = "checkbox"] {
   position: absolute;
   width: 45px;
   height: 7px;
-  background: #f1faee;
+  background: #555;
   border-radius: 100px;
   display: inline-block;
   transition: 0.3s ease;
