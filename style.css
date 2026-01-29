@@ -33,14 +33,15 @@ input[type = "checkbox"] {
   display: block;
   position: relative;
   cursor: pointer;
-  width: 50px;
-  height: 40px;
+  width: 32px;
+  height: 22px;
+  flex-shrink: 0;
 }
 
 .bar span {
   position: absolute;
-  width: 45px;
-  height: 7px;
+  width: 32px;
+  height: 4px;
   background: #555;
   border-radius: 100px;
   display: inline-block;
