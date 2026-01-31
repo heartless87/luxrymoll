@@ -4,136 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Details</title>
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
     <style>
-        body {
-            margin: 0;
-            background: #f7f7f7;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 15px;
-        }
-
+        body { margin: 0; background: #f7f7f7; font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: auto; padding: 15px; }
         @media (min-width: 768px) { .container { max-width: 700px; } }
         @media (min-width: 1024px) { .container { max-width: 900px; } }
         @media (min-width: 1400px) { .container { max-width: 1100px; } }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .top-bar i {
-            font-size: 20px;
-            cursor: pointer;
-        }
-
+        .top-bar { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar i { font-size: 20px; cursor: pointer; }
         .right-icons i { margin-left: 12px; }
-        .image-slider img {
-            width: 100%;
-            border-radius: 15px;
-            margin-top: 10px;
-            transition: opacity 0.3s ease;
-        }
-        .image-slider img {
-            width: 100%;
-            border-radius: 15px;
-            margin-top: 10px;
-        }
-        .image-slider {
-            position: relative;
-        }
-        .image-slider button {
-            background: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            font-size: 22px;
-            padding: 6px 10px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .product-info {
-            background: white;
-            border-radius: 15px;
-            margin-top: 15px;
-            padding: 15px;
-        }
-        .tag {
-            padding: 4px 8px;
-            font-size: 12px;
-            border-radius: 5px;
-            margin-right: 5px;
-        }
+        .image-slider img { width: 100%; border-radius: 15px; margin-top: 10px; transition: opacity 0.3s ease; }
+        .image-slider img { width: 100%; border-radius: 15px; margin-top: 10px; }
+        .image-slider { position: relative; }
+        .image-slider button { background: rgba(0,0,0,0.5); color: white; border: none; font-size: 22px; padding: 6px 10px; border-radius: 50%; cursor: pointer; }
+        .product-info { background: white; border-radius: 15px; margin-top: 15px; padding: 15px; }
+        .tag { padding: 4px 8px; font-size: 12px; border-radius: 5px; margin-right: 5px; }
         .popular { background: orange; color: white; }
         .discount { background: gold; color: black; }
-        .price-new {
-            font-size: 22px;
-            font-weight: bold;
-        }
-        .price-old {
-            text-decoration: line-through;
-            color: gray;
-            margin-left: 10px;
-        }
-        .qty-box {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .qty-box button {
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: none;
-            background: #ddd;
-            cursor: pointer;
-        }
-        .colors, .sizes {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-        .colors div, .sizes div {
-            background: #eee;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            padding: 15px;
-            box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
-        }
-        .buy-btn {
-            width: 100%;
-            padding: 15px;
-            background: gold;
-            border-radius: 10px;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-        }
+        .price-new { font-size: 22px; font-weight: bold; }
+        .price-old { text-decoration: line-through; color: gray; margin-left: 10px; }
+        .qty-box { display: flex; gap: 10px; margin: 15px 0; }
+        .qty-box button { padding: 6px 12px; border-radius: 8px; border: none; background: #ddd; cursor: pointer; }
+        .colors, .sizes { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .colors div, .sizes div { background: #eee; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+        .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); }
+        .buy-btn { width: 100%; padding: 15px; background: gold; border-radius: 10px; font-size: 18px; border: none; cursor: pointer; }
     </style>
 </head>
-
 <body>
-
 <div class="container">
-
     <div class="top-bar">
         <i class="fas fa-arrow-left" onclick="history.back()"></i>
-        <h3>Item Details</h3>
+        <h3>Product Details</h3>
         <div class="right-icons">
             <i class="fas fa-share"></i>
             <i class="fas fa-heart"></i>
@@ -171,81 +74,93 @@
 <div class="bottom-bar">
     <button class="buy-btn">Buy Now</button>
 </div>
-
 <script>
-    const BACKEND_URL = "https://luxrymoll.vercel.app";
-    const PLACEHOLDER = "/placeholder.png";
-
-    function convertImg(str) {
-        if (!str) return PLACEHOLDER;
-
-        const s = String(str).trim();
-        if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(s)) return s;
-        if (s.startsWith("/9j/")) return `data:image/jpeg;base64,${s}`;
-        if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
-        return `data:image/jpeg;base64,${s}`;
+const BACKEND_URL = "https://luxrymoll.vercel.app";
+const PLACEHOLDER = "/placeholder.png";
+function convertImg(str) {
+    if (!str) return PLACEHOLDER;
+    const s = String(str).trim();
+    if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(s)) return s;
+    if (s.startsWith("/9j/")) return `data:image/jpeg;base64,${s}`;
+    if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
+    return `data:image/jpeg;base64,${s}`;
+}
+function decQty() {
+    const qty = document.getElementById("qty");
+    let q = parseInt(qty.innerText);
+    if (q > 1) qty.innerText = q - 1;
+}
+function incQty() {
+    const qty = document.getElementById("qty");
+    qty.innerText = parseInt(qty.innerText) + 1;
+}
+let images = [];
+let currentIndex = 0;
+function showImage() {
+    const img = document.getElementById("mainImg");
+    if (!images.length) return;
+    img.style.opacity = "0";
+    setTimeout(() => {
+        img.src = images[currentIndex];
+        img.style.opacity = "1";
+    }, 150);
+}
+async function loadProduct() {
+    const id = new URLSearchParams(window.location.search).get("id");
+    if (!id) {
+        alert("Product ID missing!");
+        return;
     }
-
-    function decQty() {
-        let q = parseInt(document.getElementById("qty").innerText);
-        if (q > 1) document.getElementById("qty").innerText = q - 1;
-    }
-
-    function incQty() {
-        let q = parseInt(document.getElementById("qty").innerText);
-        document.getElementById("qty").innerText = q + 1;
-    }
-
-    async function loadProduct() {
-        const id = new URLSearchParams(window.location.search).get("id");
-        if (!id) return alert("Product ID missing!");
-
-        // ⭐ Correct Vercel-compatible URL (MAIN FIX)
+    try {
         const res = await fetch(`${BACKEND_URL}/api/getProduct?id=${id}`);
-
-        if (!res.ok) {
-            console.error("API Error:", res.status);
-            alert("Failed to load product!");
-            return;
-        }
-
+        if (!res.ok) throw new Error("API Error");
         const p = await res.json();
-
         document.getElementById("title").innerText = p.title;
         document.getElementById("selling").innerText = "₹" + p.sellingPrice;
         document.getElementById("original").innerText = "₹" + p.originalPrice;
-        document.getElementById("desc").innerText = p.description || "No description.";
-
-        const imgData = p.images?.[0];
-        const mainImg = document.getElementById("mainImg");     
-        const finalImg = imgData ? convertImg(imgData) : PLACEHOLDER;
-        const tempImg = new Image();
-        tempImg.src = finalImg;     
-        tempImg.onload = () => {
-            mainImg.style.opacity = "0";
-            setTimeout(() => {
-                mainImg.src = finalImg;
-                mainImg.style.opacity = "1";
-            }, 150);
-        };
-        if (p.colors) {
-            p.colors.forEach(c => {
-                const div = document.createElement("div");
-                div.innerText = c;
-                document.getElementById("colors").appendChild(div);
-            });
-        }
-        if (p.sizes) {
-            p.sizes.forEach(s => {
-                const div = document.createElement("div");
-                div.innerText = s;
-                document.getElementById("sizes").appendChild(div);
-            });
-        }
+        document.getElementById("desc").innerText =
+            p.description || "No description available.";
+        images = (p.images || []).map(convertImg);
+        if (images.length === 0) images = [PLACEHOLDER];
+        currentIndex = 0;
+        showImage();
+    } catch (err) {
+        console.error("Load product failed:", err);
+        alert("Failed to load product!");
     }
+}
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+if (nextBtn && prevBtn) {
+    nextBtn.onclick = () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage();
+    };
+    prevBtn.onclick = () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage();
+    };
+}
+const slider = document.getElementById("slider");
+let startX = 0;
 
-    loadProduct();
+if (slider) {
+    slider.addEventListener("touchstart", e => {
+        startX = e.touches[0].clientX;
+    });
+    slider.addEventListener("touchend", e => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (diff > 50) {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage();
+        }
+        if (diff < -50) {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage();
+        }
+    });
+}
+loadProduct();
 </script>
-
 </body>
 </html>
