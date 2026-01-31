@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>Product Listing - LuxuryMoll</title>
     <style>
-        /* (same CSS as before - compacted) */
         *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma, Geneva, Verdana, sans-serif}
         body{background:#f8f9fa;color:#333;line-height:1.6}
         .container{max-width:1200px;margin:0 auto;padding:0 20px}
@@ -51,6 +50,11 @@
         @media (max-width:768px){.price-container{flex-direction:column}.page-title h1{font-size:28px}}
         @media (max-width:480px){.product-image{height:150px}.preview-item{width:100px;height:100px}.page-title h1{font-size:24px}}
     </style>
+    <link
+      href="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.css"
+      rel="stylesheet"
+    />  
+    <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.js"></script>
 </head>
 <body>
     <header>
@@ -138,11 +142,24 @@
             </div>
         </div>
     </footer>
-
-    <!-- LOAD THIS FIRST -->
+    <div id="cropModal" style="
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.6);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+    ">
+      <div style="background:#fff;padding:15px;border-radius:10px;max-width:90%;">
+        <img id="cropImg" style="max-width:100%;max-height:70vh;">
+        <div style="text-align:center;margin-top:10px;">
+          <button id="cropConfirm">Crop & Use</button>
+          <button onclick="closeCrop()">Cancel</button>
+        </div>
+      </div>
+    </div>
     <script src="listeddata.js"></script>
-    
-    <!-- LOAD THIS AFTER -->
     <script src="listproduct.js"></script>
 
 </body>
