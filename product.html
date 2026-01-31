@@ -47,30 +47,23 @@
         <button id="prevBtn" style="position:absolute;left:10px;top:50%">❮</button>
         <button id="nextBtn" style="position:absolute;right:10px;top:50%">❯</button>
     </div>
-    <div class="product-info">
-        
+    <div class="product-info">        
         <span class="tag popular">Popular</span>
         <span class="tag discount">25% Save</span>
-
         <h2 id="title">Loading...</h2>
-
         <div class="price-box">
             <span class="price-new" id="selling"></span>
             <span class="price-old" id="original"></span>
         </div>
-
         <div class="qty-box">
             <button onclick="decQty()">-</button>
             <span id="qty">1</span>
             <button onclick="incQty()">+</button>
         </div>
-
         <h4>Description</h4>
         <p id="desc"></p>
     </div>
-
 </div>
-
 <div class="bottom-bar">
     <button class="buy-btn">Buy Now</button>
 </div>
@@ -78,87 +71,79 @@
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 const PLACEHOLDER = "/placeholder.png";
 function convertImg(str) {
-    if (!str) return PLACEHOLDER;
-    const s = String(str).trim();
-    if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(s)) return s;
-    if (s.startsWith("/9j/")) return `data:image/jpeg;base64,${s}`;
-    if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
-    return `data:image/jpeg;base64,${s}`;
+  if (!str) return PLACEHOLDER;
+  const s = String(str).trim();
+  if (/^data:image\/[a-z0-9.+-]+;base64,/i.test(s)) return s;
+  if (s.startsWith("/9j/")) return `data:image/jpeg;base64,${s}`;
+  if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
+  return `data:image/jpeg;base64,${s}`;
 }
 function decQty() {
-    const qty = document.getElementById("qty");
-    let q = parseInt(qty.innerText);
-    if (q > 1) qty.innerText = q - 1;
+  const q = document.getElementById("qty");
+  if (+q.innerText > 1) q.innerText--;
 }
 function incQty() {
-    const qty = document.getElementById("qty");
-    qty.innerText = parseInt(qty.innerText) + 1;
+  document.getElementById("qty").innerText++;
 }
 let images = [];
-let currentIndex = 0;
-function showImage() {
-    const img = document.getElementById("mainImg");
-    if (!images.length) return;
-    img.style.opacity = "0";
-    setTimeout(() => {
-        img.src = images[currentIndex];
-        img.style.opacity = "1";
-    }, 150);
-}
-async function loadProduct() {
-    const id = new URLSearchParams(window.location.search).get("id");
-    if (!id) {
-        alert("Product ID missing!");
-        return;
-    }
-    try {
-        const res = await fetch(`${BACKEND_URL}/api/getProduct?id=${id}`);
-        if (!res.ok) throw new Error("API Error");
-        const p = await res.json();
-        document.getElementById("title").innerText = p.title;
-        document.getElementById("selling").innerText = "₹" + p.sellingPrice;
-        document.getElementById("original").innerText = "₹" + p.originalPrice;
-        document.getElementById("desc").innerText =
-            p.description || "No description available.";
-        images = (p.images || []).map(convertImg);
-        if (images.length === 0) images = [PLACEHOLDER];
-        currentIndex = 0;
-        showImage();
-    } catch (err) {
-        console.error("Load product failed:", err);
-        alert("Failed to load product!");
-    }
-}
+let index = 0;
+const imgEl = document.getElementById("mainImg");
+const counterEl = document.getElementById("imgCounter");
 const nextBtn = document.getElementById("nextBtn");
 const prevBtn = document.getElementById("prevBtn");
-if (nextBtn && prevBtn) {
-    nextBtn.onclick = () => {
-        currentIndex = (currentIndex + 1) % images.length;
-        showImage();
-    };
-    prevBtn.onclick = () => {
-        currentIndex = (currentIndex - 1 + images.length) % images.length;
-        showImage();
-    };
-}
 const slider = document.getElementById("slider");
+function renderImage() {
+  imgEl.style.opacity = "0";
+  setTimeout(() => {
+    imgEl.src = images[index];
+    imgEl.style.opacity = "1";
+    counterEl.innerText = `${index + 1} / ${images.length}`;
+  }, 120);
+}
+async function loadProduct() {
+  const id = new URLSearchParams(location.search).get("id");
+  if (!id) return alert("Product ID missing");
+  const res = await fetch(`${BACKEND_URL}/api/getProduct?id=${id}`);
+  if (!res.ok) return alert("Failed to load product");
+  const p = await res.json();
+  document.getElementById("title").innerText = p.title;
+  document.getElementById("selling").innerText = "₹" + p.sellingPrice;
+  document.getElementById("original").innerText = "₹" + p.originalPrice;
+  document.getElementById("desc").innerText =
+    p.description || "No description available";
+  images = (p.images || []).map(convertImg);
+  if (!images.length) images = [PLACEHOLDER];
+  index = 0;
+  renderImage();
+}
+if (nextBtn && prevBtn) {
+  nextBtn.onclick = () => {
+    index = (index + 1) % images.length;
+    renderImage();
+  };
+  prevBtn.onclick = () => {
+    index = (index - 1 + images.length) % images.length;
+    renderImage();
+  };
+}
 let startX = 0;
-
-if (slider) {
-    slider.addEventListener("touchstart", e => {
-        startX = e.touches[0].clientX;
-    });
-    slider.addEventListener("touchend", e => {
-        const diff = e.changedTouches[0].clientX - startX;
-        if (diff > 50) {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage();
-        }
-        if (diff < -50) {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage();
-        }
-    });
+slider.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+slider.addEventListener("touchend", e => {
+  const diff = e.changedTouches[0].clientX - startX;
+  if (diff > 50) {
+    index = (index - 1 + images.length) % images.length;
+    renderImage();
+  }
+  if (diff < -50) {
+    index = (index + 1) % images.length;
+    renderImage();
+  }
+});
+if (window.innerWidth < 768) {
+  if (nextBtn) nextBtn.style.display = "none";
+  if (prevBtn) prevBtn.style.display = "none";
 }
 loadProduct();
 </script>
