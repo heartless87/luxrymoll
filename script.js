@@ -1,6 +1,6 @@
 let page = 1;
 let loading = false;
-
+let loadedProductIds = new Set();
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 const PLACEHOLDER = "/placeholder.png";
 
