@@ -34,7 +34,7 @@ function openCrop() {
     cropModal.style.display = "flex";
     if (cropper) cropper.destroy();
     cropper = new Cropper(cropImg, {
-      aspectRatio: 4 / 3, 
+      aspectRatio: 3 / 4, 
       viewMode: 1,
       autoCropArea: 1,
       movable: false,
