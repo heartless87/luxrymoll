@@ -31,9 +31,16 @@
             <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
     </nav>
     <script>
-        document.getElementById('menu-icon').addEventListener('click', function() {
+        function toggleMenu() {
             const menuList = document.getElementById('menuList');
-            menuList.classList.toggleMenu('show-menu');
+            menuList.classList.toggle('show-menu');
+        }
+        document.getElementById('menuIcon').addEventListener('click', toggleMenu);
+        document.querySelectorAll('#menuList a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menuList = document.getElementById('menuList');
+                menuList.classList.remove('show-menu');
+            });
         });
     </script>
     <script src="https://kit.fontawesome.com/aa2ad09b73.js" crossorigin="anonymous"></script>
