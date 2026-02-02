@@ -7,7 +7,7 @@ nav ul{ display: flex; gap: 30px; align-item: center; }
 nav ul li{ list-style-type: none; }
 nav ul li a{ text-decoration: none; color: #fff; }
 .menu-icon i{ color: #fff; font-size: 30px; }
-@media (max-width:600px) { nav ul{ position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; text-align: center; background: #004274; gap: 0; overflow: hidden; } nav ul li{ padding: 20px; } .menu-icon{ display: block; } #menuLis{ transition: all 0.5s;} }
+@media (max-width:600px) { nav ul{ position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; text-align: center; background: #004274; gap: 0; overflow: hidden; } nav ul li{ padding: 20px; } .menu-icon{ display: block; } #menuList{ transition: all 0.5s;} }
 .header-wrap { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; position: relative; }
 .search-bar { max-width: 600px; width: 100%; margin: 0 auto; flex: none; display: flex; align-items: center; gap: 12px; background: #f4f4f4; padding: 12px 18px; border-radius: 20px; }
 .search-bar input { flex: 1; border: none; outline: none; background: transparent; font-size: 15px; }
