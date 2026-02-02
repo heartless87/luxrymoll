@@ -31,16 +31,10 @@
             <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
     </nav>
     <script>
-        let menuList = document.getElementById("menuList")
-        menuList.style.maxHeight = "0px";
-        function toggleMenu(){
-            if(menuList.style.maxHeight == "0px"){
-                menuList.style.maxHeight = "300px";
-            }
-            else{
-                menuList.style.maxHeight = "0px";
-            }
-        }
+        document.getElementById('menuIcon').addEventListener('click', function() {
+            const menuList = document.getElementById('menuList');
+            menuList.classList.toggle('show-menu');
+        });
     </script>
     <script src="https://kit.fontawesome.com/aa2ad09b73.js" crossorigin="anonymous"></script>
     <header class="header-wrap">
