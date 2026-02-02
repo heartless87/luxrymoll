@@ -21,15 +21,18 @@
         <div class="logo">
             <h1>Logo</h1>
         </div>
-        <ul>
+        <ul id="menuList">
             <li><a href="">Profile</a></li>
             <li><a href="">Favorite</a></li>
             <li><a href="">Login</a></li>
             <li><a href="">Signup</a></li>
         </ul>
         <div class="menu-icon">
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
     </nav>
+    <script>
+        let menuList = document.getElementById("menuList")
+        menuList.style.maxHeight = "0px";
     <script src="https://kit.fontawesome.com/aa2ad09b73.js" crossorigin="anonymous"></script>
     <header class="header-wrap">
         <div class="search-bar">  
