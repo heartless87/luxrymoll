@@ -65,7 +65,7 @@
     </div>
 </div>
 <div class="bottom-bar">
-    <button class="buy-btn">Buy Now</button>
+    <button class="buy-btn" id="buyNowBtn">Buy Now</button>
 </div>
 <script>
 const BACKEND_URL = "https://luxrymoll.vercel.app";
@@ -146,6 +146,23 @@ if (window.innerWidth < 768) {
   if (prevBtn) prevBtn.style.display = "none";
 }
 loadProduct();
+</script>
+<script>
+document.getElementById("buyNowBtn").addEventListener("click", () => {
+
+  const product = {
+    id: new URLSearchParams(window.location.search).get("id"),
+    title: document.getElementById("title").innerText,
+    price: Number(document.getElementById("selling").innerText.replace("₹","")),
+    originalPrice: Number(document.getElementById("original").innerText.replace("₹","")),
+    qty: Number(document.getElementById("qty").innerText),
+    image: document.getElementById("mainImg").src
+  };
+
+  localStorage.setItem("checkoutProduct", JSON.stringify(product));
+
+  window.location.href = "checkout.html";
+});
 </script>
 </body>
 </html>
