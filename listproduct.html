@@ -50,11 +50,6 @@
         @media (max-width:768px){.price-container{flex-direction:column}.page-title h1{font-size:28px}}
         @media (max-width:480px){.product-image{height:150px}.preview-item{width:100px;height:100px}.page-title h1{font-size:24px}}
     </style>
-    <link
-      href="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.css"
-      rel="stylesheet"
-    />  
-    <script src="https://unpkg.com/cropperjs@1.6.2/dist/cropper.min.js"></script>
 </head>
 <body>
     <header>
@@ -142,23 +137,6 @@
             </div>
         </div>
     </footer>
-    <div id="cropModal" style="
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.6);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
-    ">
-      <div style="background:#fff;padding:15px;border-radius:10px;max-width:90%;">
-        <img id="cropImg" style="max-width:100%;max-height:70vh;">
-        <div style="text-align:center;margin-top:10px;">
-          <button id="cropConfirm">Crop & Use</button>
-          <button onclick="closeCrop()">Cancel</button>
-        </div>
-      </div>
-    </div>
     <script src="listeddata.js"></script>
     <script src="listproduct.js"></script>
 
