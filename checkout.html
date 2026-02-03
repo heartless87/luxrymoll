@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+<style>
+body{margin:0;font-family:Arial;background:#f7f7f7}
+.container{max-width:420px;margin:auto;padding:15px}
+.card{background:#fff;border-radius:14px;padding:15px;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center}
+.btn{width:100%;padding:15px;background:#f2c94c;border:none;
+border-radius:12px;font-size:18px;font-weight:600}
+.radio{display:flex;align-items:center;gap:10px;margin:8px 0}
+.price{font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="card row">
+    <h3>Checkout</h3>
+  </div>
+
+  <div class="card">
+    <h4>Delivery method</h4>
+    <p>Standard Delivery (₹50)</p>
+  </div>
+
+  <div class="card">
+    <h4>Address</h4>
+    <p id="addressText">Add address</p>
+  </div>
+
+  <div class="card">
+    <h4>Payment method</h4>
+    <div class="radio"><input type="radio" checked> PayPal</div>
+    <div class="radio"><input type="radio"> Master Card</div>
+    <div class="radio"><input type="radio"> Visa</div>
+  </div>
+
+  <div class="card">
+    <div class="row"><span>Items</span><span id="itemsTotal"></span></div>
+    <div class="row"><span>Delivery Fee</span><span>₹50</span></div>
+    <hr>
+    <div class="row price"><span>Total</span><span id="finalTotal"></span></div>
+  </div>
+
+  <button class="btn">Confirm</button>
+
+</div>
+
+<script src="checkout.js"></script>
+</body>
+</html>
