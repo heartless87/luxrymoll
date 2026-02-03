@@ -244,16 +244,15 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     margin-bottom: 12px;
     margin-top: auto;
 }
-
-.product-card .sell-price {
-    color: #313131;
-    font-weight: bold;
-    font-size: 19px;
-}
 .product-card .orig-price {
     text-decoration: line-through;
     color: #858585;
     font-size: 13px;
+}
+.product-card .sell-price {
+    color: #313131;
+    font-weight: bold;
+    font-size: 19px;
 }
 #loading {
     text-align: center;
