@@ -260,14 +260,14 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 
 .product-card .orig-price {
     text-decoration: line-through;
-    color: #888;
+    color: #858585;
     font-size: 13px;
 }
 
 .product-card .sell-price {
-    color: #e63946;
+    color: #313131;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 19px;
 }
 
 #loading {
