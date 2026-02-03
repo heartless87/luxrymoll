@@ -30,16 +30,20 @@ input[type]:checked ~ span.top { transform: rotate(45deg); transform-origin: top
 input[type]:checked ~ span.bottom { transform: rotate(-45deg); transform-origin: top left; width: 32px; bottom: -5px; /*box-shadow: 0 0 10px #495057;*/ }
 input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 .banner {
-    margin: 20px 20px 10px;
+    margin: 20px;
     background: #000;
     color: white;
     border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+    display: block;          /* ✅ */
+    width: 100%;             /* ✅ */
+    max-width: 100%;
+    min-height: 120px;       /* ✅ */
     position: relative;
 }
-
+.banner ins.adsbygoogle {
+    display: block !important;
+    width: 100% !important;
+}
 .categories {
     display: flex;
     overflow-x: auto;
