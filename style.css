@@ -283,8 +283,8 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 
 .loader {
   fill: none;
-  stroke: #106ee8;
-  stroke-width: 10;
+  stroke: #f0f0f0;
+  stroke-width: 7;
   stroke-dasharray: 2, 200;
   stroke-dashoffset: 0;
   stroke-linecap: round;
