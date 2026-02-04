@@ -87,7 +87,7 @@ document.getElementById("productForm").addEventListener("submit", async function
     description: document.getElementById("productDescription").value,
     originalPrice: document.getElementById("originalPrice").value,
     sellingPrice: document.getElementById("sellingPrice").value,
-    images: base64Images
+    images: base64Images,
     sellerEmail: user.email
   };
   document.getElementById("btnText").innerText = "Saving...";
