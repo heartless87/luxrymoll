@@ -139,6 +139,12 @@
     </footer>
     <script src="listeddata.js"></script>
     <script src="listproduct.js"></script>
-
+    <script>
+      const user = JSON.parse(localStorage.getItem("luxuryUser"));
+      if (!user || !user.email) {
+        alert("Please login to list products ❌");
+        window.location.href = "profile.html#login";
+      }
+</script>
 </body>
 </html>
