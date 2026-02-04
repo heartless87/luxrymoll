@@ -71,22 +71,17 @@ function resizeAndCompress(file) {
   });
 }
 
-// ---------------- SUBMIT FORM ----------------
-const user = JSON.parse(localStorage.getItem("luxuryUser"));
-
-if (!user || !user.email) {
-  alert("Please login before listing a product ❌");
-  return;
-}
-
 document.getElementById("productForm").addEventListener("submit", async function (e) {
   e.preventDefault();
-
+  const user = JSON.parse(localStorage.getItem("luxuryUser"));
+  if (!user || !user.email) {
+    alert("Please login before listing a product ❌");
+    return;
+  }
   if (base64Images.length < 1) {
     alert("Upload at least 1 image.");
     return;
   }
-
   const productData = {
     title: document.getElementById("productTitle").value,
     description: document.getElementById("productDescription").value,
@@ -95,9 +90,7 @@ document.getElementById("productForm").addEventListener("submit", async function
     images: base64Images
     sellerEmail: user.email
   };
-
   document.getElementById("btnText").innerText = "Saving...";
-
   const res = await fetch("https://luxrymoll.vercel.app/api/addProduct", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
