@@ -37,7 +37,7 @@ export default async function handler(req, res) {
       !sellingPrice ||
       !sellerEmail ||
       !Array.isArray(images) ||
-      images.length < 1
+      images.length === 1
     ) {
       return res.status(400).json({
         success: false,
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       originalPrice: Number(originalPrice),
       sellingPrice: Number(sellingPrice),
       randomKey: Math.random(),
-      sellerEmail: data.sellerEmail,
+      sellerEmail: sellerEmail.toLowerCase(),
 
       ...imageObj,
       createdAt: new Date()
