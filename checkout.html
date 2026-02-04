@@ -238,7 +238,7 @@
             font-weight: 500;
         }
         
-        .total-row {
+        .row price {
             display: flex;
             justify-content: space-between;
             font-size: 18px;
@@ -249,7 +249,7 @@
         }
         
         /* Confirm Button */
-        .confirm-btn {
+        .card {
             display: block;
             width: 100%;
             background-color: #4a6cf7;
@@ -265,17 +265,8 @@
             text-decoration: none;
         }
         
-        .confirm-btn:hover {
+        .card:hover {
             background-color: #3a5ce5;
-        }
-        
-        /* Footer Note */
-        .footer-note {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-top: 20px;
-            padding: 0 20px;
         }
         
         /* Responsive Design */
@@ -379,28 +370,14 @@
         </div>
         
         <!-- Order Summary Section -->
-        <div class="order-summary">
-            <div class="order-title">Items (3)</div>
-            <div class="order-details">
-                <div class="order-row">
-                    <span class="order-label">Delivery Fee</span>
-                    <span class="order-value">₮2.00</span>
-                </div>
-                <div class="order-row">
-                    <span class="order-label">Tax</span>
-                    <span class="order-value">₮1.50</span>
-                </div>
-                <div class="order-row">
-                    <span class="order-label">Subtotal</span>
-                    <span class="order-value">₮25.68</span>
-                </div>
-                <div class="total-row">
-                    <span>Total Price</span>
-                    <span>₮29.18</span>
-                </div>
-            </div>
-            <a href="#" class="confirm-btn">Confirm</a>
+        <div class="card">
+          <div class="row"><span>Items</span><span id="itemsTotal"></span></div>
+          <div class="row"><span>Delivery Fee</span><span>₹50</span></div>
+          <hr>
+          <div class="row price"><span>Total</span><span id="finalTotal"></span></div>
         </div>
+      
+        <button class="confirm-btn">Confirm</button>
     </div>
     
     <script>
