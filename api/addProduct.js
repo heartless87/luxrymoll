@@ -27,19 +27,21 @@ export default async function handler(req, res) {
       description,
       originalPrice,
       sellingPrice,
-      images
+      images,
+      sellerEmail
     } = req.body || {};
     if (
       !title ||
       !description ||
       !originalPrice ||
       !sellingPrice ||
+      !sellerEmail ||
       !Array.isArray(images) ||
-      images.length === 0
+      images.length < 1
     ) {
       return res.status(400).json({
         success: false,
-        message: "Invalid product data"
+        message: "Login required & valid product data needed"
       });
     }
     const imageObj = {};
@@ -53,6 +55,7 @@ export default async function handler(req, res) {
       originalPrice: Number(originalPrice),
       sellingPrice: Number(sellingPrice),
       randomKey: Math.random(),
+      sellerEmail: data.sellerEmail,
 
       ...imageObj,
       createdAt: new Date()
