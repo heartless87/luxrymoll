@@ -74,7 +74,7 @@ function resizeAndCompress(file) {
 document.getElementById("productForm").addEventListener("submit", async function (e) {
   e.preventDefault();
   const user = JSON.parse(localStorage.getItem("luxuryUser"));
-  if (!user || !user.email) {
+  if (!name || !email) {
     alert("Please login before listing a product ❌");
     return;
   }
@@ -88,7 +88,7 @@ document.getElementById("productForm").addEventListener("submit", async function
     originalPrice: document.getElementById("originalPrice").value,
     sellingPrice: document.getElementById("sellingPrice").value,
     images: base64Images
-    sellerEmail: user.email
+    sellerEmail: email
   };
   document.getElementById("btnText").innerText = "Saving...";
   const res = await fetch("https://luxrymoll.vercel.app/api/addProduct", {
