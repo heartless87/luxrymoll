@@ -72,6 +72,12 @@ function resizeAndCompress(file) {
 }
 
 // ---------------- SUBMIT FORM ----------------
+const user = JSON.parse(localStorage.getItem("luxuryUser"));
+
+if (!user || !user.email) {
+  alert("Please login before listing a product ❌");
+  return;
+}
 
 document.getElementById("productForm").addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -87,6 +93,7 @@ document.getElementById("productForm").addEventListener("submit", async function
     originalPrice: document.getElementById("originalPrice").value,
     sellingPrice: document.getElementById("sellingPrice").value,
     images: base64Images
+    sellerEmail: user.email
   };
 
   document.getElementById("btnText").innerText = "Saving...";
