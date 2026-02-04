@@ -25,127 +25,23 @@
         .product-image img { width: 60px; height: 60px; object-fit: contain; }
         .address-info { flex: 1; }
         .address-text { font-size: 16px; line-height: 1.5; } 
-        .edit-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #f0f5ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4a6cf7;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .edit-icon:hover {
-            background-color: #e1e9ff;
-        }
-        
-        /* Payment Method Section */
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 10px;
-        }
-        
-        .payment-option {
-            padding: 16px;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .payment-option:hover {
-            border-color: #4a6cf7;
-            background-color: #f8faff;
-        }
-        
-        .payment-option i {
-            font-size: 24px;
-            margin-right: 12px;
-            color: #4a6cf7;
-        }
-        
-        .payment-option.active {
-            border-color: #4a6cf7;
-            background-color: #f0f5ff;
-        }
-        
-        .payment-name {
-            font-weight: 500;
-        }
-        
-        /* Order Summary Section */
-        .order-summary {
-            padding: 24px;
-        }
-        
-        .order-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #222;
-        }
-        
-        .order-details {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .order-row {
-            display: flex;
-            justify-content: space-between;
-            padding-bottom: 8px;
-            border-bottom: 1px dashed #eee;
-        }
-        
-        .order-label {
-            color: #666;
-        }
-        
-        .order-value {
-            font-weight: 500;
-        }
-        
-        .row price {
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
-            font-weight: 700;
-            color: #222;
-            padding-top: 10px;
-            border-top: 2px solid #eee;
-        }
-        
-        /* Confirm Button */
-        .confirm-btn {
-            display: block;
-            width: 100%;
-            background-color: #4a6cf7;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 18px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: center;
-            text-decoration: none;
-        }
-        
-        .confirm-btn:hover {
-            background-color: #3a5ce5;
-        }
-        
-        /* Responsive Design */
+        .edit-icon { width: 40px; height: 40px; background-color: #f0f5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4a6cf7; cursor: pointer; transition: background-color 0.2s; }
+        .edit-icon:hover { background-color: #e1e9ff; }
+        .payment-methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 10px; } 
+        .payment-option { padding: 16px; border: 1.5px solid #e0e0e0; border-radius: 10px; display: flex; align-items: center; cursor: pointer; transition: all 0.2s; }
+        .payment-option:hover { border-color: #4a6cf7; background-color: #f8faff; }
+        .payment-option i { font-size: 24px; margin-right: 12px; color: #4a6cf7; }
+        .payment-option.active { border-color: #4a6cf7; background-color: #f0f5ff; }
+        .payment-name { font-weight: 500; }
+        .order-summary { padding: 24px; }
+        .order-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #222; }
+        .order-details { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+        .order-row { display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #eee; } 
+        .order-label { color: #666; }
+        .order-value { font-weight: 500; }
+        .row price { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; color: #222; padding-top: 10px; border-top: 2px solid #eee; }
+        .confirm-btn { display: block; width: 100%; background-color: #4a6cf7; color: white; border: none; border-radius: 10px; padding: 18px; font-size: 18px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; text-align: center; text-decoration: none; }
+        .confirm-btn:hover { background-color: #3a5ce5; }
         @media (max-width: 600px) {
             .container {
                 border-radius: 0;
@@ -174,7 +70,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header with back arrow, title and profile icon -->
         <div class="header">
             <div class="back-arrow">
                 <i class="fas fa-chevron-left"></i>
@@ -182,8 +77,6 @@
             <div class="header-title">Checkout</div>
             <div class="profile-icon">JS</div>
         </div>
-        
-        <!-- Delivery Method Section -->
         <div class="section">
             <div class="section-title">
                 <i class="fas fa-shipping-fast"></i>
@@ -199,8 +92,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Address Section -->
         <div class="section">
             <div class="section-title">
                 <i class="fas fa-map-marker-alt"></i>
@@ -210,7 +101,7 @@
                 <div class="address-info">
                     <div class="address-text">
                         NY, United States<br>
-                        300 Post Street 122422
+                        300 Post Street 1
                     </div>
                 </div>
                 <div class="edit-icon">
