@@ -11,7 +11,7 @@ nav ul li a{ text-decoration: none; color: #fff; }
     nav ul{ position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; text-align: center; background: #004274; gap: 0; overflow: hidden; max-height: 0; } 
     nav ul li{ padding: 20px; } 
     .menu-icon{ display: block; } 
-    #menuList{ transition: all 0.5s; display: block; } 
+    #menuList{ transition: all 0.5s; } 
 }
 .header-wrap { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; position: relative; }
 .search-bar { max-width: 600px; width: 100%; margin: 0 auto; flex: none; display: flex; align-items: center; gap: 12px; background: #f4f4f4; padding: 12px 18px; border-radius: 15px; }
