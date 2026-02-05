@@ -14,3 +14,4 @@ document.getElementById("itemsTotal").innerText = "₹" + itemsTotal;
 document.getElementById("finalTotal").innerText = "₹" + finalTotal;
 document.getElementById("productImage").src = data.image;
 document.getElementById("section-title").innerText = data.title;
+document.getElementById("delivery-type").innerText = data.desc;
