@@ -15,3 +15,26 @@ document.getElementById("finalTotal").innerText = "₹" + finalTotal;
 document.getElementById("productImage").src = data.image;
 document.getElementById("section-title").innerText = data.title;
 document.getElementById("delivery-type").innerText = data.desc;
+const user = JSON.parse(localStorage.getItem("luxuryUser"));
+
+if (user && user.email) {
+  fetch(
+    `https://luxrymoll.vercel.app/api/getFirstAddress?email=${encodeURIComponent(user.email)}`
+  )
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success || !data.address) return;
+
+      const a = data.address;
+
+      const sentence =
+        `${a.fullName}, ` +
+        `${a.address1} ${a.address2 || ""}, ` +
+        `${a.city} - ${a.zip}, ` +
+        `Phone: ${a.phone}`;
+
+      // 👇 jahan dikhana ho
+      document.getElementById("address-text").innerText = sentence;
+    })
+    .catch(() => {});
+}
