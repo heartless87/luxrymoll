@@ -383,10 +383,19 @@
         </div>
     </div>
     <script>
-    // Load saved addresses
+      const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    
+      if (!user || !user.email) {
+        window.location.href = "index.html";
+      }
+    
+      const USER_EMAIL = user.email.toLowerCase();
+      const ADDRESS_KEY = `addresses_${USER_EMAIL}`;
+    </script>
+    <script>
     function loadAddresses() {
         const list = document.getElementById("addressList");
-        const saved = JSON.parse(localStorage.getItem("addresses")) || [];
+        const saved = JSON.parse(localStorage.getItem("ADDRESS_KEY")) || [];
         list.innerHTML = "";
     
         saved.forEach((addr, index) => {
@@ -413,9 +422,9 @@
     
     // Delete Address
     function deleteAddress(index) {
-        let saved = JSON.parse(localStorage.getItem("addresses")) || [];
+        let saved = JSON.parse(localStorage.getItem("ADDRESS_KEY")) || [];
         saved.splice(index, 1);
-        localStorage.setItem("addresses", JSON.stringify(saved));
+        localStorage.setItem("ADDRESS_KEY", JSON.stringify(saved));
         loadAddresses();
     }
     
@@ -435,9 +444,9 @@
             type: document.getElementById("addressType").value
         };
     
-        let saved = JSON.parse(localStorage.getItem("addresses")) || [];
+        let saved = JSON.parse(localStorage.getItem("ADDRESS_KEY")) || [];
         saved.push(newAddr);
-        localStorage.setItem("addresses", JSON.stringify(saved));
+        localStorage.setItem("ADDRESS_KEY", JSON.stringify(saved));
     
         this.reset();
         document.getElementById("addressForm").style.display = "none";
