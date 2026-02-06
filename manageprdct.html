@@ -315,74 +315,60 @@
         <div class="products-container" id="productsContainer">
         </div>
     </div>
-
     <script>
-        const products = [
-            {
-                id: 1,
-                title: "Wireless Bluetooth Headphones",
-                description: "Noise cancelling wireless headphones with 30 hours battery life and comfortable ear cushions.",
-                image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 2999,
-                sellingPrice: 1999
-            },
-            {
-                id: 2,
-                title: "Smart Watch Fitness Tracker",
-                description: "Waterproof smartwatch with heart rate monitor, sleep tracking and multiple sports modes.",
-                image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 8999,
-                sellingPrice: 6499
-            },
-            {
-                id: 3,
-                title: "Premium Backpack",
-                description: "Durable water-resistant backpack with laptop compartment and multiple pockets for organization.",
-                image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 2499,
-                sellingPrice: 1799
-            },
-            {
-                id: 4,
-                title: "Organic Cotton T-Shirt",
-                description: "100% organic cotton t-shirt available in multiple colors, comfortable for daily wear.",
-                image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 899,
-                sellingPrice: 599
-            },
-            {
-                id: 5,
-                title: "Ceramic Coffee Mug Set",
-                description: "Set of 4 handmade ceramic mugs with ergonomic handles and beautiful glaze finish.",
-                image: "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 1599,
-                sellingPrice: 1199
-            },
-            {
-                id: 6,
-                title: "Yoga Mat Premium",
-                description: "Non-slip yoga mat with cushioning for joints, includes carrying strap and is eco-friendly.",
-                image: "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 1999,
-                sellingPrice: 1499
-            },
-            {
-                id: 7,
-                title: "Desk Lamp with Wireless Charger",
-                description: "LED desk lamp with adjustable brightness, wireless charging pad and USB ports.",
-                image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 3499,
-                sellingPrice: 2799
-            },
-            {
-                id: 8,
-                title: "Stainless Steel Water Bottle",
-                description: "Insulated stainless steel water bottle that keeps drinks cold for 24 hours or hot for 12 hours.",
-                image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
-                originalPrice: 1299,
-                sellingPrice: 999
-            }
-        ];
+    const BACKEND_URL = "https://luxrymoll.vercel.app";
+    const productsContainer = document.getElementById("productsContainer");
+    
+    document.addEventListener("DOMContentLoaded", loadMyProducts);
+    
+    async function loadMyProducts() {
+      const user = JSON.parse(localStorage.getItem("luxuryUser"));
+      if (!user || !user.email) return;
+    
+      const res = await fetch(
+        `${BACKEND_URL}/api/getMyProducts?email=${encodeURIComponent(user.email)}`
+      );
+    
+      const products = await res.json();
+    
+      productsContainer.innerHTML = "";
+    
+      if (!products.length) {
+        productsContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-box-open"></i>
+            <h3>No products listed</h3>
+            <p>Aapne abhi koi product list nahi kiya.</p>
+          </div>`;
+        return;
+      }
+    
+      products.forEach(p => {
+        productsContainer.appendChild(createProductElement(p));
+      });
+    
+      updateStats(products);
+    }
+    
+    function updateStats(products) {
+      document.querySelectorAll(".stat-value")[0].innerText = products.length;
+    
+      const totalValue = products.reduce(
+        (sum, p) => sum + Number(p.sellingPrice || 0),
+        0
+      );
+      document.querySelectorAll(".stat-value")[1].innerText =
+        "₹" + totalValue.toLocaleString("en-IN");
+    
+      const discountCount = products.filter(
+        p => p.sellingPrice < p.originalPrice
+      ).length;
+      document.querySelectorAll(".stat-value")[2].innerText = discountCount;
+    
+      document.querySelectorAll(".stat-value")[3].innerText = products.length;
+    }
+    </script>
+    <script>
 
         // Initialize the product listing
         document.addEventListener('DOMContentLoaded', function() {
