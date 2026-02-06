@@ -383,15 +383,52 @@
         </div>
     </div>
     <script>
-      const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    if (!user || !user.email) {
+      location.href = "index.html";
+    }
     
-      if (!user || !user.email) {
-        window.location.href = "index.html";
-      }
+    document.getElementById("newAddressForm")
+      .addEventListener("submit", async function (e) {
+        e.preventDefault();
     
-      const USER_EMAIL = user.email.toLowerCase();
-      const ADDRESS_KEY = `addresses_${USER_EMAIL}`;
+        const address = {
+          fullName: fullName.value,
+          phone: phone.value,
+          address1: addressLine1.value,
+          address2: addressLine2.value,
+          city: city.value,
+          state: state.value,
+          zip: zipCode.value,
+          country: country.value,
+          type: addressType.value
+        };
+    
+        const res = await fetch(
+          "https://luxrymoll.vercel.app/api/saveAddress",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: user.email,
+              address
+            })
+          }
+        );
+    
+        const result = await res.json();
+    
+        if (result.success) {
+          alert("Address saved successfully ✅");
+          this.reset();
+          addressForm.style.display = "none";
+          addAddressBtn.style.display = "block";
+        } else {
+          alert("Error saving address ❌");
+        }
+      });
     </script>
+
     <script>
     function loadAddresses() {
         const list = document.getElementById("addressList");
