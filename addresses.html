@@ -413,7 +413,7 @@
           <p>Phone: ${addr.phone}</p>
     
           <div class="address-actions">
-            <button onclick="deleteAddress(${index})">Delete</button>
+            <button onclick="deleteAddress(${addr.addressId})">Delete</button>
           </div>
         `;
     
@@ -422,18 +422,31 @@
     }
     
     /* ---------------- DELETE ADDRESS ---------------- */
-    function deleteAddress(index) {
+    function deleteAddress(addressId) {
+      // 1️⃣ Local delete
       let saved = JSON.parse(localStorage.getItem(ADDRESS_KEY)) || [];
-      saved.splice(index, 1);
+      saved = saved.filter(addr => addr.addressId !== addressId);
       localStorage.setItem(ADDRESS_KEY, JSON.stringify(saved));
       loadAddresses();
-    }
     
+      // 2️⃣ Mongo delete (safe)
+      fetch("https://luxrymoll.vercel.app/api/deleteAddress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          addressId
+        })
+      }).catch(err => {
+        console.error("Mongo delete failed:", err);
+      });
+    }
     /* ---------------- ADD ADDRESS (LOCAL + MONGO) ---------------- */
     document.getElementById("newAddressForm").addEventListener("submit", async function (e) {
       e.preventDefault();
     
       const newAddr = {
+        addressId: "addr_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
         fullName: fullName.value,
         phone: phone.value,
         address1: addressLine1.value,
