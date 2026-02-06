@@ -23,8 +23,8 @@
         <ul id="menuList">
             <li><a href="profile.html">Profile</a></li>
             <li><a href="favourites.html">Favorite</a></li>
-            <li><a href="profile.html#login">Login</a></li>
-            <li><a href="profile.html#register">Signup</a></li>
+            <li id="loginBtn"><a href="profile.html#login">Login</a></li>
+            <li id="signupBtn"><a href="profile.html#register">Signup</a></li>
         </ul>
         <div class="menu-icon">
             <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
@@ -117,8 +117,29 @@
             </svg>
         </div>
     </section>
-
+    
     <script src="script.js"></script>
-
+    <script>
+      (function () {
+        try {
+          const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    
+          const loginBtn = document.getElementById("loginBtn");
+          const signupBtn = document.getElementById("signupBtn");
+    
+          if (user && user.email) {
+            // ✅ user logged in hai → hide buttons
+            if (loginBtn) loginBtn.style.display = "none";
+            if (signupBtn) signupBtn.style.display = "none";
+          } else {
+            // ❌ user nahi hai → show buttons
+            if (loginBtn) loginBtn.style.display = "block";
+            if (signupBtn) signupBtn.style.display = "block";
+          }
+        } catch (e) {
+          console.error("Login check error:", e);
+        }
+      })();
+    </script>
 </body>
 </html>
