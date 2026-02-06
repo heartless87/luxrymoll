@@ -388,123 +388,93 @@
       location.href = "index.html";
     }
     
-    document.getElementById("newAddressForm")
-      .addEventListener("submit", async function (e) {
-        e.preventDefault();
-    
-        const address = {
-          fullName: fullName.value,
-          phone: phone.value,
-          address1: addressLine1.value,
-          address2: addressLine2.value,
-          city: city.value,
-          state: state.value,
-          zip: zipCode.value,
-          country: country.value,
-          type: addressType.value
-        };
-    
-        const res = await fetch(
-          "https://luxrymoll.vercel.app/api/saveAddress",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: user.email,
-              address
-            })
-          }
-        );
-    
-        const result = await res.json();
-    
-        if (result.success) {
-          alert("Address saved successfully ✅");
-          this.reset();
-          addressForm.style.display = "none";
-          addAddressBtn.style.display = "block";
-        } else {
-          alert("Error saving address ❌");
-        }
-      });
-    </script>
-
-    <script>
+    const ADDRESS_KEY = `addresses_${user.email.toLowerCase()}`;
     function loadAddresses() {
-        const list = document.getElementById("addressList");
-        const saved = JSON.parse(localStorage.getItem("ADDRESS_KEY")) || [];
-        list.innerHTML = "";
+      const list = document.getElementById("addressList");
+      const saved = JSON.parse(localStorage.getItem(ADDRESS_KEY)) || [];
+      list.innerHTML = "";
     
-        saved.forEach((addr, index) => {
-            const card = document.createElement("div");
-            card.className = "address-card";
+      if (!saved.length) {
+        list.innerHTML = "<p>No address saved yet.</p>";
+        return;
+      }
     
-            card.innerHTML = `
-                <span class="address-type">${addr.type}</span>
-                <h3>${addr.fullName}</h3>
-                <p>${addr.address1}</p>
-                <p>${addr.address2 || ""}</p>
-                <p>${addr.city}, ${addr.state} - ${addr.zip}</p>
-                <p>${addr.country}</p>
-                <p>Phone: ${addr.phone}</p>
+      saved.forEach((addr, index) => {
+        const card = document.createElement("div");
+        card.className = "address-card";
     
-                <div class="address-actions">
-                    <button onclick="deleteAddress(${index})">Delete</button>
-                </div>
-            `;
+        card.innerHTML = `
+          <span class="address-type">${addr.type}</span>
+          <h3>${addr.fullName}</h3>
+          <p>${addr.address1}</p>
+          <p>${addr.address2 || ""}</p>
+          <p>${addr.city}, ${addr.state} - ${addr.zip}</p>
+          <p>${addr.country}</p>
+          <p>Phone: ${addr.phone}</p>
     
-            list.appendChild(card);
-        });
+          <div class="address-actions">
+            <button onclick="deleteAddress(${index})">Delete</button>
+          </div>
+        `;
+    
+        list.appendChild(card);
+      });
     }
     
-    // Delete Address
+    /* ---------------- DELETE ADDRESS ---------------- */
     function deleteAddress(index) {
-        let saved = JSON.parse(localStorage.getItem("ADDRESS_KEY")) || [];
-        saved.splice(index, 1);
-        localStorage.setItem("ADDRESS_KEY", JSON.stringify(saved));
-        loadAddresses();
+      let saved = JSON.parse(localStorage.getItem(ADDRESS_KEY)) || [];
+      saved.splice(index, 1);
+      localStorage.setItem(ADDRESS_KEY, JSON.stringify(saved));
+      loadAddresses();
     }
     
-    // Add New Address
-    document.getElementById("newAddressForm").addEventListener("submit", function(e) {
-        e.preventDefault();
+    /* ---------------- ADD ADDRESS (LOCAL + MONGO) ---------------- */
+    document.getElementById("newAddressForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
     
-        const newAddr = {
-            fullName: document.getElementById("fullName").value,
-            phone: document.getElementById("phone").value,
-            address1: document.getElementById("addressLine1").value,
-            address2: document.getElementById("addressLine2").value,
-            city: document.getElementById("city").value,
-            state: document.getElementById("state").value,
-            zip: document.getElementById("zipCode").value,
-            country: document.getElementById("country").value,
-            type: document.getElementById("addressType").value
-        };
+      const newAddr = {
+        fullName: fullName.value,
+        phone: phone.value,
+        address1: addressLine1.value,
+        address2: addressLine2.value,
+        city: city.value,
+        state: state.value,
+        zip: zipCode.value,
+        country: country.value,
+        type: addressType.value
+      };
     
-        let saved = JSON.parse(localStorage.getItem("ADDRESS_KEY")) || [];
-        saved.push(newAddr);
-        localStorage.setItem("ADDRESS_KEY", JSON.stringify(saved));
+      // ✅ Save to localStorage (instant UI)
+      let saved = JSON.parse(localStorage.getItem(ADDRESS_KEY)) || [];
+      saved.push(newAddr);
+      localStorage.setItem(ADDRESS_KEY, JSON.stringify(saved));
+      loadAddresses();
     
-        this.reset();
-        document.getElementById("addressForm").style.display = "none";
-        document.getElementById("addAddressBtn").style.display = "block";
+      // ✅ Save to MongoDB (background)
+      fetch("https://luxrymoll.vercel.app/api/saveAddress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          address: newAddr
+        })
+      }).catch(() => {});
     
-        loadAddresses();
+      this.reset();
+      addressForm.style.display = "none";
+      addAddressBtn.style.display = "block";
     });
+    addAddressBtn.onclick = () => {
+      addressForm.style.display = "block";
+      addAddressBtn.style.display = "none";
+    };
     
-    document.getElementById("addAddressBtn").addEventListener("click", () => {
-        document.getElementById("addressForm").style.display = "block";
-        document.getElementById("addAddressBtn").style.display = "none";
-    });
-    
-    document.getElementById("cancelBtn").addEventListener("click", () => {
-        document.getElementById("addressForm").style.display = "none";
-        document.getElementById("addAddressBtn").style.display = "block";
-    });
-    
-    // Load on start
+    cancelBtn.onclick = () => {
+      addressForm.style.display = "none";
+      addAddressBtn.style.display = "block";
+    };
     loadAddresses();
     </script>
-
 </body>
 </html>
