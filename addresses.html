@@ -480,7 +480,37 @@
       addressForm.style.display = "none";
       addAddressBtn.style.display = "block";
     };
-    loadAddresses();
+    syncAddressesFromMongo();
     </script>
+    <script>
+    async function syncAddressesFromMongo() {
+      const list = document.getElementById("addressList");
+      list.innerHTML = "<p>Loading addresses...</p>";
+    
+      try {
+        const res = await fetch(
+          `https://luxrymoll.vercel.app/api/getAddresses?email=${encodeURIComponent(user.email)}`
+        );
+    
+        const data = await res.json();
+    
+        if (!data.success || !Array.isArray(data.addresses)) {
+          list.innerHTML = "<p>No address saved yet.</p>";
+          return;
+        }
+    
+        // ✅ Mongo → localStorage sync
+        localStorage.setItem(ADDRESS_KEY, JSON.stringify(data.addresses));
+    
+        // ✅ Render
+        loadAddresses();
+    
+      } catch (err) {
+        console.error("Mongo sync failed:", err);
+        list.innerHTML = "<p>Error loading addresses</p>";
+      }
+    }
+    </script>
+
 </body>
 </html>
