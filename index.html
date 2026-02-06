@@ -128,11 +128,9 @@
           const signupBtn = document.getElementById("signupBtn");
     
           if (user && user.email) {
-            // ✅ user logged in hai → hide buttons
             if (loginBtn) loginBtn.style.display = "none";
             if (signupBtn) signupBtn.style.display = "none";
           } else {
-            // ❌ user nahi hai → show buttons
             if (loginBtn) loginBtn.style.display = "block";
             if (signupBtn) signupBtn.style.display = "block";
           }
