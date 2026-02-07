@@ -70,6 +70,9 @@
 <script>
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 const PLACEHOLDER = "/placeholder.png";
+let images = [];
+let index = 0;
+let BASE_PRICE = 0;
 function convertImg(str) {
   if (!str) return PLACEHOLDER;
   const s = String(str).trim();
@@ -78,15 +81,28 @@ function convertImg(str) {
   if (s.startsWith("iVBOR")) return `data:image/png;base64,${s}`;
   return `data:image/jpeg;base64,${s}`;
 }
-function decQty() {
-  const q = document.getElementById("qty");
-  if (+q.innerText > 1) q.innerText--;
+function updatePrice() {
+  const qty = Number(document.getElementById("qty").innerText);
+  document.getElementById("selling").innerText = "₹" + (BASE_PRICE * qty);
 }
 function incQty() {
-  document.getElementById("qty").innerText++;
+  const q = document.getElementById("qty");
+  let val = Number(q.innerText);
+
+  if (val >= 5) return alert("Maximum quantity is 5");
+
+  q.innerText = val + 1;
+  updatePrice();
 }
-let images = [];
-let index = 0;
+function decQty() {
+  const q = document.getElementById("qty");
+  let val = Number(q.innerText);
+
+  if (val <= 1) return;
+
+  q.innerText = val - 1;
+  updatePrice();
+}
 const imgEl = document.getElementById("mainImg");
 const counterEl = document.getElementById("imgCounter");
 const nextBtn = document.getElementById("nextBtn");
@@ -111,6 +127,8 @@ async function loadProduct() {
   document.getElementById("original").innerText = "₹" + p.originalPrice;
   document.getElementById("desc").innerText =
     p.description || "No description available";
+  BASE_PRICE = Number(p.sellingPrice);
+  document.getElementById("selling").innerText = "₹" + BASE_PRICE;  
   images = (p.images || []).map(convertImg);
   if (!images.length) images = [PLACEHOLDER];
   index = 0;
