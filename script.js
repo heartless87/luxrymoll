@@ -77,6 +77,27 @@ async function loadProducts() {
           <span class="sell-price">₹${p.sellingPrice}</span>
         </div>
       `;
+      const heart = div.querySelector(".ui-bookmark");
+      heart.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const user = JSON.parse(localStorage.getItem("luxuryUser"));
+        if (!user || !user.email) {
+          alert("Please login first");
+          return;
+        }
+        try {
+          await fetch("https://luxrymoll.vercel.app/api/likeProduct", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: user.email,
+              productId: p._id
+            })
+          });
+        } catch (err) {
+          console.error("Like failed", err);
+        }
+      });
       div.onclick = () => {
         location.href = "product.html?id=" + p._id;
       };
