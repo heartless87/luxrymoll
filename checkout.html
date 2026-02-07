@@ -254,7 +254,7 @@
             // Edit address functionality
             const editIcon = document.querySelector('.edit-icon');
             editIcon.addEventListener('click', function() {
-                const newAddress = prompt('Enter new address:', 'NY, United States\n300 Post Street 122422');
+                const newAddress = prompt('Enter new address:', '');
                 if (newAddress) {
                     document.querySelector('.address-text').textContent = newAddress;
                 }
