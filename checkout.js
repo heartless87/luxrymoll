@@ -4,7 +4,7 @@ if (!data) {
   location.href = "index.html";
 }
 const DELIVERY_FEE = 50;
-const itemsTotal = data.price * data.qty;
+const itemsTotal = data.price;
 const finalTotal = itemsTotal + DELIVERY_FEE;
 document.getElementById("itemsTotal").innerText = "₹" + itemsTotal;
 document.getElementById("finalTotal").innerText = "₹" + finalTotal;
