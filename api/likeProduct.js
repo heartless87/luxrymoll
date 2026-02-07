@@ -1,15 +1,20 @@
 import { connectDB } from "./db.js";
 
 export default async function handler(req, res) {
+  // 🔥 CORS — sabse upar
   res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // 🔥 Preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
+
   if (req.method !== "POST") {
     return res.status(405).json({ success: false });
   }
+
   try {
     const { email, productId } = req.body;
 
@@ -21,15 +26,10 @@ export default async function handler(req, res) {
 
     await col.updateOne(
       { email: email.toLowerCase() },
-      {
-        $addToSet: {
-          likedProducts: productId
-        }
-      },
-      { upsert: true }
+      { $addToSet: { likedProducts: productId } }
     );
 
-    return res.status(200).json({ success: true });
+    return res.json({ success: true });
 
   } catch (err) {
     console.error("Like error:", err);
