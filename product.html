@@ -38,7 +38,7 @@
         <i class="fas fa-arrow-left" onclick="history.back()"></i>
         <h3>Product Details</h3>
         <div class="right-icons">
-            <i class="fas fa-share"></i>
+            <i class="fas fa-share" id="shareBtn"></i>
             <i class="fas fa-heart"></i>
         </div>
     </div>
@@ -164,6 +164,27 @@ document.getElementById("buyNowBtn").addEventListener("click", () => {
 
   window.location.href = "checkout.html";
 });
+</script>
+<script>
+const shareBtn = document.getElementById("shareBtn");
+if (shareBtn) {
+  shareBtn.addEventListener("click", async () => {
+    const shareUrl = window.location.href;
+    const title = document.getElementById("title")?.innerText || "Product";
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: title,
+          url: shareUrl
+        });
+      } catch (err) {
+      }
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      alert("Link copied to clipboard");
+    }
+  });
+}
 </script>
 </body>
 </html>
