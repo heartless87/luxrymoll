@@ -78,15 +78,19 @@ async function loadProducts() {
         </div>
       `;
       const heart = div.querySelector(".ui-bookmark");
+      let liked = false;
       heart.addEventListener("click", async (e) => {
         e.stopPropagation();
+        if (liked) return;
         const user = JSON.parse(localStorage.getItem("luxuryUser"));
         if (!user || !user.email) {
           alert("Please login first");
           return;
         }
+        liked = true;
+        heart.querySelector("input").checked = true;
         try {
-          await fetch("https://luxrymoll.vercel.app/api/likeProduct", {
+          await fetch(`${BACKEND_URL}/api/likeProduct`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -96,6 +100,8 @@ async function loadProducts() {
           });
         } catch (err) {
           console.error("Like failed", err);
+          liked = false;
+          heart.querySelector("input").checked = false;
         }
       });
       div.onclick = () => {
