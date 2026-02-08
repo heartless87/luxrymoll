@@ -90,7 +90,7 @@ async function loadProducts() {
         liked = true;
         heart.querySelector("input").checked = true;
         try {
-          await fetch(`${BACKEND_URL}/api/likeProduct`, {
+          await fetch("https://luxrymoll.vercel.app/api/likeProduct", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
