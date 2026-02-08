@@ -4,11 +4,15 @@ let cachedClient = null;
 
 export default async function handler(req, res) {
 
-  // ✅ CORS (static)
-  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
+  // 🌍 CORS (🔥 FIXED)
+  const origin = req.headers.origin || "https://luxrymoll.shop";
+
+  res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
+  // ✅ Preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
@@ -31,33 +35,19 @@ export default async function handler(req, res) {
       await cachedClient.connect();
     }
 
-    // 🔥 Product DB → favo collection
+    // ❤️ Product DB → favo collection
     const db = cachedClient.db("Product");
     const col = db.collection("favo");
 
     const cleanEmail = email.toLowerCase();
 
-    // 🔎 email match
-    const existing = await col.findOne({ email: cleanEmail });
-
-    if (existing) {
-      // ✅ email mila → productId add karo (duplicate se bachao)
-      await col.updateOne(
-        { email: cleanEmail },
-        {
-          $addToSet: {
-            products: productId
-          }
-        }
-      );
-    } else {
-      // ✅ email nahi mila → new document
-      await col.insertOne({
-        email: cleanEmail,
-        products: [productId],
-        createdAt: new Date()
-      });
-    }
+    await col.updateOne(
+      { email: cleanEmail },
+      {
+        $addToSet: { products: productId }
+      },
+      { upsert: true }
+    );
 
     return res.status(200).json({ success: true });
 
