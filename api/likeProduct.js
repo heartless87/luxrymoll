@@ -3,37 +3,38 @@ import { MongoClient } from "mongodb";
 let cachedClient = null;
 
 export default async function handler(req, res) {
-  // 🔥 CORS (VERY IMPORTANT)
-  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
+
+  // 🌍 CORS (SAME AS register.js)
+  const origin = req.headers.origin;
+  res.setHeader("Access-Control-Allow-Origin", origin || "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // ✅ Preflight request
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
   if (req.method !== "POST") {
-    return res.status(405).json({ success: false, message: "Method not allowed" });
+    return res.status(405).json({ success: false });
   }
 
   try {
-    const { email, productId } = req.body;
+    const { email, productId } = req.body || {};
 
     if (!email || !productId) {
-      return res.status(400).json({ success: false, message: "Missing data" });
+      return res.status(400).json({ success: false });
     }
 
-    // 🔥 Mongo connect (reuse connection – Vercel friendly)
+    const uri = process.env.MONGO_URI;
+
     if (!cachedClient) {
-      cachedClient = new MongoClient(process.env.MONGO_URI);
+      cachedClient = new MongoClient(uri);
       await cachedClient.connect();
     }
 
     const db = cachedClient.db("user");
     const col = db.collection("data");
 
-    // ✅ ONLY productId add hoga, kuch delete nahi hoga
     await col.updateOne(
       { email: email.toLowerCase() },
       {
@@ -44,8 +45,9 @@ export default async function handler(req, res) {
     );
 
     return res.json({ success: true });
+
   } catch (err) {
-    console.error("LikeProduct Error:", err);
+    console.error("LIKE ERROR:", err);
     return res.status(500).json({ success: false });
   }
 }
