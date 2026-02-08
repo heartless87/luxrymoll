@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Edit Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 25px 30px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header h1 i {
+            font-size: 32px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        @media (max-width: 900px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eef1f7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: #3498db;
+        }
+        
+        /* Image Upload & Management Section */
+        .image-upload-section {
+            grid-column: 1 / -1;
+        }
+        
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .image-box {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 150px;
+            border: 2px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .image-box:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-placeholder {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 20px;
+        }
+        
+        .image-placeholder i {
+            font-size: 36px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .image-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .image-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .image-btn:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .image-btn.remove {
+            background-color: rgba(231, 76, 60, 0.8);
+        }
+        
+        .image-btn.remove:hover {
+            background-color: rgba(231, 76, 60, 1);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .price-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .discount-badge {
+            display: inline-block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        
+        /* Save Button */
+        .save-section {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+        
+        .save-btn {
+            background: linear-gradient(to right, #2ecc71, #1abc9c);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+        
+        .save-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Crop Modal */
+        .crop-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .crop-content {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .crop-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .crop-body {
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .crop-area {
+            width: 100%;
+            height: 400px;
+            background-color: #f8f9fa;
+            border: 2px dashed #ddd;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+        }
+        
+        .crop-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .crop-btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .crop-btn.apply {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .crop-btn.cancel {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        .crop-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* Image Counter */
+        .image-counter {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-edit"></i> Product Editor</h1>
+            <p>Edit product details, images, pricing and category. Save changes when done.</p>
+        </div>
+        
+        <div class="content">
+            <!-- Image Upload & Management Section -->
+            <div class="section image-upload-section">
+                <h2 class="section-title">
+                    <i class="fas fa-images"></i> Product Images
+                    <span class="image-counter">0/7</span>
+                </h2>
+                <p style="margin-bottom: 15px; color: #666;">You can upload up to 7 images. Click on an image to crop, or remove it.</p>
+                
+                <div class="image-container" id="imageContainer">
+                    <!-- Image boxes will be added here by JavaScript -->
+                    <div class="image-box" id="uploadBox">
+                        <div class="image-placeholder">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <div>Click to Upload</div>
+                            <div style="font-size: 12px; margin-top: 5px;">Max 7 images</div>
+                        </div>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Details Section -->
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-info-circle"></i> Product Details</h2>
+                
+                <div class="form-group">
+                    <label for="productTitle">Product Title</label>
+                    <input type="text" id="productTitle" value="Wireless Bluetooth Headphones with Noise Cancellation" placeholder="Enter product title">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">Product Description</label>
+                    <textarea id="productDescription" placeholder="Enter product description">Experience premium sound quality with these wireless Bluetooth headphones. Featuring active noise cancellation, 30-hour battery life, and comfortable over-ear design. Perfect for travel, work, or leisure.</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productCategory">Product Category</label>
+                    <select id="productCategory">
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion" selected>Fashion & Accessories</option>
+                        <option value="home">Home & Kitchen</option>
+                        <option value="sports">Sports & Outdoors</option>
+                        <option value="books">Books & Media</option>
+                        <option value="beauty">Beauty & Personal Care</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Pricing Section -->
+            <div class="section">
+                <h2 class="section-title"><i class="fas fa-tag"></i> Pricing Details</h2>
+                
+                <div class="price-container">
+                    <div class="form-group">
+                        <label for="originalPrice">Original Price (₹)</label>
+                        <input type="number" id="originalPrice" value="4999" placeholder="Original price">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellingPrice">Selling Price (₹)</label>
+                        <input type="number" id="sellingPrice" value="3499" placeholder="Selling price">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Discount & Savings</label>
+                    <div style="padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Discount Percentage:</span>
+                            <strong id="discountPercentage">30%</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>You Save:</span>
+                            <strong id="savingsAmount">₹1,500</strong>
+                        </div>
+                        <div id="discountBadge" class="discount-badge">30% OFF</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Save Button -->
+            <div class="save-section">
+                <button class="save-btn" id="saveButton">
+                    <i class="fas fa-save"></i> Save All Changes
+                </button>
+                <p style="margin-top: 15px; color: #7f8c8d; font-size: 14px;">All changes will be saved to the database when you click Save</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Product Edit Page • Images can be cropped, removed, or replaced • Maximum 7 images allowed</p>
+        </div>
+    </div>
+    
+    <!-- Image Crop Modal -->
+    <div class="crop-modal" id="cropModal">
+        <div class="crop-content">
+            <div class="crop-header">
+                <h2><i class="fas fa-crop-alt"></i> Crop Image</h2>
+                <button class="image-btn close-crop"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="crop-body">
+                <div class="crop-area" id="cropArea">
+                    <div style="text-align: center;">
+                        <i class="fas fa-crop-alt" style="font-size: 48px; margin-bottom: 15px;"></i>
+                        <p>Image cropping simulation</p>
+                        <p style="font-size: 14px; margin-top: 10px;">In a real application, this would be a cropping tool</p>
+                    </div>
+                </div>
+                <p>Adjust the crop area as needed, then apply the changes.</p>
+                
+                <div class="crop-controls">
+                    <button class="crop-btn cancel close-crop">Cancel</button>
+                    <button class="crop-btn apply" id="applyCrop">Apply Crop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const imageContainer = document.getElementById('imageContainer');
+        const imageUpload = document.getElementById('imageUpload');
+        const uploadBox = document.getElementById('uploadBox');
+        const cropModal = document.getElementById('cropModal');
+        const closeCropButtons = document.querySelectorAll('.close-crop');
+        const applyCropButton = document.getElementById('applyCrop');
+        const productTitle = document.getElementById('productTitle');
+        const productDescription = document.getElementById('productDescription');
+        const productCategory = document.getElementById('productCategory');
+        const originalPrice = document.getElementById('originalPrice');
+        const sellingPrice = document.getElementById('sellingPrice');
+        const discountPercentage = document.getElementById('discountPercentage');
+        const savingsAmount = document.getElementById('savingsAmount');
+        const discountBadge = document.getElementById('discountBadge');
+        const saveButton = document.getElementById('saveButton');
+        const imageCounter = document.querySelector('.image-counter');
+        
+        // Product images data
+        let productImages = [
+            {id: 1, src: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop'},
+            {id: 2, src: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w-400&h=400&fit=crop'},
+            {id: 3, src: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop'}
+        ];
+        
+        // Currently selected image for cropping
+        let selectedImageId = null;
+        
+        // Initialize the page
+        function initPage() {
+            renderImages();
+            updateDiscount();
+            updateImageCounter();
+            
+            // Add event listeners
+            uploadBox.addEventListener('click', () => imageUpload.click());
+            imageUpload.addEventListener('change', handleImageUpload);
+            
+            originalPrice.addEventListener('input', updateDiscount);
+            sellingPrice.addEventListener('input', updateDiscount);
+            
+            saveButton.addEventListener('click', saveProduct);
+            
+            closeCropButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    cropModal.style.display = 'none';
+                });
+            });
+            
+            applyCropButton.addEventListener('click', applyCrop);
+        }
+        
+        // Render product images
+        function renderImages() {
+            // Clear existing images (except upload box)
+            const boxes = imageContainer.querySelectorAll('.image-box:not(#uploadBox)');
+            boxes.forEach(box => box.remove());
+            
+            // Add product images
+            productImages.forEach(image => {
+                const imageBox = document.createElement('div');
+                imageBox.className = 'image-box';
+                imageBox.dataset.id = image.id;
+                
+                imageBox.innerHTML = `
+                    <img src="${image.src}" alt="Product Image">
+                    <div class="image-actions">
+                        <button class="image-btn crop" title="Crop Image">
+                            <i class="fas fa-crop-alt"></i>
+                        </button>
+                        <button class="image-btn remove" title="Remove Image">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                // Insert before the upload box
+                imageContainer.insertBefore(imageBox, uploadBox);
+                
+                // Add event listeners to buttons
+                const cropBtn = imageBox.querySelector('.crop');
+                const removeBtn = imageBox.querySelector('.remove');
+                
+                cropBtn.addEventListener('click', () => openCropModal(image.id));
+                removeBtn.addEventListener('click', () => removeImage(image.id));
+            });
+        }
+        
+        // Handle image upload
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            
+            if (productImages.length >= 7) {
+                alert('Maximum 7 images allowed. Please remove some images before adding new ones.');
+                return;
+            }
+            
+            for (let i = 0; i < files.length; i++) {
+                if (productImages.length >= 7) break;
+                
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const newImage = {
+                        id: Date.now() + i,
+                        src: e.target.result
+                    };
+                    
+                    productImages.push(newImage);
+                    renderImages();
+                    updateImageCounter();
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Reset file input
+            imageUpload.value = '';
+        }
+        
+        // Remove an image
+        function removeImage(id) {
+            productImages = productImages.filter(img => img.id !== id);
+            renderImages();
+            updateImageCounter();
+        }
+        
+        // Open crop modal
+        function openCropModal(id) {
+            selectedImageId = id;
+            cropModal.style.display = 'flex';
+        }
+        
+        // Apply crop (simulated)
+        function applyCrop() {
+            if (selectedImageId) {
+                // In a real app, this would apply the actual crop
+                alert('Image cropping applied! (This is a simulation)');
+                cropModal.style.display = 'none';
+            }
+        }
+        
+        // Update discount and savings
+        function updateDiscount() {
+            const original = parseFloat(originalPrice.value) || 0;
+            const selling = parseFloat(sellingPrice.value) || 0;
+            
+            if (original > 0 && selling > 0 && original > selling) {
+                const discount = ((original - selling) / original) * 100;
+                const savings = original - selling;
+                
+                discountPercentage.textContent = `${Math.round(discount)}%`;
+                savingsAmount.textContent = `₹${savings.toLocaleString('en-IN')}`;
+                discountBadge.textContent = `${Math.round(discount)}% OFF`;
+                discountBadge.style.display = 'inline-block';
+            } else {
+                discountPercentage.textContent = '0%';
+                savingsAmount.textContent = '₹0';
+                discountBadge.style.display = 'none';
+            }
+        }
+        
+        // Update image counter
+        function updateImageCounter() {
+            imageCounter.textContent = `${productImages.length}/7`;
+        }
+        
+        // Save product data
+        function saveProduct() {
+            // Collect all product data
+            const productData = {
+                title: productTitle.value,
+                description: productDescription.value,
+                category: productCategory.value,
+                originalPrice: parseFloat(originalPrice.value),
+                sellingPrice: parseFloat(sellingPrice.value),
+                discount: discountPercentage.textContent,
+                savings: savingsAmount.textContent,
+                images: productImages.length,
+                imageData: productImages
+            };
+            
+            // In a real app, you would send this data to a server
+            console.log('Product data saved:', productData);
+            
+            // Show success message
+            alert('Product changes saved successfully!');
+            
+            // Simulate saving to server
+            saveButton.innerHTML = '<i class="fas fa-check"></i> Changes Saved!';
+            saveButton.style.background = 'linear-gradient(to right, #2ecc71, #27ae60)';
+            
+            setTimeout(() => {
+                saveButton.innerHTML = '<i class="fas fa-save"></i> Save All Changes';
+                saveButton.style.background = 'linear-gradient(to right, #2ecc71, #1abc9c)';
+            }, 2000);
+        }
+        
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
