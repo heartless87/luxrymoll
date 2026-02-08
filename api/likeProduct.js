@@ -4,13 +4,11 @@ let cachedClient = null;
 
 export default async function handler(req, res) {
 
-  // 🔥 CORS — SAME for ALL requests
+  // ✅ CORS (static)
   res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  // ✅ PRE-FLIGHT (MOST IMPORTANT)
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
@@ -33,17 +31,33 @@ export default async function handler(req, res) {
       await cachedClient.connect();
     }
 
-    const db = cachedClient.db("user");
-    const col = db.collection("data");
+    // 🔥 Product DB → favo collection
+    const db = cachedClient.db("Product");
+    const col = db.collection("favo");
 
-    await col.updateOne(
-      { email: email.toLowerCase() },
-      {
-        $addToSet: {
-          likedProducts: productId
+    const cleanEmail = email.toLowerCase();
+
+    // 🔎 email match
+    const existing = await col.findOne({ email: cleanEmail });
+
+    if (existing) {
+      // ✅ email mila → productId add karo (duplicate se bachao)
+      await col.updateOne(
+        { email: cleanEmail },
+        {
+          $addToSet: {
+            products: productId
+          }
         }
-      }
-    );
+      );
+    } else {
+      // ✅ email nahi mila → new document
+      await col.insertOne({
+        email: cleanEmail,
+        products: [productId],
+        createdAt: new Date()
+      });
+    }
 
     return res.status(200).json({ success: true });
 
