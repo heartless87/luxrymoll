@@ -5,9 +5,7 @@ let cachedClient = null;
 export default async function handler(req, res) {
 
   // 🔥 CORS — SAME for ALL requests
-  const origin = req.headers.origin || "https://luxrymoll.shop";
-
-  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", "true");
