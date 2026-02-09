@@ -307,12 +307,11 @@
                             <div>Click to Upload</div>
                             <div style="font-size: 12px; margin-top: 5px;">Max 7 images</div>
                         </div>
-                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
-                        <div id="imagePreview" class="image-container"></div>
                     </div>
+                    <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                    <div id="imagePreview" class="image-container"></div>
                 </div>
             </div>
-            
             <!-- Product Details Section -->
             <div class="section">
                 <h2 class="section-title"><i class="fas fa-info-circle"></i> Product Details</h2>
@@ -371,22 +370,21 @@
                     </div>
                 </div>
             </div>
-            </form>
             <div class="save-section">
-                <button class="save-btn" type="submit" id="productForm">
+                <button class="save-btn" type="submit">
                     <i class="fas fa-save"></i> Save All Changes
                 </button>
                 <p style="margin-top: 15px; color: #7f8c8d; font-size: 14px;">All changes will be saved to the database when you click Save</p>
             </div>
         </div>
-        
+        </form>
         <div class="footer">
             <p>Product Edit Page • Images can be cropped, removed, or replaced • Maximum 7 images allowed</p>
         </div>
     </div>
     
     <!-- Image Crop Modal -->
-    <div class="crop-modal" id="cropModal">
+    <!-- <div class="crop-modal" id="cropModal">
         <div class="crop-content">
             <div class="crop-header">
                 <h2><i class="fas fa-crop-alt"></i> Crop Image</h2>
@@ -408,7 +406,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <script src="listeddata.js"></script>
     <script src="listproduct.js"></script>
     <script>
