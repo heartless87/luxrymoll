@@ -407,25 +407,41 @@
             </div>
         </div>
     </div> -->
-    <script>   
-     function updateDiscount() {
-        const original = parseFloat(originalPrice.value) || 0;
-        const selling = parseFloat(sellingPrice.value) || 0;
-        
-        if (original > 0 && selling > 0 && original > selling) {
-            const discount = ((original - selling) / original) * 100;
-            const savings = original - selling;
+    <script>
+        const imageContainer = document.getElementById('imageContainer');
+        const imageUpload = document.getElementById('imageUpload');
+        const uploadBox = document.getElementById('uploadBox');
+        const cropModal = document.getElementById('cropModal');
+        const closeCropButtons = document.querySelectorAll('.close-crop');
+        const applyCropButton = document.getElementById('applyCrop');
+        const productTitle = document.getElementById('productTitle');
+        const productDescription = document.getElementById('productDescription');
+        const productCategory = document.getElementById('productCategory');
+        const originalPrice = document.getElementById('originalPrice');
+        const sellingPrice = document.getElementById('sellingPrice');
+        const discountPercentage = document.getElementById('discountPercentage');
+        const savingsAmount = document.getElementById('savingsAmount');
+        const discountBadge = document.getElementById('discountBadge');
+        const saveButton = document.getElementById('saveButton');
+        const imageCounter = document.querySelector('.image-counter');
+         function updateDiscount() {
+            const original = parseFloat(originalPrice.value) || 0;
+            const selling = parseFloat(sellingPrice.value) || 0;
             
-            discountPercentage.textContent = `${Math.round(discount)}%`;
-            savingsAmount.textContent = `₹${savings.toLocaleString('en-IN')}`;
-            discountBadge.textContent = `${Math.round(discount)}% OFF`;
-            discountBadge.style.display = 'inline-block';
-        } else {
-            discountPercentage.textContent = '0%';
-            savingsAmount.textContent = '₹0';
-            discountBadge.style.display = 'none';
-        }
-     }
+            if (original > 0 && selling > 0 && original > selling) {
+                const discount = ((original - selling) / original) * 100;
+                const savings = original - selling;
+                
+                discountPercentage.textContent = `${Math.round(discount)}%`;
+                savingsAmount.textContent = `₹${savings.toLocaleString('en-IN')}`;
+                discountBadge.textContent = `${Math.round(discount)}% OFF`;
+                discountBadge.style.display = 'inline-block';
+            } else {
+                discountPercentage.textContent = '0%';
+                savingsAmount.textContent = '₹0';
+                discountBadge.style.display = 'none';
+            }
+         }
     </script>     
     <script src="listeddata.js"></script>
     <script src="listproduct.js"></script>
