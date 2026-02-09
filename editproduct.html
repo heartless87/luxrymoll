@@ -28,71 +28,16 @@
         .image-placeholder { text-align: center; color: #7f8c8d; padding: 20px; }
         .image-placeholder i { font-size: 36px; margin-bottom: 10px; display: block; }
         .image-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 5px; }
-        .image-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .image-btn:hover {
-            background-color: rgba(0, 0, 0, 0.9);
-            transform: scale(1.1);
-        }
-        
-        .image-btn.remove {
-            background-color: rgba(231, 76, 60, 0.8);
-        }
-        
-        .image-btn.remove:hover {
-            background-color: rgba(231, 76, 60, 1);
-        }
-        
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        input, textarea, select {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-        
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .price-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
+        .image-btn { width: 32px; height: 32px; border-radius: 50%; background-color: rgba(0, 0, 0, 0.7); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+        .image-btn:hover { background-color: rgba(0, 0, 0, 0.9); transform: scale(1.1); }
+        .image-btn.remove { background-color: rgba(231, 76, 60, 0.8); }
+        .image-btn.remove:hover { background-color: rgba(231, 76, 60, 1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: #2c3e50; }
+        input, textarea, select { width: 100%; padding: 14px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; transition: all 0.3s; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #3498db; box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); }
+        textarea { min-height: 120px; resize: vertical; }
+        .price-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .discount-badge {
             display: inline-block;
             background-color: #2ecc71;
