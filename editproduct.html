@@ -409,6 +409,18 @@
             // Reset file input
             imageUpload.value = '';
         }
+        // Remove an image
+        function removeImage(id) {
+            productImages = productImages.filter(img => img.id !== id);
+            renderImages();
+            updateImageCounter();
+        }
+        
+        // Open crop modal
+        function openCropModal(id) {
+            selectedImageId = id;
+            cropModal.style.display = 'flex';
+        }
         function updateDiscount() {
             const original = parseFloat(originalPrice.value) || 0;
             const selling = parseFloat(sellingPrice.value) || 0;
