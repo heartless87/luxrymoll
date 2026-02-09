@@ -377,6 +377,38 @@
                 removeBtn.addEventListener('click', () => removeImage(image.id));
             });
         }
+        // Handle image upload
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            
+            if (productImages.length >= 7) {
+                alert('Maximum 7 images allowed. Please remove some images before adding new ones.');
+                return;
+            }
+            
+            for (let i = 0; i < files.length; i++) {
+                if (productImages.length >= 7) break;
+                
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const newImage = {
+                        id: Date.now() + i,
+                        src: e.target.result
+                    };
+                    
+                    productImages.push(newImage);
+                    renderImages();
+                    updateImageCounter();
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Reset file input
+            imageUpload.value = '';
+        }
         function updateDiscount() {
             const original = parseFloat(originalPrice.value) || 0;
             const selling = parseFloat(sellingPrice.value) || 0;
