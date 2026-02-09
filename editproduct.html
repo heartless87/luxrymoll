@@ -481,7 +481,7 @@
                   updateImageCounter();
                 };
             
-                imageContainer.insertBefore(box, uploadBox);
+                imageContainer.insertBefore(imageBox, uploadBox);
               });
             }
                 imageBox.innerHTML = `
@@ -589,25 +589,40 @@
         }
         
         // Save product data
-        function saveProduct() {
-            // Collect all product data
-            const productData = {
-                title: productTitle.value,
-                description: productDescription.value,
-                category: productCategory.value,
-                originalPrice: parseFloat(originalPrice.value),
-                sellingPrice: parseFloat(sellingPrice.value),
-                discount: discountPercentage.textContent,
-                savings: savingsAmount.textContent,
-                images: productImages.length,
-                imageData: productImages
-            };
-            
-            // In a real app, you would send this data to a server
-            console.log('Product data saved:', productData);
-            
-            // Show success message
-            alert('Product changes saved successfully!');
+        async function saveProduct() {
+          const user = JSON.parse(localStorage.getItem("luxuryUser"));
+          if (!user || !user.email) {
+            alert("Please login first ❌");
+            return;
+          }
+        
+          if (productImages.length === 0) {
+            alert("Upload at least 1 image ❌");
+            return;
+          }
+          const payload = {
+            title: productTitle.value.trim(),
+            description: productDescription.value.trim(),
+            originalPrice: originalPrice.value,
+            sellingPrice: sellingPrice.value,
+            images: productImages.map(i => i.src),
+            sellerEmail: user.email
+          };
+          saveButton.innerHTML = "Saving...";
+          const res = await fetch("https://luxrymoll.vercel.app/api/addProduct", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (data.success) {
+            alert("Product listed successfully ✅");
+            location.href = "index.html";
+          } else {
+            alert(data.message || "Error saving product ❌");
+          }
+          saveButton.innerHTML = "Save All Changes";
+        }
             
             // Simulate saving to server
             saveButton.innerHTML = '<i class="fas fa-check"></i> Changes Saved!';
