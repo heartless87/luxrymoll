@@ -419,6 +419,7 @@
       }
     </script>
     <script>
+        let productImages = [];
         const imageContainer = document.getElementById('imageContainer');
         const imageUpload = document.getElementById('imageUpload');
         const uploadBox = document.getElementById('uploadBox');
@@ -435,15 +436,6 @@
         const discountBadge = document.getElementById('discountBadge');
         const saveButton = document.getElementById('saveButton');
         const imageCounter = document.querySelector('.image-counter');
-        
-        // Product images data
-        let productImages = [
-            {id: 1, src: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop'},
-            {id: 2, src: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w-400&h=400&fit=crop'},
-            {id: 3, src: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&h=400&fit=crop'}
-        ];
-        
-        // Currently selected image for cropping
         let selectedImageId = null;
         
         // Initialize the page
@@ -472,16 +464,26 @@
         
         // Render product images
         function renderImages() {
-            // Clear existing images (except upload box)
             const boxes = imageContainer.querySelectorAll('.image-box:not(#uploadBox)');
             boxes.forEach(box => box.remove());
-            
-            // Add product images
             productImages.forEach(image => {
                 const imageBox = document.createElement('div');
-                imageBox.className = 'image-box';
-                imageBox.dataset.id = image.id;
-                
+                box.className = "image-box";
+                box.innerHTML = `
+                  <img src="${img.src}">
+                  <div class="image-actions">
+                    <button class="image-btn remove"><i class="fas fa-trash"></i></button>
+                  </div>
+                `;
+                box.querySelector(".remove").onclick = () => {
+                  productImages = productImages.filter(i => i.id !== img.id);
+                  renderImages();
+                  updateImageCounter();
+                };
+            
+                imageContainer.insertBefore(box, uploadBox);
+              });
+            }
                 imageBox.innerHTML = `
                     <img src="${image.src}" alt="Product Image">
                     <div class="image-actions">
