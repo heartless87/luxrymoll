@@ -380,7 +380,30 @@
         const discountBadge = document.getElementById('discountBadge');
         const saveButton = document.getElementById('saveButton');
         const imageCounter = document.querySelector('.image-counter');
-         function updateDiscount() {
+        // Currently selected image for cropping
+        let selectedImageId = null;
+        
+        // Initialize the page
+        function initPage() {
+            renderImages();
+            updateDiscount();
+            updateImageCounter();
+            uploadBox.addEventListener('click', () => imageUpload.click());
+            imageUpload.addEventListener('change', handleImageUpload);
+            
+            originalPrice.addEventListener('input', updateDiscount);
+            sellingPrice.addEventListener('input', updateDiscount);
+            
+            saveButton.addEventListener('click', saveProduct);
+            
+            closeCropButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    cropModal.style.display = 'none';
+                });
+            });
+            applyCropButton.addEventListener('click', applyCrop);
+        }
+        function updateDiscount() {
             const original = parseFloat(originalPrice.value) || 0;
             const selling = parseFloat(sellingPrice.value) || 0;
             
@@ -397,7 +420,7 @@
                 savingsAmount.textContent = '₹0';
                 discountBadge.style.display = 'none';
             }
-         }
+        }
     </script>     
     <script src="listeddata.js"></script>
     <script src="listproduct.js"></script>
