@@ -289,7 +289,7 @@
             <h1><i class="fas fa-edit"></i> Product Editor</h1>
             <p>Edit product details, images, pricing and category. Save changes when done.</p>
         </div>
-        
+        <form id="productForm">
         <div class="content">
             <!-- Image Upload & Management Section -->
             <div class="section image-upload-section">
@@ -301,13 +301,14 @@
                 
                 <div class="image-container" id="imageContainer">
                     <!-- Image boxes will be added here by JavaScript -->
-                    <div class="image-box" id="uploadBox">
+                    <div class="image-box" id="uploadTrigger">
                         <div class="image-placeholder">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <div>Click to Upload</div>
                             <div style="font-size: 12px; margin-top: 5px;">Max 7 images</div>
                         </div>
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                        <div id="imagePreview" class="image-container"></div>
                     </div>
                 </div>
             </div>
@@ -370,10 +371,9 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Save Button -->
+            </form>
             <div class="save-section">
-                <button class="save-btn" id="saveButton">
+                <button class="save-btn" type="submit" id="productForm">
                     <i class="fas fa-save"></i> Save All Changes
                 </button>
                 <p style="margin-top: 15px; color: #7f8c8d; font-size: 14px;">All changes will be saved to the database when you click Save</p>
