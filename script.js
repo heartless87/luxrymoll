@@ -38,13 +38,14 @@ async function loadProducts() {
       newCount++;
       const rawImg = p.images?.[0] || "";
       const imgSrc = convertImg(rawImg) || PLACEHOLDER;
+      const isLiked = likedProducts.includes(p._id);
       const div = document.createElement("div");
       div.className = "product-card";
       div.innerHTML = `
         <div class="image-wrapper" style="position:relative;">
           <img src="${imgSrc}" alt="${p.title}">
           <label class="ui-bookmark" onclick="event.stopPropagation()">
-            <input type="checkbox" ${likedProducts.includes(p._id) ? "checked" : ""}/>
+            <input type="checkbox" ${isLiked ? "checked" : ""}/>
             <div class="bookmark-icon">
               <svg
                 viewBox="0 0 16 16"
@@ -76,31 +77,27 @@ async function loadProducts() {
         const user = JSON.parse(localStorage.getItem("luxuryUser"));
         if (!user || !user.email) {
           alert("Please login first");
+          checkbox.checked = false;
           return;
         }
         const KEY = `likedProducts_${user.email.toLowerCase()}`;
         let saved = JSON.parse(localStorage.getItem(KEY)) || [];
-        if (!saved.includes(p._id)) {
-          saved.push(p._id);
-          localStorage.setItem(KEY, JSON.stringify(saved));
-          checkbox.checked = true;
+        if (checkbox.checked) {
+          if (!saved.includes(p._id)) saved.push(p._id);
+        } else {
+          saved = saved.filter(id => id !== p._id);
         }
+        localStorage.setItem(KEY, JSON.stringify(saved));
       });
       div.onclick = () => {
         location.href = "product.html?id=" + p._id;
       };
       container.appendChild(div);
     });
-    if (newCount === 0) {
-      loader.innerText = "No more products";
-      window.removeEventListener("scroll", handleScroll);
-    } else {
-      loader.style.display = "none";
-    }
-
+    loader.style.display = newCount ? "none" : "block";
   } catch (err) {
-    console.error("Fetch Error:", err);
-    loader.innerText = "Error loading products.";
+    console.error(err);
+    loader.innerText = "Error loading products";
   } finally {
     loading = false;
   }
