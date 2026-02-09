@@ -346,6 +346,37 @@
             });
             applyCropButton.addEventListener('click', applyCrop);
         }
+        function renderImages() {
+            // Clear existing images (except upload box)
+            const boxes = imageContainer.querySelectorAll('.image-box:not(#uploadTrigger)');
+            boxes.forEach(box => box.remove());
+            // Add product images
+            productImages.forEach(image => {
+                const imageBox = document.createElement('div');
+                imageBox.className = 'image-box';
+                imageBox.dataset.id = image.id;
+                imageBox.innerHTML = `
+                    <img src="${image.src}" alt="Product Image">
+                    <div class="image-actions">
+                        <button class="image-btn crop" title="Crop Image">
+                            <i class="fas fa-crop-alt"></i>
+                        </button>
+                        <button class="image-btn remove" title="Remove Image">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                // Insert before the upload box
+                imageContainer.insertBefore(imageBox, uploadBox);
+                
+                // Add event listeners to buttons
+                const cropBtn = imageBox.querySelector('.crop');
+                const removeBtn = imageBox.querySelector('.remove');
+                
+                cropBtn.addEventListener('click', () => openCropModal(image.id));
+                removeBtn.addEventListener('click', () => removeImage(image.id));
+            });
+        }
         function updateDiscount() {
             const original = parseFloat(originalPrice.value) || 0;
             const selling = parseFloat(sellingPrice.value) || 0;
