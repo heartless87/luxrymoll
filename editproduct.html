@@ -21,57 +21,13 @@
         .section-title { font-size: 20px; font-weight: 600; color: #2c3e50; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #eef1f7; display: flex; align-items: center; gap: 10px; }
         .section-title i { color: #3498db; }
         .image-upload-section { grid-column: 1 / -1; }
-        .image-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .image-box {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            height: 150px;
-            border: 2px dashed #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f8f9fa;
-            transition: all 0.3s ease;
-        }
-        
-        .image-box:hover {
-            border-color: #3498db;
-            transform: translateY(-3px);
-        }
-        
-        .image-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .image-placeholder {
-            text-align: center;
-            color: #7f8c8d;
-            padding: 20px;
-        }
-        
-        .image-placeholder i {
-            font-size: 36px;
-            margin-bottom: 10px;
-            display: block;
-        }
-        
-        .image-actions {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            display: flex;
-            gap: 5px;
-        }
-        
+        .image-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 10px; }
+        .image-box { position: relative; border-radius: 8px; overflow: hidden; height: 150px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa; transition: all 0.3s ease; }   
+        .image-box:hover { border-color: #3498db; transform: translateY(-3px); }
+        .image-box img { width: 100%; height: 100%; object-fit: cover; }
+        .image-placeholder { text-align: center; color: #7f8c8d; padding: 20px; }
+        .image-placeholder i { font-size: 36px; margin-bottom: 10px; display: block; }
+        .image-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 5px; }
         .image-btn {
             width: 32px;
             height: 32px;
@@ -308,7 +264,7 @@
                             <div style="font-size: 12px; margin-top: 5px;">Max 7 images</div>
                         </div>
                     </div>
-                    <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
                     <div id="imagePreview" class="image-container"></div>
                 </div>
             </div>
@@ -410,7 +366,7 @@
     <script>
         const imageContainer = document.getElementById('imageContainer');
         const imageUpload = document.getElementById('imageUpload');
-        const uploadBox = document.getElementById('uploadBox');
+        const uploadTrigger = document.getElementById('uploadTrigger');
         const cropModal = document.getElementById('cropModal');
         const closeCropButtons = document.querySelectorAll('.close-crop');
         const applyCropButton = document.getElementById('applyCrop');
