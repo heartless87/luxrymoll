@@ -472,9 +472,16 @@
             </div>
         </div>
     </div>
-
+    <script src="listeddata.js"></script>
+    <script src="listproduct.js"></script>
     <script>
-        // DOM Elements
+      const user = JSON.parse(localStorage.getItem("luxuryUser"));
+      if (!user || !user.email) {
+        alert("Please login to list products ❌");
+        window.location.href = "profile.html#login";
+      }
+    </script>
+    <script>
         const imageContainer = document.getElementById('imageContainer');
         const imageUpload = document.getElementById('imageUpload');
         const uploadBox = document.getElementById('uploadBox');
