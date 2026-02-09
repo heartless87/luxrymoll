@@ -407,6 +407,26 @@
             </div>
         </div>
     </div> -->
+    <script>   
+     function updateDiscount() {
+            const original = parseFloat(originalPrice.value) || 0;
+            const selling = parseFloat(sellingPrice.value) || 0;
+            
+            if (original > 0 && selling > 0 && original > selling) {
+                const discount = ((original - selling) / original) * 100;
+                const savings = original - selling;
+                
+                discountPercentage.textContent = `${Math.round(discount)}%`;
+                savingsAmount.textContent = `₹${savings.toLocaleString('en-IN')}`;
+                discountBadge.textContent = `${Math.round(discount)}% OFF`;
+                discountBadge.style.display = 'inline-block';
+            } else {
+                discountPercentage.textContent = '0%';
+                savingsAmount.textContent = '₹0';
+                discountBadge.style.display = 'none';
+            }
+        }
+    </script>     
     <script src="listeddata.js"></script>
     <script src="listproduct.js"></script>
     <script>
