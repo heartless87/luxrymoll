@@ -318,111 +318,7 @@
         </header>
         
         <div class="favorites-container">
-            <div class="favorite-item">
-                <!-- <div class="item-image">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <div class="item-info">
-                    <div class="item-name">iPhone 15 Pro</div>
-                    <div class="price-container">
-                        <div class="current-price">$900</div>
-                        <div class="original-price">$400</div>
-                        <div class="discount-badge">-55%</div>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div> -->
-            
-            <!-- <div class="favorite-item">
-                <div class="item-image">
-                    <i class="fas fa-shoe-prints"></i>
-                </div>
-                <div class="item-info">
-                    <div class="item-name">Nike Shoes</div>
-                    <div class="price-container">
-                        <div class="current-price">$250</div>
-                        <div class="original-price">$300</div>
-                        <div class="discount-badge">-17%</div>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
-            
-            <div class="divider"></div> -->
-            
-            <!-- <div class="favorite-item">
-                <div class="item-image">
-                    <i class="far fa-clock"></i>
-                </div>
-                <div class="item-info">
-                    <div class="item-name">Hand clock</div>
-                    <div class="price-container">
-                        <div class="current-price">$250</div>
-                        <div class="original-price">$300</div>
-                        <div class="discount-badge">-17%</div>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
-            
-            <div class="favorite-item">
-                <div class="item-image">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <div class="item-info">
-                    <div class="item-name">iPhone 13 Pro</div>
-                    <div class="price-container"> -->
-                        <!-- <div class="current-price">$800</div>
-                        <div class="original-price">$1000</div>
-                        <div class="discount-badge">-20%</div>
-                        <div class="status-badge">Best Seller</div>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div>
-            
-            <!-- Additional items for demonstration -->
-            <!-- <div class="favorite-item">
-                <div class="item-image">
-                    <i class="fas fa-headphones"></i>
-                </div>
-                <div class="item-info">
-                    <div class="item-name">Wireless Headphones</div>
-                    <div class="price-container">
-                        <div class="current-price">$150</div>
-                        <div class="original-price">$200</div>
-                        <div class="discount-badge">-25%</div>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-            </div> -->
-            
-            <!-- <div class="favorite-item">
-                <div class="item-image">
-                    <i class="fas fa-laptop"></i>
-                </div>
-                <div class="item-info">
-                    <div class="item-name">MacBook Pro</div>
-                    <div class="price-container">
-                        <div class="current-price">$1999</div>
-                        <div class="original-price">$2299</div>
-                        <div class="discount-badge">-13%</div>
-                    </div>
-                </div>
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div> -->
-            <!-- </div> -->
+            <div class="favorite-item">   
         </div>
     </div>
 
@@ -511,14 +407,14 @@
         
         loadFavorites();
         // Add some interactivity
-        // document.querySelectorAll('.favorite-item').forEach(item => {
-        //     item.addEventListener('click', function() {
-        //         this.style.backgroundColor = '#f8f8f8';
-        //         setTimeout(() => {
-        //             this.style.backgroundColor = 'white';
-        //         }, 200);
-        //     });
-        // });
+        document.querySelectorAll('.favorite-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.backgroundColor = '#f8f8f8';
+                setTimeout(() => {
+                    this.style.backgroundColor = 'white';
+                }, 200);
+            });
+        });
         
         // document.querySelectorAll('.nav-item').forEach(item => {
         //     item.addEventListener('click', function() {
