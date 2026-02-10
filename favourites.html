@@ -427,41 +427,124 @@
     </div>
 
     <script>
-        // Add some interactivity
-        document.querySelectorAll('.favorite-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.backgroundColor = '#f8f8f8';
-                setTimeout(() => {
-                    this.style.backgroundColor = 'white';
-                }, 200);
-            });
-        });
+        const user = JSON.parse(localStorage.getItem("luxuryUser"));
         
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('active');
-                });
-                this.classList.add('active');
-            });
-        });
+        if (!user || !user.email) {
+          alert("Please login first");
+          location.href = "index.html";
+        }
         
-        // Heart icon toggle functionality
-        document.querySelectorAll('.heart-icon').forEach(icon => {
-            icon.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent triggering the item click
-                const heart = this.querySelector('i');
-                if (heart.classList.contains('fas')) {
-                    heart.classList.remove('fas');
-                    heart.classList.add('far');
-                    this.style.color = '#8e8e93';
-                } else {
-                    heart.classList.remove('far');
-                    heart.classList.add('fas');
-                    this.style.color = '#ff3b30';
+        const LIKE_KEY = `likedProducts_${user.email.toLowerCase()}`;
+        const likedIds = JSON.parse(localStorage.getItem(LIKE_KEY)) || [];
+        
+        const container = document.querySelector(".favorites-container");
+        
+        async function loadFavorites() {
+          if (!likedIds.length) {
+            container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
+            return;
+          }
+        
+          try {
+            const res = await fetch("https://luxrymoll.vercel.app/api/getProducts");
+            const products = await res.json();
+        
+            const favProducts = products.filter(p =>
+              likedIds.includes(p._id)
+            );
+        
+            container.innerHTML = "";
+        
+            favProducts.forEach(p => {
+              const img =
+                p.images?.[0]
+                  ? p.images[0].startsWith("data:image/")
+                    ? p.images[0]
+                    : `data:image/jpeg;base64,${p.images[0]}`
+                  : "";
+        
+              const card = document.createElement("div");
+              card.className = "favorite-item";
+        
+              card.innerHTML = `
+                <img class="item-image" src="${img}" alt="${p.title}">
+                <div class="item-info">
+                  <div class="item-name">${p.title}</div>
+                  <div class="price-container">
+                    <div class="current-price">₹${p.sellingPrice}</div>
+                    <div class="original-price">₹${p.originalPrice}</div>
+                  </div>
+                </div>
+                <div class="heart-icon">
+                  <i class="fas fa-heart"></i>
+                </div>
+              `;
+        
+              /* 💔 UNLIKE */
+              card.querySelector(".heart-icon").onclick = (e) => {
+                e.stopPropagation();
+        
+                let updated = JSON.parse(localStorage.getItem(LIKE_KEY)) || [];
+                updated = updated.filter(id => id !== p._id);
+                localStorage.setItem(LIKE_KEY, JSON.stringify(updated));
+        
+                card.remove();
+        
+                if (!updated.length) {
+                  container.innerHTML =
+                    "<p style='text-align:center'>No favorites yet ❤️</p>";
                 }
+              };
+        
+              /* 👉 product page */
+              card.onclick = () => {
+                location.href = "product.html?id=" + p._id;
+              };
+        
+              container.appendChild(card);
             });
-        });
+          } catch (err) {
+            console.error(err);
+            container.innerHTML = "<p>Error loading favorites</p>";
+          }
+        }
+        
+        loadFavorites();
+        // Add some interactivity
+        // document.querySelectorAll('.favorite-item').forEach(item => {
+        //     item.addEventListener('click', function() {
+        //         this.style.backgroundColor = '#f8f8f8';
+        //         setTimeout(() => {
+        //             this.style.backgroundColor = 'white';
+        //         }, 200);
+        //     });
+        // });
+        
+        // document.querySelectorAll('.nav-item').forEach(item => {
+        //     item.addEventListener('click', function() {
+        //         document.querySelectorAll('.nav-item').forEach(nav => {
+        //             nav.classList.remove('active');
+        //         });
+        //         this.classList.add('active');
+        //     });
+        // });
+        
+        // // Heart icon toggle functionality
+        // document.querySelectorAll('.heart-icon').forEach(icon => {
+        //     icon.addEventListener('click', function(e) {
+        //         e.stopPropagation(); // Prevent triggering the item click
+        //         const heart = this.querySelector('i');
+        //         if (heart.classList.contains('fas')) {
+        //             heart.classList.remove('fas');
+        //             heart.classList.add('far');
+        //             this.style.color = '#8e8e93';
+        //         } else {
+        //             heart.classList.remove('far');
+        //             heart.classList.add('fas');
+        //             this.style.color = '#ff3b30';
+        //         }
+        //     });
+        // });
     </script>
 </body>
 </html>
