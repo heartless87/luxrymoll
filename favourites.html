@@ -416,31 +416,31 @@
             });
         });
         
-        // document.querySelectorAll('.nav-item').forEach(item => {
-        //     item.addEventListener('click', function() {
-        //         document.querySelectorAll('.nav-item').forEach(nav => {
-        //             nav.classList.remove('active');
-        //         });
-        //         this.classList.add('active');
-        //     });
-        // });
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
         
-        // // Heart icon toggle functionality
-        // document.querySelectorAll('.heart-icon').forEach(icon => {
-        //     icon.addEventListener('click', function(e) {
-        //         e.stopPropagation(); // Prevent triggering the item click
-        //         const heart = this.querySelector('i');
-        //         if (heart.classList.contains('fas')) {
-        //             heart.classList.remove('fas');
-        //             heart.classList.add('far');
-        //             this.style.color = '#8e8e93';
-        //         } else {
-        //             heart.classList.remove('far');
-        //             heart.classList.add('fas');
-        //             this.style.color = '#ff3b30';
-        //         }
-        //     });
-        // });
+        // Heart icon toggle functionality
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent triggering the item click
+                const heart = this.querySelector('i');
+                if (heart.classList.contains('fas')) {
+                    heart.classList.remove('fas');
+                    heart.classList.add('far');
+                    this.style.color = '#8e8e93';
+                } else {
+                    heart.classList.remove('far');
+                    heart.classList.add('fas');
+                    this.style.color = '#ff3b30';
+                }
+            });
+        });
     </script>
 </body>
 </html>
