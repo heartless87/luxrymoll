@@ -11,6 +11,7 @@ document.getElementById("finalTotal").innerText = "₹" + finalTotal;
 document.getElementById("productImage").src = data.image;
 document.getElementById("section-title").innerText = data.title;
 document.getElementById("delivery-type").innerText = data.desc;
+document.getElementById("quantity").innerText = data.qty;
 const user = JSON.parse(localStorage.getItem("luxuryUser"));
 if (user && user.email) {
   const ADDRESS_KEY = `addresses_${user.email.toLowerCase()}`;
