@@ -54,7 +54,7 @@ async function loadProducts() {
   }
 }
 
-function createProductCard(product, imgSrc, isLiked) {
+function createProductCard(p, imgSrc, isLiked) {
   const div = document.createElement("div");
   div.className = "product-card";
   div.innerHTML = `
