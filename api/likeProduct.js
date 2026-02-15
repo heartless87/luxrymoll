@@ -5,16 +5,9 @@ let cachedClient = null;
 export default async function handler(req, res) {
 
   // 🌍 CORS (🔥 FIXED)
-  const origin = req.headers.origin || "https://luxrymoll.shop";
-
-  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   // ✅ Preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
