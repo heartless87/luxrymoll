@@ -101,7 +101,7 @@ function createProductCard(p, imgSrc, isLiked) {
     try {
       if (checkbox.checked) {
         if (!saved.includes(product._id)) {
-          saved.push(product._id);
+          saved.push(p._id);
         }
         await fetch(`${BACKEND_URL}/api/likeProduct`, {
           method: "POST",
@@ -110,7 +110,7 @@ function createProductCard(p, imgSrc, isLiked) {
           },
           body: JSON.stringify({
             email: user.email,
-            productId: product._id,
+            productId: p._id,
           }),
         });
       } else {
@@ -123,7 +123,7 @@ function createProductCard(p, imgSrc, isLiked) {
     }
   });
   div.addEventListener("click", () => {
-    location.href = `product.html?id=${product._id}`;
+    location.href = `product.html?id=${p._id}`;
   });
 
   return div;
