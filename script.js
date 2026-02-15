@@ -100,7 +100,7 @@ function createProductCard(p, imgSrc, isLiked) {
     let saved = JSON.parse(localStorage.getItem(KEY)) || [];
     try {
       if (checkbox.checked) {
-        if (!saved.includes(product._id)) {
+        if (!saved.includes(p._id)) {
           saved.push(p._id);
         }
         await fetch(`${BACKEND_URL}/api/likeProduct`, {
