@@ -32,75 +32,101 @@ async function loadProducts() {
       ? JSON.parse(localStorage.getItem(LIKE_KEY)) || []
       : [];
     let newCount = 0;
-    products.forEach(p => {
-      if (loadedProductIds.has(p._id)) return;
+    for (const p of products) {
+      if (loadedProductIds.has(p._id)) continue;
+
       loadedProductIds.add(p._id);
       newCount++;
+
       const rawImg = p.images?.[0] || "";
       const imgSrc = convertImg(rawImg) || PLACEHOLDER;
       const isLiked = likedProducts.includes(p._id);
-      const div = document.createElement("div");
-      div.className = "product-card";
-      div.innerHTML = `
-        <div class="image-wrapper" style="position:relative;">
-          <img src="${imgSrc}" alt="${p.title}">
-          <label class="ui-bookmark" onclick="event.stopPropagation()">
-            <input type="checkbox" ${isLiked ? "checked" : ""}/>
-            <div class="bookmark-icon">
-              <svg
-                viewBox="0 0 16 16"
-                class="bi bi-heart-fill"
-                height="22"
-                width="22"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-                  fill-rule="evenodd"
-                ></path>
-              </svg>
-            </div>
-          </label>
-        </div>
 
-        <h4 class="product-title">${p.title}</h4>
-
-        <div class="price-row">
-          <span class="orig-price">₹${p.originalPrice}</span>
-          <span class="sell-price">₹${p.sellingPrice}</span>
-        </div>
-      `;
-      const heart = div.querySelector(".ui-bookmark");
-      const checkbox = heart.querySelector("input");
-      heart.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const user = JSON.parse(localStorage.getItem("luxuryUser"));
-        if (!user || !user.email) {
-          alert("Please login first");
-          checkbox.checked = false;
-          return;
-        }
-        const KEY = `likedProducts_${user.email.toLowerCase()}`;
-        let saved = JSON.parse(localStorage.getItem(KEY)) || [];
-        if (checkbox.checked) {
-          if (!saved.includes(p._id)) saved.push(p._id);
-        } else {
-          saved = saved.filter(id => id !== p._id);
-        }
-        localStorage.setItem(KEY, JSON.stringify(saved));
-      });
-      div.onclick = () => {
-        location.href = "product.html?id=" + p._id;
-      };
-      container.appendChild(div);
-    });
+      const card = createProductCard(p, imgSrc, isLiked);
+      container.appendChild(card);
+    }
     loader.style.display = newCount ? "none" : "block";
   } catch (err) {
-    console.error(err);
+    console.error("Product load error:", err);
     loader.innerText = "Error loading products";
   } finally {
     loading = false;
   }
+}
+
+function createProductCard(product, imgSrc, isLiked) {
+  const div = document.createElement("div");
+  div.className = "product-card";
+  div.innerHTML = `
+    <div class="image-wrapper" style="position:relative;">
+      <img src="${imgSrc}" alt="${p.title}">
+      <label class="ui-bookmark" onclick="event.stopPropagation()">
+        <input type="checkbox" ${isLiked ? "checked" : ""}/>
+        <div class="bookmark-icon">
+          <svg
+            viewBox="0 0 16 16"
+            class="bi bi-heart-fill"
+            height="22"
+            width="22"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+              fill-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+      </label>
+    </div>
+
+    <h4 class="product-title">${p.title}</h4>
+
+    <div class="price-row">
+      <span class="orig-price">₹${p.originalPrice}</span>
+      <span class="sell-price">₹${p.sellingPrice}</span>
+    </div>
+  `;
+  const heart = div.querySelector(".ui-bookmark");
+  const checkbox = heart.querySelector("input");
+  heart.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    if (!user || !user.email) {
+      alert("Please login first");
+      checkbox.checked = false;
+      return;
+    }
+    const KEY = `likedProducts_${user.email.toLowerCase()}`;
+    let saved = JSON.parse(localStorage.getItem(KEY)) || [];
+    try {
+      if (checkbox.checked) {
+        if (!saved.includes(product._id)) {
+          saved.push(product._id);
+        }
+        await fetch(`${BACKEND_URL}/api/likeProduct`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            productId: product._id,
+          }),
+        });
+      } else {
+        saved = saved.filter(id => id !== p._id);
+      }
+      localStorage.setItem(KEY, JSON.stringify(saved));
+
+    } catch (err) {
+      console.error("Like API error:", err);
+    }
+  });
+  div.addEventListener("click", () => {
+    location.href = `product.html?id=${product._id}`;
+  });
+
+  return div;
 }
 function handleScroll() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 900) {
