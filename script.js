@@ -88,7 +88,7 @@ function createProductCard(product, imgSrc, isLiked) {
   `;
   const heart = div.querySelector(".ui-bookmark");
   const checkbox = heart.querySelector("input");
-  heart.addEventListener("click", (e) => {
+  heart.addEventListener("click", async (e) => {
     e.stopPropagation();
     const user = JSON.parse(localStorage.getItem("luxuryUser"));
     if (!user || !user.email) {
