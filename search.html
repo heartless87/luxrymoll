@@ -41,8 +41,9 @@ body {
     font-size: 18px;
     cursor: pointer;
 }
-
-/* Result text */
+#loading { text-align: center; padding: 30px; display: none; }
+.loadingan { width: 2.25em; transform-origin: center; animation: rotate4 2s linear infinite; }
+.loader { fill: none; stroke: #f0f0f0; stroke-width: 7; stroke-dasharray: 2, 200; stroke-dashoffset: 0; stroke-linecap: round; animation: dash4 1.5s ease-in-out infinite; }
 .result-text {
     padding: 15px;
     font-size: 14px;
