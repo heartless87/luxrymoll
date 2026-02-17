@@ -48,15 +48,8 @@
           user-select: none;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .custom-radio-container:hover {
-          background-color: rgba(255, 255, 255, 0.3);
-          transform: scale(1.03);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        }
-        .custom-radio-container input[type="radio"] {
-          opacity: 0;
-          position: absolute;
-        }
+        .custom-radio-container:hover { background-color: rgba(255, 255, 255, 0.3); transform: scale(1.03); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); }
+        .custom-radio-container input[type="radio"] { opacity: 0; position: absolute; }
         .custom-radio-checkmark {
           position: relative;
           height: 24px;
@@ -72,18 +65,8 @@
           vertical-align: middle;
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
         }
-        .custom-radio-container input[type="radio"]:checked + .custom-radio-checkmark {
-          background-color: #ffffff;
-          border-color: #007bff;
-          box-shadow: 0 0 0 8px rgba(0, 123, 255, 0.2);
-          transform: scale(1.2);
-          animation: pulse 0.6s forwards;
-        }
-        .custom-radio-checkmark::after {
-          content: "";
-          position: absolute;
-          display: none;
-        }
+        .custom-radio-container input[type="radio"]:checked + .custom-radio-checkmark { background-color: #ffffff; border-color: #007bff; box-shadow: 0 0 0 8px rgba(0, 123, 255, 0.2); transform: scale(1.2); animation: pulse 0.6s forwards; }
+        .custom-radio-checkmark::after { content: ""; position: absolute; display: none; }
         .custom-radio-container
           input[type="radio"]:checked
           + .custom-radio-checkmark::after {
@@ -97,15 +80,9 @@
           transform: translate(-50%, -50%);
         }
         @keyframes pulse {
-          0% {
-            transform: scale(1.2);
-          }
-          50% {
-            transform: scale(1.4);
-          }
-          100% {
-            transform: scale(1.2);
-          }
+          0% { transform: scale(1.2); }
+          50% { transform: scale(1.4); }
+          100% { transform: scale(1.2); }
         }
 
         .edit-icon { width: 40px; height: 40px; background-color: #f0f5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4a6cf7; cursor: pointer; transition: background-color 0.2s; }
@@ -355,16 +332,6 @@
                 });
             });
             
-            // Edit address functionality
-            const editIcon = document.querySelector('.edit-icon');
-            editIcon.addEventListener('click', function() {
-                const newAddress = prompt('Enter new address:', '');
-                if (newAddress) {
-                    document.querySelector('.address-text').textContent = newAddress;
-                }
-            });
-            
-            // Profile icon functionality
             const profileIcon = document.querySelector('.profile-icon');
             profileIcon.addEventListener('click', function() {
                 alert('Profile options would appear here');
