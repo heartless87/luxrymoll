@@ -28,8 +28,8 @@
         .product-image img { width: 80px; height: 80px; border-radius: 10px; object-fit: contain; overflow: hidden; box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2); }
         .address-info { flex: 1; }
         .address-text { font-size: 16px; line-height: 1.5; } 
-        .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; z-index: 1; justify-content: center; align-items: center; }
-        .popup-overlay:target { display: flex; }
+        .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; }
+        .popup-overlay:target { display: overlay; z-index: 1; }
         .custom-radio-group { display: flex; flex-direction: column; gap: 12px; width: 320px; border-radius: 12px; background: rgba(0, 0, 0, 0.2); padding: 16px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); }
         .custom-radio-container {
           position: relative;
