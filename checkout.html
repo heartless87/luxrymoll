@@ -28,6 +28,8 @@
         .product-image img { width: 80px; height: 80px; border-radius: 10px; object-fit: contain; overflow: hidden; box-shadow: 0 4px 8px rgba(255, 107, 107, 0.2); }
         .address-info { flex: 1; }
         .address-text { font-size: 16px; line-height: 1.5; } 
+        .popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; }
+        .popup-overlay:target { display: flex; }
         .edit-icon { width: 40px; height: 40px; background-color: #f0f5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4a6cf7; cursor: pointer; transition: background-color 0.2s; }
         .edit-icon:hover { background-color: #e1e9ff; }
         .payment-name { font-weight: 500; }
@@ -94,6 +96,25 @@
             <div class="section-content">
                 <div class="address-info">
                     <div id="address-text">
+                    </div>
+                </div>
+                <div id="location" class="popup-overlay">
+                    <div class="custom-radio-group">
+                      <label class="custom-radio-container">
+                        <input type="radio" name="custom-radio" value="option1" />
+                        <span class="custom-radio-checkmark"></span>
+                        Option 1
+                      </label>
+                      <label class="custom-radio-container">
+                        <input type="radio" name="custom-radio" value="option2" />
+                        <span class="custom-radio-checkmark"></span>
+                        Option 2
+                      </label>
+                      <label class="custom-radio-container">
+                        <input type="radio" name="custom-radio" value="option3" />
+                        <span class="custom-radio-checkmark"></span>
+                        Option 3
+                      </label>
                     </div>
                 </div>
                 <div class="edit-icon">
