@@ -1,4 +1,3 @@
-const BACKEND_URL = "https://luxrymoll.vercel.app";
 document.addEventListener("click", async (e) => {
   const bookmark = e.target.closest(".ui-bookmark");
   if (!bookmark) return;
