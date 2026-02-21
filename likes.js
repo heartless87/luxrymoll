@@ -1,18 +1,16 @@
-document.addEventListener("click", async (e) => {
-  const bookmark = e.target.closest(".ui-bookmark");
-  if (!bookmark) return;
+document.addEventListener("change", async (e) => {
 
-  e.stopPropagation();
+  const checkbox = e.target.closest(".ui-bookmark input");
+  if (!checkbox) return;
 
-  const checkbox = bookmark.querySelector("input");
-
-  // 🔥 safer method
+  const bookmark = checkbox.closest(".ui-bookmark");
   const productId = bookmark.getAttribute("data-product-id");
 
   const user = JSON.parse(localStorage.getItem("luxuryUser"));
 
   console.log("EMAIL:", user?.email);
   console.log("PRODUCT ID:", productId);
+  console.log("CHECKED:", checkbox.checked);
 
   if (!user || !user.email || !productId) {
     console.log("Missing email or productId");
@@ -34,6 +32,7 @@ document.addEventListener("click", async (e) => {
       }),
     });
 
+    console.log("STATUS:", res.status);
     const data = await res.json();
     console.log("API RESPONSE:", data);
 
