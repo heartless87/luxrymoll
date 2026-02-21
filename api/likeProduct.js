@@ -1,5 +1,11 @@
 import { MongoClient } from "mongodb";
 
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
+
 let cachedClient = null;
 
 async function connectDB() {
@@ -22,29 +28,29 @@ export default async function handler(req, res) {
   }
 
   if (req.method !== "POST") {
-    return res.status(405).json({ success: false, message: "Method not allowed" });
+    return res.status(405).json({ success: false });
   }
 
   try {
+    console.log("BODY:", req.body); // 🔥 Debug
+
     const { email, productId } = req.body || {};
 
     if (!email || !productId) {
-      return res.status(400).json({ success: false, message: "Missing data" });
+      return res.status(400).json({ success: false });
     }
 
     const client = await connectDB();
     const db = client.db("Product");
     const col = db.collection("favo");
 
-    const cleanEmail = email.toLowerCase().trim();
-
     await col.updateOne(
-      { email: cleanEmail },
+      { email: email.toLowerCase().trim() },
       { $addToSet: { products: productId } },
       { upsert: true }
     );
 
-    return res.status(200).json({ success: true, message: "Product liked" });
+    return res.status(200).json({ success: true });
 
   } catch (err) {
     console.error("LIKE ERROR:", err);
