@@ -24,28 +24,19 @@ async function loadProducts() {
     }
     const products = await res.json();
     const container = document.getElementById("products-container");
-    const user = JSON.parse(localStorage.getItem("luxuryUser"));
-    const LIKE_KEY = user?.email
-      ? `likedProducts_${user.email.toLowerCase()}`
-      : null;
-    const likedProducts = LIKE_KEY
-      ? JSON.parse(localStorage.getItem(LIKE_KEY)) || []
-      : [];
-    let newCount = 0;
     for (const p of products) {
       if (loadedProductIds.has(p._id)) continue;
 
       loadedProductIds.add(p._id);
-      newCount++;
 
       const rawImg = p.images?.[0] || "";
       const imgSrc = convertImg(rawImg) || PLACEHOLDER;
-      const isLiked = likedProducts.includes(p._id);
 
-      const card = createProductCard(p, imgSrc, isLiked);
+      const card = createProductCard(p, imgSrc);
       container.appendChild(card);
     }
-    loader.style.display = newCount ? "none" : "block";
+
+    loader.style.display = "none";
   } catch (err) {
     console.error("Product load error:", err);
     loader.innerText = "Error loading products";
@@ -53,15 +44,15 @@ async function loadProducts() {
     loading = false;
   }
 }
-
-function createProductCard(p, imgSrc, isLiked) {
+function createProductCard(p, imgSrc) {
   const div = document.createElement("div");
   div.className = "product-card";
   div.innerHTML = `
     <div class="image-wrapper" style="position:relative;">
       <img src="${imgSrc}" alt="${p.title}">
-      <label class="ui-bookmark" onclick="event.stopPropagation()">
-        <input type="checkbox" ${isLiked ? "checked" : ""}/>
+      <label class="ui-bookmark" 
+             data-product-id="${p._id}">
+        <input type="checkbox"/>
         <div class="bookmark-icon">
           <svg
             viewBox="0 0 16 16"
@@ -86,42 +77,6 @@ function createProductCard(p, imgSrc, isLiked) {
       <span class="sell-price">₹${p.sellingPrice}</span>
     </div>
   `;
-  const heart = div.querySelector(".ui-bookmark");
-  const checkbox = heart.querySelector("input");
-  heart.addEventListener("click", async (e) => {
-    e.stopPropagation();
-    const user = JSON.parse(localStorage.getItem("luxuryUser"));
-    if (!user || !user.email) {
-      alert("Please login first");
-      checkbox.checked = false;
-      return;
-    }
-    const KEY = `likedProducts_${user.email.toLowerCase()}`;
-    let saved = JSON.parse(localStorage.getItem(KEY)) || [];
-    try {
-      if (checkbox.checked) {
-        if (!saved.includes(p._id)) {
-          saved.push(p._id);
-        }
-        await fetch(`${BACKEND_URL}/api/likeProduct`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: user.email,
-            productId: p._id,
-          }),
-        });
-      } else {
-        saved = saved.filter(id => id !== p._id);
-      }
-      localStorage.setItem(KEY, JSON.stringify(saved));
-
-    } catch (err) {
-      console.error("Like API error:", err);
-    }
-  });
   div.addEventListener("click", () => {
     location.href = `product.html?id=${p._id}`;
   });
