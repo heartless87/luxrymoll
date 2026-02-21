@@ -4,17 +4,22 @@ let cachedClient = null;
 
 export default async function handler(req, res) {
 
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  // 🔥 IMPORTANT — ALWAYS FIRST
+  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
   res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
+  // 🔥 Handle Preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { email } = req.body;
+    const { email } = req.body || {};
 
     if (!email) {
       return res.status(400).json({ error: "Email required" });
@@ -29,7 +34,6 @@ export default async function handler(req, res) {
 
     const db = cachedClient.db("Product");
 
-    // Step 1: find user favorites
     const favoCol = db.collection("favo");
     const userFavo = await favoCol.findOne({
       email: email.toLowerCase().trim()
@@ -39,7 +43,6 @@ export default async function handler(req, res) {
       return res.status(200).json([]);
     }
 
-    // Step 2: fetch products from Prodlist
     const prodCol = db.collection("Prodlist");
 
     const objectIds = userFavo.products.map(id => new ObjectId(id));
