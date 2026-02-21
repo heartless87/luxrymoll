@@ -51,7 +51,7 @@ function createProductCard(p, imgSrc) {
     <div class="image-wrapper" style="position:relative;">
       <img src="${imgSrc}" alt="${p.title}">
       <label class="ui-bookmark" 
-             data-product-id="${p._id}">
+             data-product-id="${p._id}"
              onclick="event.stopPropagation()">
         <input type="checkbox"/>
         <div class="bookmark-icon">
