@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://kit.fontawesome.com">
+    <meta name="author" content="Luxrymoll">
+    <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
     <title>Luxrymoll – Buy Premium Luxury Products Online in India</title>
+    <meta name="keywords" content="luxury products, online shopping India, premium fashion, branded watches, shoes, smartphones">
+    <meta property="og:image" content="https://luxrymoll.shop/preview.jpg">
+    <meta property="og:locale" content="en_IN">
     <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
     <meta name="description" content="Luxrymoll.shop – luxury products ka trusted online mall. Premium quality, best deals aur fast delivery. Luxrymoll par karein smart shopping.">
     <meta name="robots" content="index, follow">
@@ -15,6 +21,22 @@
     <meta property="og:site_name" content="Luxrymoll">
     <link rel="stylesheet" href="style.css">
     <meta name="google-adsense-account" content="ca-pub-7717875002370610">
+    <script async 
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7717875002370610"
+    crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "WebSite",
+     "name": "Luxrymoll",
+     "url": "https://luxrymoll.shop/",
+     "potentialAction": {
+       "@type": "SearchAction",
+       "target": "https://luxrymoll.shop/search.html?q={search_term_string}",
+       "query-input": "required name=search_term_string"
+     }
+    }
+    </script>
 </head>
 <body>   
     <nav>
@@ -81,7 +103,7 @@
     <section class="categories">
         <div class="category-item" onclick="location.href='catg-dress.html'" style="cursor:pointer;">
             <div class="cat-icon">
-                <img src="/PNG/Shirt.png" alt="Shirt">
+                <img src="/PNG/Shirt.png" alt="Shirt" loading="lazy">
             </div>
             <p>Shirt</p>
         </div>
@@ -126,7 +148,6 @@
       (function () {
         try {
           const user = JSON.parse(localStorage.getItem("luxuryUser"));
-    
           const loginBtn = document.getElementById("loginBtn");
           const signupBtn = document.getElementById("signupBtn");
     
