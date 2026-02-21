@@ -317,25 +317,25 @@
             <h1>Favorites</h1>
         </header>
         
-        <div class="favorites-container">
-            <div class="favorite-item">   
+        <div class="favorites-container"> 
         </div>
     </div>
 
     <script>
-        const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    
+    if (!user || !user.email) {
+      alert("Please login first");
+      location.href = "index.html";
+    }
         
-        if (!user || !user.email) {
-          alert("Please login first");
-          location.href = "index.html";
-        }
-        
-        const LIKE_KEY = `likedProducts_${user.email.toLowerCase()}`;
-        const likedIds = JSON.parse(localStorage.getItem(LIKE_KEY)) || [];
-        
-        const container = document.querySelector(".favorites-container");
+    const LIKE_KEY = `likedProducts_${user.email.toLowerCase()}`;
+    const likedIds = JSON.parse(localStorage.getItem(LIKE_KEY)) || [];
+    
+    const container = document.querySelector(".favorites-container");
         
         async function loadFavorites() {
+          container.innerHTML = "";
           if (!likedIds.length) {
             container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
             return;
@@ -348,8 +348,10 @@
             const favProducts = products.filter(p =>
               likedIds.includes(p._id)
             );
-        
-            container.innerHTML = "";
+            if (!favProducts.length) {
+              container.innerHTML = "<p style='text-align:center'>No favorites found</p>";
+              return;
+            }
         
             favProducts.forEach(p => {
               const img =
@@ -357,11 +359,10 @@
                   ? p.images[0].startsWith("data:image/")
                     ? p.images[0]
                     : `data:image/jpeg;base64,${p.images[0]}`
-                  : "";
-        
+                  : "/placeholder.png";
+
               const card = document.createElement("div");
-              card.className = "favorite-item";
-        
+              card.className = "favorite-item";  
               card.innerHTML = `
                 <img class="item-image" src="${img}" alt="${p.title}">
                 <div class="item-info">
@@ -371,40 +372,36 @@
                     <div class="original-price">₹${p.originalPrice}</div>
                   </div>
                 </div>
-                <div class="heart-icon">
+                <div class="heart-icon" style="cursor:pointer">
                   <i class="fas fa-heart"></i>
                 </div>
               `;
-        
-              /* 💔 UNLIKE */
-              card.querySelector(".heart-icon").onclick = (e) => {
+              card.querySelector(".heart-icon").addEventListener("click", (e) => {
                 e.stopPropagation();
         
-                let updated = JSON.parse(localStorage.getItem(LIKE_KEY)) || [];
-                updated = updated.filter(id => id !== p._id);
-                localStorage.setItem(LIKE_KEY, JSON.stringify(updated));
+                likedIds = likedIds.filter(id => id !== p._id);
+                localStorage.setItem(LIKE_KEY, JSON.stringify(likedIds));
         
                 card.remove();
         
-                if (!updated.length) {
+                if (!likedIds.length) {
                   container.innerHTML =
                     "<p style='text-align:center'>No favorites yet ❤️</p>";
                 }
-              };
-        
-              /* 👉 product page */
-              card.onclick = () => {
+              });
+          
+              // 👉 Product Page
+              card.addEventListener("click", () => {
                 location.href = "product.html?id=" + p._id;
-              };
-        
+              });
               container.appendChild(card);
             });
+        
           } catch (err) {
             console.error(err);
             container.innerHTML = "<p>Error loading favorites</p>";
           }
         }
-        
         loadFavorites();
         // Add some interactivity
         document.querySelectorAll('.favorite-item').forEach(item => {
