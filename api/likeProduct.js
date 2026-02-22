@@ -1,25 +1,9 @@
 import { MongoClient } from "mongodb";
 
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
-
 let cachedClient = null;
 
-async function connectDB() {
-  if (cachedClient) return cachedClient;
-
-  const client = new MongoClient(process.env.MONGO_URI);
-  await client.connect();
-  cachedClient = client;
-  return client;
-}
-
 export default async function handler(req, res) {
-
-  res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -32,16 +16,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log("BODY:", req.body); // 🔥 Debug
-
     const { email, productId } = req.body || {};
 
     if (!email || !productId) {
       return res.status(400).json({ success: false });
     }
 
-    const client = await connectDB();
-    const db = client.db("Product");
+    const uri = process.env.MONGO_URI;
+
+    if (!cachedClient) {
+      cachedClient = new MongoClient(uri);
+      await cachedClient.connect();
+    }
+
+    const db = cachedClient.db("Product");
     const col = db.collection("favo");
 
     await col.updateOne(
