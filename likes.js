@@ -2,6 +2,7 @@ document.addEventListener("change", async (e) => {
 
   const checkbox = e.target;
 
+  // Only trigger for heart checkbox
   if (!checkbox.matches(".ui-bookmark input")) return;
 
   const bookmark = checkbox.closest(".ui-bookmark");
@@ -22,7 +23,9 @@ document.addEventListener("change", async (e) => {
   try {
     const response = await fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         email: user.email.toLowerCase().trim(),
         productId
