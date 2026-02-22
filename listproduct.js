@@ -91,7 +91,7 @@ document.getElementById("productForm").addEventListener("submit", async function
     sellerEmail: user.email
   };
   document.getElementById("btnText").innerText = "Saving...";
-  const res = await fetch("https://luxrymoll.vercel.app/api/addProduct", {
+  const res = await fetch("/api/addProduct", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(productData)
