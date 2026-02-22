@@ -6,54 +6,13 @@
     <title>Address | Luxrymoll </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f8f8;
-            color: #333;
-            line-height: 1.6;
-            padding-bottom: 70px; /* Space for bottom navigation */
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 0;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ff7b00;
-            letter-spacing: 1px;
-        }
-        
-        /* Main Content Styles */
-        .main-content {
-            margin: 40px 0;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f8f8; color: #333; line-height: 1.6; padding-bottom: 70px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: #fff; box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08); position: sticky; top: 0; z-index: 100; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+        .logo { font-size: 28px; font-weight: 700; color: #ff7b00; letter-spacing: 1px; }
+        .main-content { margin: 40px 0; } 
         .content {
             background-color: #fff;
             border-radius: 10px;
@@ -389,7 +348,7 @@
     
       try {
         const res = await fetch(
-          `https://luxrymoll.vercel.app/api/getAddresses?email=${encodeURIComponent(user.email)}`
+          `https://luxrymoll.vercel.app/api/address?email=${encodeURIComponent(user.email)}`
         );
     
         const data = await res.json();
@@ -451,12 +410,13 @@
       loadAddresses();
     
       // Mongo delete
-      fetch("https://luxrymoll.vercel.app/api/deleteAddress", {
+      fetch("https://luxrymoll.vercel.app/api/address", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
-          addressId
+          addressId,
+          action: "delete"
         })
       }).catch(() => {});
     }
@@ -485,12 +445,13 @@
       loadAddresses();
     
       // Save to Mongo
-      fetch("https://luxrymoll.vercel.app/api/saveAddress", {
+      fetch("https://luxrymoll.vercel.app/api/address", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
-          address: newAddr
+          address: newAddr,
+          action: "save"
         })
       }).catch(() => {});
     
