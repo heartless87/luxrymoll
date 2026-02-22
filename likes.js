@@ -1,8 +1,6 @@
 document.addEventListener("change", async (e) => {
 
   const checkbox = e.target;
-
-  // Only trigger for heart checkbox
   if (!checkbox.matches(".ui-bookmark input")) return;
 
   const bookmark = checkbox.closest(".ui-bookmark");
@@ -16,19 +14,14 @@ document.addEventListener("change", async (e) => {
     return;
   }
 
-  const endpoint = checkbox.checked
-    ? "/api/likeProduct"
-    : "/api/unlikeProduct";
-
   try {
-    const response = await fetch(endpoint, {
+    const response = await fetch("/api/favorites", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: user.email.toLowerCase().trim(),
-        productId
+        productId,
+        action: checkbox.checked ? "like" : "unlike"
       })
     });
 
@@ -38,7 +31,7 @@ document.addEventListener("change", async (e) => {
     }
 
     const data = await response.json();
-    console.log("API:", data);
+    console.log("Favorites:", data);
 
   } catch (error) {
     checkbox.checked = !checkbox.checked;
