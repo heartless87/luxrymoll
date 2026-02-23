@@ -351,23 +351,25 @@
   </script>
   <script src="register.js"></script>
   <script>
-  const logoutItem = document.getElementById("logoutItem"); 
-  if (logoutItem) {
-    logoutItem.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      localStorage.removeItem("luxuryUser");
-      const nameEl = document.querySelector(".user-info h3");
-      const emailEl = document.querySelector(".user-info p");
-      if (nameEl && emailEl) {
-        nameEl.innerText = "USER NAME";
-        emailEl.innerText = "usermail@gmail.com";
-      }
-      alert("Logged out successfully 👋");
-      toggleLoginMenu();
-      window.location.hash = "";
-    });
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const logoutItem = document.getElementById("logoutItem"); 
+    if (logoutItem) {
+      logoutItem.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        localStorage.removeItem("luxuryUser");
+        const nameEl = document.querySelector(".user-info h3");
+        const emailEl = document.querySelector(".user-info p");
+        if (nameEl && emailEl) {
+          nameEl.innerText = "USER NAME";
+          emailEl.innerText = "usermail@gmail.com";
+        }
+        alert("Logged out successfully 👋");
+        toggleLoginMenu();
+        window.location.hash = "";
+      });
+    }
+  });
   </script>
   <script>
     const loginForm = document.getElementById("loginForm");
