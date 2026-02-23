@@ -15,7 +15,7 @@ nav{ padding: 10px 30px; display: flex; align-items: center; justify-content: sp
 .search-box::placeholder { color: #666; }
 nav ul{ display: flex; gap: 30px; align-item: center; }
 nav ul li{ list-style-type: none; }
-nav ul li a{ text-decoration: none; color: #fff; }
+nav ul li a{ text-decoration: none; color: #0f172a; }
 .menu-icon i{ color: #fff; font-size: 30px; }
 .menu-icon { display: none; }
 @media (max-width:600px){
