@@ -416,33 +416,7 @@
     </div>
   </div>
   <script>
-  function updateProfileUI() {
-    const user = JSON.parse(localStorage.getItem("luxuryUser"));
-    if (!user) return;
-    const nameEl = document.querySelector(".user-info h3");
-    const emailEl = document.querySelector(".user-info p");
-    if (nameEl && emailEl) {
-      nameEl.innerText = user.name;
-      emailEl.innerText = user.email;
-    }
-  }
-  function toggleLoginMenu() {
-    const user = localStorage.getItem("luxuryUser");
-    const signInItem = document.querySelector('[data-link="#login"]');
-    const logoutItem = document.getElementById("logoutItem");
-    if (user) {
-    if (signInItem) signInItem.style.display = "none";
-    if (logoutItem) logoutItem.style.display = "flex";
-    } else {
-      if (signInItem) signInItem.style.display = "flex";
-      if (logoutItem) logoutItem.style.display = "none";
-    }
-  } 
-  document.addEventListener("DOMContentLoaded", () => {
-    updateProfileUI();
-    toggleLoginMenu();
-  });
-    window.addEventListener("DOMContentLoaded", function () {
+  window.addEventListener("DOMContentLoaded", function () {
 
     const profilePic = document.getElementById("profilePic");
     const fileInput = document.getElementById("fileInput");
@@ -476,6 +450,32 @@
       }
     });
   
+  });
+  function updateProfileUI() {
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
+    if (!user) return;
+    const nameEl = document.querySelector(".user-info h3");
+    const emailEl = document.querySelector(".user-info p");
+    if (nameEl && emailEl) {
+      nameEl.innerText = user.name;
+      emailEl.innerText = user.email;
+    }
+  }
+  function toggleLoginMenu() {
+    const user = localStorage.getItem("luxuryUser");
+    const signInItem = document.querySelector('[data-link="#login"]');
+    const logoutItem = document.getElementById("logoutItem");
+    if (user) {
+    if (signInItem) signInItem.style.display = "none";
+    if (logoutItem) logoutItem.style.display = "flex";
+    } else {
+      if (signInItem) signInItem.style.display = "flex";
+      if (logoutItem) logoutItem.style.display = "none";
+    }
+  } 
+  document.addEventListener("DOMContentLoaded", () => {
+    updateProfileUI();
+    toggleLoginMenu();
   });
   </script>
   <script>
