@@ -16,6 +16,8 @@ nav{ padding: 10px 30px; display: flex; align-items: center; justify-content: sp
 nav ul{ display: flex; gap: 30px; align-item: center; }
 nav ul li{ list-style-type: none; }
 nav ul li a{ text-decoration: none; color: #0f172a; }
+.icon-pic {  width: 32px; height: 32px; overflow: hidden; }
+.icon-pic img { width: 100%; height: 100%;}
 .profile-pic {  width: 32px; height: 32px; border-radius: 50%; overflow: hidden; border: 2px solid #666; }
 .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 .menu-icon i{ color: #fff; font-size: 30px; }
