@@ -29,7 +29,7 @@ nav ul li a{ text-decoration: none; color: #0f172a; }
         }
 .header-wrap { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; position: relative; }
 .search-bar { flex: 1; max-width: 800px; margin: 0 2rem; position: relative; padding-top:30px; }
-.search-bar input { flex: 1; border: none; outline: none; background: transparent; font-size: 15px; }
+.search-bar input { flex: 1; border: none; outline: none; background:  #00000014; font-size: 15px; }
 .search-bar .fa-search { color: #666; }
 @media screen and (min-width: 769px) {
     .search-bar{ display:none;}
