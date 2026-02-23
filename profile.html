@@ -191,7 +191,7 @@
       <div class="profile-header">
         <h2>My Profile</h2>
         <div class="profile-pic" id="profilePic">
-          <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Profile Photo">
+          <img id="profileImage" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Profile Photo">
           <span class="edit-icon"><i class="fa fa-pen"></i></span>
         </div>
         <input type="file" id="fileInput" accept="image/*" hidden>
@@ -409,6 +409,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     const profilePic = document.getElementById("profilePic");
     const fileInput = document.getElementById("fileInput");
+    const profileImage = document.getElementById("profileImage");
+    if (!profilePic || !fileInput || !profileImage) return;
     profilePic.addEventListener("click", function () {
       fileInput.click();
     });
@@ -417,7 +419,6 @@
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function (e) {
-        const profileImage = document.getElementById("profileImage");
         profileImage.src = e.target.result;
         localStorage.setItem("Profile-pic", e.target.result);
       };
