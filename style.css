@@ -24,6 +24,11 @@ nav ul li a{ text-decoration: none; color: #fff; }
     .menu-icon{ display: block; } 
     #menuList{ transition: all 0.5s; } 
 }
+@media screen and (max-width: 768px) {
+            .nav { padding: 1rem; }
+            .search-container { display: none; }
+            .right-section { gap: 1rem; }
+        }
 .header-wrap { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; position: relative; }
 .search-bar { max-width: 600px; width: 100%; margin: 0 auto; flex: none; display: flex; align-items: center; gap: 12px; background: #f4f4f4; padding: 12px 18px; border-radius: 15px; }
 .search-bar input { flex: 1; border: none; outline: none; background: transparent; font-size: 15px; }
