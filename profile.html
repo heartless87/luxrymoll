@@ -413,6 +413,10 @@
     const fileInput = document.getElementById("fileInput");
     const profileImage = document.getElementById("profileImage");
     if (!profilePic || !fileInput || !profileImage) return;
+    const savedImage = localStorage.getItem("Profile-pic");
+    if (savedImage) {
+      profileImage.src = savedImage;
+    }
     profilePic.addEventListener("click", function () {
       fileInput.click();
     });
