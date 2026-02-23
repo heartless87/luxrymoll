@@ -12,7 +12,7 @@ nav{ padding: 10px 30px; display: flex; align-items: center; justify-content: sp
 .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #777; font-size: 1rem; pointer-events: none; }
 .search-box { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; background-color: #f9f9f9; transition: all 0.3s ease; }
 .search-box:focus { outline: none; border-color: #999; background-color: #00000014; }
-.search-box::placeholder { color: #00000014; }
+.search-box::placeholder { color: #666; }
 nav ul{ display: flex; gap: 30px; align-item: center; }
 nav ul li{ list-style-type: none; }
 nav ul li a{ text-decoration: none; color: #fff; }
