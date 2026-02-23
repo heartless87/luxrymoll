@@ -292,8 +292,6 @@
         padding: 80px 0;
       }
     }
-
-    /* Additional small screen optimization */
     @media (max-width: 350px) {
       .menu-item {
         padding: 10px 12px;
@@ -309,10 +307,11 @@
     <div class="profile-section">
       <div class="profile-header">
         <h2>My Profile</h2>
-        <div class="profile-pic">
+        <div class="profile-pic" id="profilePic">
           <img src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Profile Photo">
           <span class="edit-icon"><i class="fa fa-pen"></i></span>
         </div>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
         <div class="user-info">
           <h3>USER NAME </h3>
           <p>usermail@gmail.com</p>
@@ -529,6 +528,32 @@
         }
       });
     }
+  </script>
+  <script>
+    const profilePic = document.getElementById("profilePic");
+    const fileInput = document.getElementById("fileInput");
+    const profileImage = document.getElementById("profileImage");
+    window.addEventListener("DOMContentLoaded", function () {
+      const savedImage = localStorage.getItem("Profile-pic");
+      if (savedImage) {
+        profileImage.src = savedImage;
+      }
+    });
+    profilePic.addEventListener("click", function () {
+      fileInput.click();
+    });
+    fileInput.addEventListener("change", function () {
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const imageData = e.target.result;
+          profileImage.src = imageData;
+          localStorage.setItem("Profile-pic", imageData);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   </script>
 </body>
 </html>
