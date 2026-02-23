@@ -177,5 +177,15 @@
         }
       })();
     </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const profileImage = document.getElementById("profileImage");
+      if (!profileImage) return;
+      const savedImage = localStorage.getItem("Profile-pic");
+      if (savedImage) {
+        profileImage.src = savedImage;
+      }
+    });
+    </script>
 </body>
 </html>
