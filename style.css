@@ -8,7 +8,7 @@ nav{ padding: 10px 30px; display: flex; align-items: center; justify-content: sp
 .hamburger-menu:hover { background-color: #0f172a; }
 .hamburger-menu:hover span { background-color: #ffffff; }
 .logo{ color: #0f172a; }
-.search-container { flex: 1; max-width: 500px; margin: 0 2rem; position: relative; }
+.search-container { flex: 1; max-width: 600px; margin: 0 2rem; position: relative; }
 .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #777; font-size: 0.9rem; pointer-events: none; }
 .search-box { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid #ddd; border-radius: 10px; font-size: 0.9rem; background-color: #f9f9f9; transition: all 0.3s ease; }
 .search-box:focus { outline: none; border-color: #999; background-color: #00000014; }
