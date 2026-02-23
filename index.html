@@ -51,8 +51,23 @@
             </div>
         </div>
         <div class="search-container">
-            <span class="search-icon"><i class="fas fa-search"></i></span>
-            <input type="text" class="search-box" placeholder="Search for products, collections and more...">
+            <form action="search.html" method="GET">
+                <span class="search-icon"><i class="fas fa-search"></i></span>
+                <input 
+                    type="text"
+                    class="search-box"
+                    name="q" 
+                    placeholder="Search for products, collections and more..."
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    required
+                />
+                <button type="submit" style="background:none;border:none;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
         <ul id="menuList">
             <li><a href="favourites">
