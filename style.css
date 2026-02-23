@@ -6,7 +6,7 @@ nav{ padding: 10px 30px; display: flex; align-items: center; justify-content: sp
 .hamburger-menu { display: flex; flex-direction: column; gap: 5px; cursor: pointer; border: 2px solid #00000014; border-radius: 8px; padding: 8px 15px; background-color: #ffffff; transition: all 0.3s ease; }
 .hamburger-menu span { width: 22px; height: 2px; background-color: #333; border-radius: 2px; transition: all 0.3s ease; }
 .hamburger-menu:hover { background-color: #0f172a; }
-.hamburger-menu:hover span { background-color: #000; }
+.hamburger-menu:hover span { background-color: #ffffff; }
 .logo{ color: #0f172a; }
 nav ul{ display: flex; gap: 30px; align-item: center; }
 nav ul li{ list-style-type: none; }
