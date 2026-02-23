@@ -91,3 +91,47 @@ function handleScroll() {
 }
 window.addEventListener("scroll", handleScroll);
 loadProducts();
+document.addEventListener("change", async (e) => {
+
+  const checkbox = e.target;
+  if (!checkbox.matches(".ui-bookmark input")) return;
+
+  const bookmark = checkbox.closest(".ui-bookmark");
+  const productId = bookmark?.getAttribute("data-product-id");
+
+  const userData = localStorage.getItem("luxuryUser");
+  const user = userData ? JSON.parse(userData) : null;
+
+  if (!user?.email || !productId) {
+    checkbox.checked = !checkbox.checked;
+    return;
+  }
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/address`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: user.email.toLowerCase().trim(),
+        productId,
+        action: checkbox.checked ? "like" : "unlike"
+      })
+    });
+
+    if (!res.ok) {
+      checkbox.checked = !checkbox.checked;
+      console.error("API failed:", res.status);
+      return;
+    }
+
+    const data = await res.json();
+    console.log("Like system:", data);
+
+  } catch (err) {
+    checkbox.checked = !checkbox.checked;
+    console.error("Network error:", err);
+  }
+
+});
