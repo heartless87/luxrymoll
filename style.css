@@ -22,12 +22,6 @@ nav ul li a{ text-decoration: none; color: #0f172a; }
 .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 .menu-icon i{ color: #fff; font-size: 30px; }
 .menu-icon { display: none; }
-@media (max-width:600px){
-    nav ul{ position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; text-align: center; background: #004274; gap: 0; overflow: overlay; z-index: 1; max-height: 0; } 
-    nav ul li{ padding: 20px; } 
-    .menu-icon{ display: block; } 
-    #menuList{ transition: all 0.5s; } 
-}
 @media screen and (max-width: 768px) {
             .nav { padding: 1rem; }
             .search-container { display: none; }
