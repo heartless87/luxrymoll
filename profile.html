@@ -416,41 +416,6 @@
     </div>
   </div>
   <script>
-  window.addEventListener("DOMContentLoaded", function () {
-
-    const profilePic = document.getElementById("profilePic");
-    const fileInput = document.getElementById("fileInput");
-    const profileImage = document.getElementById("profileImage");
-  
-    if (!profilePic || !fileInput || !profileImage) {
-      console.error("Element not found! IDs check karo.");
-      return;
-    }
-  
-    const savedImage = localStorage.getItem("Profile-pic");
-    if (savedImage) {
-      profileImage.src = savedImage;
-    }
-  
-    profilePic.addEventListener("click", function () {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener("change", function () {
-      const file = fileInput.files[0];
-      if (file) {
-        const reader = new FileReader();
-  
-        reader.onload = function (e) {
-          profileImage.src = e.target.result;
-          localStorage.setItem("Profile-pic", e.target.result);
-        };
-  
-        reader.readAsDataURL(file);
-      }
-    });
-  
-  });
   function updateProfileUI() {
     const user = JSON.parse(localStorage.getItem("luxuryUser"));
     if (!user) return;
@@ -563,6 +528,26 @@
         }
       });
     }
+  </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const profilePic = document.getElementById("profilePic");
+    const fileInput = document.getElementById("fileInput");
+    profilePic.addEventListener("click", function () {
+      fileInput.click();
+    });
+    fileInput.addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const profileImage = document.getElementById("profileImage");
+        profileImage.src = e.target.result;
+        localStorage.setItem("Profile-pic", e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  });
   </script>
 </body>
 </html>
