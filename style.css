@@ -48,25 +48,12 @@ input[type]:checked ~ span.bottom { transform: rotate(-45deg); transform-origin:
 input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 .banner { margin: 20px; background: #f2f0f0; color: #f2f0f0; border-radius: 16px; display: block; width: 100%; max-width: 100%; min-height: 120px; position: relative; }
 .banner ins.adsbygoogle { display: block; width: 100%; }
-.categories {
-    display: flex;
-    overflow-x: auto;
-    padding: 20px;
-    gap: 20px;
-    scrollbar-width: none;
-    margin-bottom: 10px;
-}
-
+.categories { display: flex; overflow-x: auto; padding: 20px; gap: 20px; scrollbar-width: none; margin-bottom: 40px; }
 .categories::-webkit-scrollbar { display: none; }
-
-.category-item {
-    text-align: center;
-    min-width: 70px;
-}
-
+.category-item { text-align: center; min-width: 190px; }
 .cat-icon {
-    width: 60px;
-    height: 60px;
+    width: 180px;
+    height: 180px;
     background: #eee;
     border-radius: 50%;
     overflow: hidden;
