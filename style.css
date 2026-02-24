@@ -195,6 +195,7 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     margin-top: 0px;
 }
 .product-card .orig-price {
+    display: none;
     text-decoration: line-through;
     color: #858585;
     font-size: 13px;
@@ -203,6 +204,16 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     color: #313131;
     font-weight: bold;
     font-size: 19px;
+}
+.add-btn {
+    background: #111827;
+    color: #fff;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 240px;
 }
 #loading {
     text-align: center;
