@@ -57,6 +57,11 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 .sidebar-logo { font-size: 1.8rem; font-weight: 700; letter-spacing: 2px; color: #333; }
 .close-btn { background: none; border: none; font-size: 2rem; cursor: pointer; color: #666; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s; }
 .close-btn:hover { background: #f0f0f0; }
+.sidebar-content { padding: 1.5rem; }
+.nav-section { margin-bottom: 2rem; }
+.nav-section h3 { color: #999; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+.nav-links { list-style: none; }
+.nav-links li { margin-bottom: 0.8rem; }
 .banner { margin: 20px; background: #f2f0f0; color: #f2f0f0; border-radius: 16px; display: block; width: 100%; max-width: 100%; min-height: 120px; position: relative; }
 .banner ins.adsbygoogle { display: block; width: 100%; }
 .categories { display: flex; overflow-x: auto; padding: 20px; gap: 20px; scrollbar-width: none; margin-bottom: 40px; }
