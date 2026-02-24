@@ -201,6 +201,10 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     font-size: 13px;
 }
 .product-card .sell-price {
+    position: absolute;
+    cursor: pointer;
+    left: 10px;
+    bottom: 15px;
     color: #313131;
     font-weight: bold;
     font-size: 19px;
