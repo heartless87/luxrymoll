@@ -68,6 +68,9 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 .user-name { font-weight: 600; color: #333; margin-bottom: 0.3rem; }
 .user-email { font-size: 0.9rem; color: #666; }
 .utility-links { list-style: none; margin-bottom: 2rem; }
+.utility-links li { margin-bottom: 0.8rem; }
+.utility-links a { text-decoration: none; color: #666; font-size: 0.95rem; transition: color 0.3s; display: flex; align-items: center; gap: 0.5rem; }
+.utility-links a:hover { color: #333; }
 .banner { margin: 20px; background: #f2f0f0; color: #f2f0f0; border-radius: 16px; display: block; width: 100%; max-width: 100%; min-height: 120px; position: relative; }
 .banner ins.adsbygoogle { display: block; width: 100%; }
 .categories { display: flex; overflow-x: auto; padding: 20px; gap: 20px; scrollbar-width: none; margin-bottom: 40px; }
