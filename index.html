@@ -120,9 +120,13 @@
                 </ul>
             </div>
             <div class="user-info">
-                <div class="profile-circle" id="profileImage">
-                <div class="user-name">Sarah Jenkins</div>
-                <div class="user-email">sarah.j@example.com</div>
+                <div class="user-details">
+                    <div class="user-name">Sarah Jenkins</div>
+                    <div class="user-email">sarah.j@example.com</div>
+                </div>
+                <div class="profile-circle default" id="profileCircle">
+                    SJ
+                </div>
             </div>
             <ul class="utility-links">
                 <li><a href="#">📦 Orders & Returns</a></li>
@@ -274,9 +278,6 @@
             if (e.key === 'Escape' && sidebar.classList.contains('active')) {
                 closeSidebar();
             }
-        });
-        sidebar.addEventListener('click', (e) => {
-            e.stopPropagation();
         });
     </script>
 </body>
