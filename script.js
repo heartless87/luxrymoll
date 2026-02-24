@@ -50,32 +50,32 @@ function createProductCard(p, imgSrc) {
   div.innerHTML = `
     <div class="image-wrapper" style="position:relative;">
       <img src="${imgSrc}" alt="${p.title}">
-      <label class="ui-bookmark" 
-             data-product-id="${p._id}"
-             onclick="event.stopPropagation()">
-        <input type="checkbox"/>
-        <div class="bookmark-icon">
-          <svg
-            viewBox="0 0 16 16"
-            class="bi bi-heart-fill"
-            height="22"
-            width="22"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
-              fill-rule="evenodd"
-            ></path>
-          </svg>
-        </div>
-      </label>
+        <label class="ui-bookmark" 
+               data-product-id="${p._id}"
+               onclick="event.stopPropagation()">
+          <input type="checkbox"/>
+          <div class="bookmark-icon">
+            <svg
+              viewBox="0 0 16 16"
+              class="bi bi-heart-fill"
+              height="22"
+              width="22"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+        </label>
     </div>
-
-    <h4 class="product-title">${p.title}</h4>
-
-    <div class="price-row">
-      <span class="orig-price">₹${p.originalPrice}</span>
-      <span class="sell-price">₹${p.sellingPrice}</span>
+    <div class="product-info">
+      <h4 class="product-title">${p.title}</h4>
+      <div class="price-row">
+        <span class="orig-price">₹${p.originalPrice}</span>
+        <span class="sell-price">₹${p.sellingPrice}</span>
+      </div>
     </div>
   `;
   div.addEventListener("click", () => {
