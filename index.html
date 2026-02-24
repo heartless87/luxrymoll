@@ -41,7 +41,7 @@
 <body>   
     <nav>
         <div class="left-section">
-            <div class="hamburger-menu">
+            <div id="menuToggle" class="hamburger-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -144,6 +144,7 @@
             </div>
         </div>
     </div>
+    <div class="overlay" id="overlay"></div>
     <section class="banner">
         <ins class="adsbygoogle"
             style="display:block; text-align:center;"
@@ -249,6 +250,30 @@
         profileImage.src = savedImage;
       }
     });
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.getElementById('closeBtn');
+        const overlay = document.getElementById('overlay');
+        function openSidebar() {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        menuToggle.addEventListener('click', openSidebar);
+        closeBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sidebar.classList.contains('active')) {
+                closeSidebar();
+            }
+        });
     </script>
 </body>
 </html>
