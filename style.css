@@ -148,7 +148,6 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     --icon-circle-border: 1px solid var(--icon-primary-color);
     --icon-circle-size: 34px;
     --icon-anmt-duration: 0.3s;
-
     position: absolute;
     top: 12px;
     right: 12px;
@@ -244,7 +243,7 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 }
 
 .product-card h4 {
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     margin: 40px 10px 4px;
     color: #222;
