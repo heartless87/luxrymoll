@@ -68,11 +68,11 @@
             </form>
         </div>
         <ul id="menuList">
-            <li><a href="favourites">
+            <li id="favBtn"><a href="favourites">
             <div class="icon-pic">
               <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" alt="Like"></div>
             </a></li>
-            <li><a href="profile.html">
+            <li id="userBtn"><a href="profile.html">
             <div class="profile-pic" id="profilePic">
               <img id="profileImage" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Profile Photo"></div>
             </a></li>
@@ -181,9 +181,13 @@
           const signupBtn = document.getElementById("signupBtn");
     
           if (user && user.email) {
+            if (favBtn) favBtn.style.display = "block"
+            if (userBtn) userBtn.style.display = "block"
             if (loginBtn) loginBtn.style.display = "none";
             if (signupBtn) signupBtn.style.display = "none";
           } else {
+            if (favBtn) favBtn.style.display = "none"
+            if (userBtn) userBtn.style.display = "none"
             if (loginBtn) loginBtn.style.display = "block";
             if (signupBtn) signupBtn.style.display = "block";
           }
