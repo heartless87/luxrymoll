@@ -124,15 +124,14 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     overflow: hidden;
     flex-shrink: 0;
 }
-
-.product-card .image-wrapper img {
-    height: 100%;
-    object-fit: cover;
-    display: block;
+.image-wrapper {
+    width: 100%;
+    flex: 0 0 70%;   /* 🔥 70% card image ko */
+    position: relative;
+    overflow: hidden;
 }
 
-.product-card .product-image img {
-    width: 100%;
+.image-wrapper img {
     height: 100%;
     object-fit: cover;
     display: block;
