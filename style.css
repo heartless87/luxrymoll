@@ -29,7 +29,7 @@ nav ul li a{ text-decoration: none; color: #0f172a; }
         }
 .header-wrap { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 10px 16px; position: relative; }
 .search-bar { flex: 1; max-width: 800px; position: relative; border: 1px solid #ddd; border-radius: 10px; }
-.search-bar input { flex: 1; border: none; outline: none; background:  #00000014; font-size: 15px; }
+.search-bar input { flex: 1; border: none; outline: none; background:  #00000000; font-size: 15px; }
 .search-bar .fa-search { color: #666; }
 .search-bar { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid #ddd; border-radius: 10px; font-size: 0.9rem; background-color: #f9f9f9; transition: all 0.3s ease; }
 .search-bo:focus { outline: none; border-color: #999; background-color: #00000014; }
