@@ -136,6 +136,9 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     display: block;
 }
 .ui-bookmark {
+    padding : 5px;
+    background:#fff;
+    border-radius: 50%;
     --icon-size: 22px;
     --icon-secondary-color: #bab8b8;
     --icon-hover-color: #777;
