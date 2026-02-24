@@ -54,7 +54,7 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
 .categories::-webkit-scrollbar { display: none; }
 @media screen and (max-width: 768px) {
             .categories{ padding: 0px; gap: 0px; margin-bottom: 4px;}
-            .cat-icon { max-width: 100px; max-height: 100px; margin: 0 auto 8px; }
+            .cat-icon { min-height: 20px; min-width: 20px; max-width: 100px; max-height: 100px; margin: 0 auto 8px; }
         }
 .category-item { text-align: center; min-width: 190px; }
 .cat-icon { width: 180px; height: 180px; background: #eee; border-radius: 50%; overflow: hidden; margin: 0 auto 8px; border: 3px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
