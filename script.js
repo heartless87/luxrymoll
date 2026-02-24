@@ -73,8 +73,9 @@ function createProductCard(p, imgSrc) {
     <div class="product-info">
       <h4 class="product-title">${p.title}</h4>
       <div class="price-row">
-        <span class="orig-price">₹${p.originalPrice}</span>
+        // <span class="orig-price">₹${p.originalPrice}</span>
         <span class="sell-price">₹${p.sellingPrice}</span>
+        <button class="add-btn">+</button>
       </div>
     </div>
   `;
