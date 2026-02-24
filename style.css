@@ -185,7 +185,7 @@ input[type]:checked ~ span.middle { transform: translateX(-20px); opacity: 0; }
     100% { transform: scale(0.8); opacity: 0; }
 }
 .product-info { flex: 1; display: flex; flex-direction: column; padding: 10px; }
-.product-card h4 { font-size: 13px; font-weight: 600; margin: 0px 10px; color: #222; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.3; }
+.product-card h4 { font-size: 13px; font-weight: 600; margin: 0px 10px; color: #222; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.3; position: absolute; bottom: 50px; }
 .product-card .price-row {
     display: flex;
     align-items: center;
