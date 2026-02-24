@@ -32,7 +32,7 @@ nav ul li a{ text-decoration: none; color: #0f172a; }
 .search-bar input { flex: 1; border: none; outline: none; background:  #00000000; font-size: 15px; }
 .search-bar .fa-search { color: #666; }
 .search-bar { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid #ddd; border-radius: 10px; font-size: 0.9rem; background-color: #f9f9f9; transition: all 0.3s ease; }
-.search-bo:focus { outline: none; border-color: #999; background-color: #00000014; }
+.search-bo:focus { outline: none; border-color: #999; background-color: #00000000; }
 @media screen and (min-width: 769px) {
     .search-bar{ display:none;}
 }
