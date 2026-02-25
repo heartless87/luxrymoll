@@ -119,13 +119,13 @@
                     <li><a href="#">Home Decor</a></li>
                 </ul>
             </div>
-            <div id="userBtn" class="user-info"><a href="profile.html">
+            <div id="usersec" class="user-info"><a href="profile.html">
                 <div class="user-details">
                     <div class="user-name">---</div>
                     <div class="user-email">--------</div>
                 </div>
                 <div class="profile-circle default"> 
-                    <img id="profileImage" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Profile Photo">
+                    <img id="profileImag" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" alt="Profile Photo">
                 </div></a>
             </div>
             <ul class="utility-links">
@@ -247,9 +247,11 @@
             if (userBtn) userBtn.style.display = "block"
             if (loginBtn) loginBtn.style.display = "none";
             if (signupBtn) signupBtn.style.display = "none";
+            if (usersec) usersec.style.display = "block";
           } else {
             if (favBtn) favBtn.style.display = "none"
             if (userBtn) userBtn.style.display = "none"
+            if (usersec) usersec.style.display = "none";
             if (loginBtn) loginBtn.style.display = "block";
             if (signupBtn) signupBtn.style.display = "block";
           }
@@ -260,7 +262,7 @@
     </script>
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const profileImage = document.getElementById("profileImage");
+      const profileImage = document.getElementById("profileImage","profileImag");
       if (!profileImage) return;
       const savedImage = localStorage.getItem("Profile-pic");
       if (savedImage) {
