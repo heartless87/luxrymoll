@@ -10,7 +10,10 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .hamburger-menu span { width: 22px; height: 2px; background-color: #333; border-radius: 2px; transition: all 0.3s ease; }
 .hamburger-menu:hover { background-color: #00000014; }
 .hamburger-menu:hover span { background-color: #ffffff; }
-.logo img { position: relative; left: 50px; margin-top: 15px; width: 290px; height: auto; }
+.logo img { position: relative; left: 50px; margin-top: 15px; width: 220px; height: auto; }
+@media (max-width: 768px) {
+    .logo img{ width: 160px; height: auto; }
+}
 .search-container { flex: 1; max-width: 800px; margin: 0 2rem; position: relative; padding-top:30px; }
 .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #666; font-size: 0.9rem; pointer-events: none; }
 .search-box { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid #ddd; border-radius: 10px; font-size: 0.9rem; background-color: #f9f9f9; transition: all 0.3s ease; }
