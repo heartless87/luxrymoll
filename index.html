@@ -297,31 +297,21 @@
         });
     </script>
     <script>
-    async function syncFavoritesOnIndex() {
+    document.addEventListener("DOMContentLoaded", async () => {
       try {
         const userData = localStorage.getItem("luxuryUser");
         if (!userData) return;
         const user = JSON.parse(userData);
         if (!user?.email) return;
-        const res = await fetch(`${BACKEND_URL}/api/address`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: user.email,
-            action: "exportFavorites"
-          })
-        });
+        const res = await fetch(
+          `https://luxrymoll.vercel.app/api/address?email=${encodeURIComponent(user.email)}`
+        );
         if (!res.ok) return;
         const data = await res.json();
-        if (!data.success || !Array.isArray(data.favorites)) return;
-        localStorage.setItem("Liked", JSON.stringify(data.favorites));
+        if (!data.success) return;
+        localStorage.setItem("Liked", JSON.stringify(data.favorites || []));
       } catch (_) {
       }
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-      syncFavoritesOnIndex();
     });
     </script>
 </body>
