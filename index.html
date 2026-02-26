@@ -296,5 +296,34 @@
             }
         });
     </script>
+    <script>
+    const BACKEND_URL = "https://luxrymoll.vercel.app";
+    async function syncFavoritesOnIndex() {
+      try {
+        const userData = localStorage.getItem("luxuryUser");
+        if (!userData) return;
+        const user = JSON.parse(userData);
+        if (!user?.email) return;
+        const res = await fetch(`${BACKEND_URL}/api/address`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: user.email,
+            action: "exportFavorites"
+          })
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!data.success || !Array.isArray(data.favorites)) return;
+        localStorage.setItem("Liked", JSON.stringify(data.favorites));
+      } catch (_) {
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      syncFavoritesOnIndex();
+    });
+    </script>
 </body>
 </html>
