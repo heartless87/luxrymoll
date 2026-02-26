@@ -72,60 +72,36 @@
         </div>
     </div>
     <script>
-    const user = JSON.parse(localStorage.getItem("luxuryUser"));
-    
-    if (!user || !user.email) {
-      alert("Please login first");
-      location.href = "index.html";
-    }
-    
     const BACKEND_URL = "https://luxrymoll.vercel.app";
     const container = document.querySelector(".favorites-container");
-    
+    const user = JSON.parse(localStorage.getItem("luxuryUser"));
     async function loadFavorites() {
       container.innerHTML = "<p>Loading...</p>";
-
       try {
-        // 1️⃣ Get liked product IDs
-        const favRes = await fetch(
-          `${BACKEND_URL}/api/address?email=${encodeURIComponent(user.email)}`
-        );
-    
-        const favData = await favRes.json();
-    
-        if (!favData.success) {
-          container.innerHTML = "<p>Error loading favorites</p>";
+        if (!user?.email) {
+          container.innerHTML = "<p>Please login first</p>";
           return;
         }
-    
-        const likedIds = Object.keys(favData.favoItem || {});
-    
+        const likedIds = JSON.parse(localStorage.getItem("Liked")) || [];
         if (!likedIds.length) {
           container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
           return;
         }
-
-        // 2️⃣ Get all products
-        const prodRes = await fetch(`${BACKEND_URL}/api/getProducts`);
-        const products = await prodRes.json();
-    
-        // 3️⃣ Filter only liked products
-        const likedProducts = products.filter(p =>
-          likedIds.includes(String(p._id))
+        const res = await fetch(
+          `${BACKEND_URL}/api/getProducts?ids=${likedIds.join(",")}`
         );
-    
-        if (!likedProducts.length) {
+        const products = await res.json();
+
+        if (!products.length) {
           container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
           return;
         }
-    
         container.innerHTML = "";
     
-        likedProducts.forEach(p => {
+        products.forEach(p => {
     
-          const img =
-            p.images?.[0] || "/placeholder.png";
-
+          const img = p.images?.[0] || "/placeholder.png";
+    
           const card = document.createElement("div");
           card.className = "favorite-item";
     
@@ -156,6 +132,11 @@
                 action: "unlike"
               })
             });
+
+            // LocalStorage se bhi hatao
+            const liked = JSON.parse(localStorage.getItem("Liked")) || [];
+            const updated = liked.filter(id => id !== String(p._id));
+            localStorage.setItem("Liked", JSON.stringify(updated));
     
             card.remove();
     
@@ -163,14 +144,15 @@
               container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
             }
           });
-
+    
           card.addEventListener("click", () => {
             location.href = "product.html?id=" + p._id;
           });
     
           container.appendChild(card);
-        });
     
+        });
+
       } catch (err) {
         console.error(err);
         container.innerHTML = "<p>Error loading favorites</p>";
@@ -178,6 +160,7 @@
     }
     
     loadFavorites();
+    
     </script>
     <script>
     loadFavorites();
