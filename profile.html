@@ -61,124 +61,38 @@
       .profile-content { margin-top: 0; height: 100vh; overflow-y: auto; padding: 40px 0; }
     }
     @media (min-width: 1024px) {
-      .profile-section {
-        padding: 60px 40px;
-      }
-      
-      .profile-header h2 {
-        font-size: 26px;
-      }
-      
-      .profile-pic img {
-        width: 140px;
-        height: 140px;
-      }
-      
-      .user-info h3 {
-        font-size: 22px;
-      }
-      
-      .user-info p {
-        font-size: 16px;
-      }
-      
-      .menu-item {
-        padding: 18px 30px;
-      }
-      
-      .menu-left i {
-        width: 45px;
-        height: 45px;
-        font-size: 18px;
-      }
-      
-      .menu-left span {
-        font-size: 18px;
-      }
-      
-      .profile-content {
-        padding: 60px 0;
-      }
+      .profile-section { padding: 60px 40px; }
+      .profile-header h2 { font-size: 26px; }
+      .profile-pic img { width: 140px; height: 140px;}
+      .user-info h3 { font-size: 22px; }
+      .user-info p { font-size: 16px; }
+      .menu-item { padding: 18px 30px; } 
+      .menu-left i { width: 45px; height: 45px; font-size: 18px; }
+      .menu-left span { font-size: 18px; }
+      .profile-content { padding: 60px 0; }
     }
-
     @media (max-width: 480px) {
-      .profile-section {
-        padding: 15px;
-      }
-      
-      .profile-header {
-        padding: 15px 0;
-      }
-      
-      .profile-header h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-      }
-      
-      .profile-pic img {
-        width: 80px;
-        height: 80px;
-      }
-      
-      .edit-icon {
-        padding: 5px;
-        font-size: 12px;
-      }
-      
-      .user-info h3 {
-        font-size: 16px;
-      }
-      
-      .user-info p {
-        font-size: 13px;
-      }
-      
-      .menu-item {
-        padding: 12px 15px;
-      }
-      
-      .menu-left {
-        gap: 12px;
-      }
-      
-      .menu-left i {
-        width: 35px;
-        height: 35px;
-        padding: 8px;
-        font-size: 14px;
-      }
-      
-      .menu-left span {
-        font-size: 14px;
-      }
-      
-      .nav-item {
-        font-size: 10px;
-      }
-      
-      .nav-item i {
-        font-size: 20px;
-      }
-
+      .profile-section { padding: 15px; }
+      .profile-header { padding: 15px 0; }
+      .profile-header h2 { font-size: 20px; margin-bottom: 20px; }
+      .profile-pic img { width: 80px; height: 80px; } 
+      .edit-icon { padding: 5px; font-size: 12px; }
+      .user-info h3 { font-size: 16px; } 
+      .user-info p { font-size: 13px; } 
+      .menu-item { padding: 12px 15px; } 
+      .menu-left { gap: 12px; } 
+      .menu-left i { width: 35px; height: 35px; padding: 8px; font-size: 14px; }
+      .menu-left span { font-size: 14px; } 
+      .nav-item { font-size: 10px; }
+      .nav-item i { font-size: 20px; }
     }
-
     @media (min-width: 1200px) {
-      .app-container {
-        grid-template-columns: 1fr 3fr;
-      }
-      
-      .profile-section {
-        padding: 80px 50px;
-      }
-      
-      .profile-content {
-        padding: 80px 0;
-      }
+      .app-container { grid-template-columns: 1fr 3fr; }
+      .profile-section { padding: 80px 50px; }
+      .profile-content { padding: 80px 0; }
     }
     @media (max-width: 350px) {
-      .menu-item {
-        padding: 10px 12px;
-      }
+      .menu-item { padding: 10px 12px; }
     }
   </style>
 </head>
@@ -431,6 +345,37 @@
       reader.readAsDataURL(file);
     });
   });
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyDzRgxPl4SDeqIcF3tSClXEpPc4fwE6TBc",
+      authDomain: "luxrymoll.firebaseapp.com",
+      projectId: "luxrymoll",
+      appId: "1:792042723150:web:f70ce7a0143cde1799f01f"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    window.googleLogin = function() {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+  
+          console.log("Name:", user.displayName);
+          console.log("Email:", user.email);
+          console.log("Photo:", user.photoURL);
+  
+          alert("Login Successful!");
+        })
+        .catch((error) => {
+          console.error("Login Error:", error);
+        });
+    };
   </script>
 </body>
 </html>
