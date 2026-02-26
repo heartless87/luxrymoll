@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
         addresses: user?.addresses ? Object.values(user.addresses) : [],
-        favoItem: user?.favoItem || {}
+        favoItem: user?.favoItem ? Object.keys(user.favoItem) : []
       });
     }
     // ===================== POST =====================
