@@ -88,7 +88,6 @@ function createProductCard(p, imgSrc) {
 async function handleScroll() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 900) {
     await loadProducts();
-    await autoCheckFavorites();
   }
 }
 async function autoCheckFavorites() {
