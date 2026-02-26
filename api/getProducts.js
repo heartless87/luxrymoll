@@ -16,10 +16,24 @@ export default async function handler(req, res) {
     }
     const db = cachedClient.db("Product");
     const col = db.collection("Prodlist");
-    const LIMIT = 12;
-    const docs = await col.aggregate([
-      { $sample: { size: LIMIT } }
-    ]).toArray();
+    let docs;
+    if (req.query.ids) {
+
+      const ids = req.query.ids.split(",");
+
+      const objectIds = ids
+        .filter(id => ObjectId.isValid(id))
+        .map(id => new ObjectId(id));
+
+      docs = await col.find({
+        _id: { $in: objectIds }
+      }).toArray();
+
+    } else {
+      docs = await col.aggregate([
+        { $sample: { size: 12 } }
+      ]).toArray();
+    }
     function toDataUri(str) {
       if (!str) return "";
       const s = String(str).trim();
