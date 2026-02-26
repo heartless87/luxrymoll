@@ -90,24 +90,41 @@ function handleScroll() {
     loadProducts();
   }
 }
+async function autoCheckFavorites() {
+  const userData = localStorage.getItem("luxuryUser");
+  const user = userData ? JSON.parse(userData) : null;
+  if (!user?.email) return;
+  try {
+    const res = await fetch(
+      `${BACKEND_URL}/api/address?email=${encodeURIComponent(user.email)}`
+    );
+    const data = await res.json();
+    if (!data.success || !Array.isArray(data.favorites)) return;
+    const likedSet = new Set(data.favorites);
+    document.querySelectorAll(".ui-bookmark").forEach(label => {
+      const pid = label.getAttribute("data-product-id");
+      const checkbox = label.querySelector("input");
+      if (likedSet.has(pid)) {
+        checkbox.checked = true;
+      }
+    });
+  } catch (err) {
+    console.error("Auto check failed:", err);
+  }
+}
 window.addEventListener("scroll", handleScroll);
 loadProducts();
 document.addEventListener("change", async (e) => {
-
   const checkbox = e.target;
   if (!checkbox.matches(".ui-bookmark input")) return;
-
   const bookmark = checkbox.closest(".ui-bookmark");
   const productId = bookmark?.getAttribute("data-product-id");
-
   const userData = localStorage.getItem("luxuryUser");
   const user = userData ? JSON.parse(userData) : null;
-
   if (!user?.email || !productId) {
     checkbox.checked = !checkbox.checked;
     return;
   }
-
   try {
     const res = await fetch(`${BACKEND_URL}/api/address`, {
       method: "POST",
@@ -126,13 +143,10 @@ document.addEventListener("change", async (e) => {
       console.error("API failed:", res.status);
       return;
     }
-
     const data = await res.json();
     console.log("Like system:", data);
-
   } catch (err) {
     checkbox.checked = !checkbox.checked;
     console.error("Network error:", err);
   }
-
 });
