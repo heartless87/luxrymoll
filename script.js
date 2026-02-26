@@ -87,7 +87,9 @@ function createProductCard(p, imgSrc) {
 }
 function handleScroll() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 900) {
-    loadProducts();
+    loadProducts().then(() => {
+      autoCheckFavorites();
+    });
   }
 }
 async function autoCheckFavorites() {
