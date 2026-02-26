@@ -101,8 +101,10 @@ async function autoCheckFavorites() {
       `${BACKEND_URL}/api/address?email=${encodeURIComponent(user.email)}`
     );
     const data = await res.json();
-    if (!data.success || !Array.isArray(data.favorites)) return;
-    const likedSet = new Set(data.favorites);
+    if (!data.success) return;
+    const likedSet = new Set(
+      data.favoItem ? Object.keys(data.favoItem) : []
+    );
     document.querySelectorAll(".ui-bookmark").forEach(label => {
       const pid = label.getAttribute("data-product-id");
       const checkbox = label.querySelector("input");
@@ -115,7 +117,9 @@ async function autoCheckFavorites() {
   }
 }
 window.addEventListener("scroll", handleScroll);
-loadProducts();
+loadProducts().then(() => {
+  autoCheckFavorites();
+});
 document.addEventListener("change", async (e) => {
   const checkbox = e.target;
   if (!checkbox.matches(".ui-bookmark input")) return;
