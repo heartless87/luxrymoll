@@ -124,4 +124,13 @@ export default async function handler(req, res) {
     console.error("Address API Error:", err);
     return res.status(500).json({ success: false });
   }
+  if (action === "exportFavorites") {
+    const favorites = user?.favoItem
+      ? Object.keys(user.favoItem)
+      : [];
+    return res.status(200).json({
+      success: true,
+      favorites
+    });
+  }
 }
