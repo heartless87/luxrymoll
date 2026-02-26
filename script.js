@@ -85,11 +85,10 @@ function createProductCard(p, imgSrc) {
 
   return div;
 }
-function handleScroll() {
+async function handleScroll() {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 900) {
-    loadProducts().then(() => {
-      autoCheckFavorites();
-    });
+    await loadProducts();
+    await autoCheckFavorites();
   }
 }
 async function autoCheckFavorites() {
