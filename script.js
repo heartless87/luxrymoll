@@ -2,6 +2,14 @@ let loading = false;
 let loadedProductIds = new Set();
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 const PLACEHOLDER = "/placeholder.png";
+function getLikedSet() {
+  try {
+    const liked = JSON.parse(localStorage.getItem("Liked")) || [];
+    return new Set(liked);
+  } catch {
+    return new Set();
+  }
+}
 function convertImg(str) {
   if (!str) return "";
   const s = String(str).trim();
@@ -45,6 +53,8 @@ async function loadProducts() {
   }
 }
 function createProductCard(p, imgSrc) {
+  const likedSet = getLikedSet();
+  const isLiked = likedSet.has(p._id);
   const div = document.createElement("div");
   div.className = "product-card";
   div.innerHTML = `
@@ -53,7 +63,7 @@ function createProductCard(p, imgSrc) {
         <label class="ui-bookmark" 
                data-product-id="${p._id}"
                onclick="event.stopPropagation()">
-          <input type="checkbox"/>
+          <input type="checkbox" ${isLiked ? "checked" : ""}/>
           <div class="bookmark-icon">
             <svg
               viewBox="0 0 16 16"
