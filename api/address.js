@@ -25,17 +25,29 @@ export default async function handler(req, res) {
 
     // ---------------- GET ADDRESSES ----------------
     if (req.method === "GET") {
-      const email = req.query.email;
-      if (!email) {
-        return res.status(400).json({ success: false });
+      try {
+        const email = req.query.email;
+        if (!email) {
+          return res.status(400).json({ success: false });
+        }
+        const cleanEmail = email.toLowerCase();
+        const user = await col.findOne({ email: cleanEmail });
+        if (!user) {
+          return res.status(200).json({
+            success: true,
+            addresses: [],
+            favoItem: {}
+          });
+        }
+        return res.status(200).json({
+          success: true,
+          addresses: user.addresses ? Object.values(user.addresses) : [],
+          favoItem: user.favoItem || {}
+        });
+      } catch (err) {
+        console.error("GET Address Error:", err);
+        return res.status(500).json({ success: false });
       }
-
-      const user = await col.findOne({ email: email.toLowerCase() });
-      return res.status(200).json({
-        success: true,
-        addresses: user?.addresses ? Object.values(user.addresses) : [],
-        favoItem: user?.favoItem ? Object.keys(user.favoItem) : []
-      });
     }
     // ===================== POST =====================
     if (req.method === "POST") {
