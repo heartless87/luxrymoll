@@ -52,12 +52,32 @@ export default async function handler(req, res) {
       if (!user) {
         return res.status(404).json({ success: false });
       }
+      if (action === "exportFavorites") {
+        return res.status(200).json({
+          success: true,
+          favorites: user?.favoItem
+            ? Object.keys(user.favoItem)
+            : []
+        });
+      }
+      if (action === "like" && productId) {
+        await col.updateOne(
+          { email: cleanEmail },
+          { $set: { [`favoItem.${productId}`]: true } }
+        );
+        return res.status(200).json({ success: true });
+      }
+      if (action === "unlike" && productId) {
+        await col.updateOne(
+          { email: cleanEmail },
+          { $unset: { [`favoItem.${productId}`]: "" } }
+        );
+        return res.status(200).json({ success: true });
+      }
       if (action === "save" && address) {
-
         const addresses = user.addresses || {};
         const nextIndex = Object.keys(addresses).length + 1;
         const addressKey = `address${nextIndex}`;
-
         await col.updateOne(
           { email: cleanEmail },
           {
@@ -69,68 +89,22 @@ export default async function handler(req, res) {
             }
           }
         );
-
         return res.status(200).json({ success: true });
       }
       if (action === "delete" && addressId) {
-
         const addressKey = Object.keys(user.addresses || {})
           .find(k => user.addresses[k].addressId === addressId);
-
         if (!addressKey) {
           return res.status(404).json({ success: false });
         }
-
         await col.updateOne(
           { email: cleanEmail },
           { $unset: { [`addresses.${addressKey}`]: "" } }
         );
-
         return res.status(200).json({ success: true });
       }
-      if (action === "like" && productId) {
-
-        await col.updateOne(
-          { email: cleanEmail },
-          {
-            $set: {
-              [`favoItem.${productId}`]: true
-            }
-          }
-        );
-
-        return res.status(200).json({ success: true });
-      }
-      if (action === "unlike" && productId) {
-
-        await col.updateOne(
-          { email: cleanEmail },
-          {
-            $unset: {
-              [`favoItem.${productId}`]: ""
-            }
-          }
-        );
-
-        return res.status(200).json({ success: true });
-      }
-
       return res.status(400).json({ success: false });
     }
-
-    return res.status(405).json({ success: false });
-
-  } catch (err) {
-    console.error("Address API Error:", err);
-    return res.status(500).json({ success: false });
-  }
-  if (action === "exportFavorites") {
-    const favorites = user?.favoItem
-      ? Object.keys(user.favoItem)
-      : [];
-    return res.status(200).json({
-      success: true,
-      favorites
     });
   }
 }
