@@ -71,7 +71,6 @@
         <div class="favorites-container"> 
         </div>
     </div>
-
     <script>
     const user = JSON.parse(localStorage.getItem("luxuryUser"));
     
@@ -80,32 +79,53 @@
       location.href = "index.html";
     }
     
+    const BACKEND_URL = "https://luxrymoll.vercel.app";
     const container = document.querySelector(".favorites-container");
     
     async function loadFavorites() {
-      container.innerHTML = "";
+      container.innerHTML = "<p>Loading...</p>";
 
       try {
-        const res = await fetch("https://luxrymoll.vercel.app/api/getFavoritesByEmail", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: user.email })
-        });
+        // 1️⃣ Get liked product IDs
+        const favRes = await fetch(
+          `${BACKEND_URL}/api/address?email=${encodeURIComponent(user.email)}`
+        );
     
-        const products = await res.json();
+        const favData = await favRes.json();
     
-        if (!products.length) {
+        if (!favData.success) {
+          container.innerHTML = "<p>Error loading favorites</p>";
+          return;
+        }
+    
+        const likedIds = Object.keys(favData.favoItem || {});
+    
+        if (!likedIds.length) {
           container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
           return;
         }
 
-        products.forEach(p => {
+        // 2️⃣ Get all products
+        const prodRes = await fetch(`${BACKEND_URL}/api/getProducts`);
+        const products = await prodRes.json();
+    
+        // 3️⃣ Filter only liked products
+        const likedProducts = products.filter(p =>
+          likedIds.includes(String(p._id))
+        );
+    
+        if (!likedProducts.length) {
+          container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
+          return;
+        }
+    
+        container.innerHTML = "";
+    
+        likedProducts.forEach(p => {
     
           const img =
-            p["image-1"]
-              ? `data:image/jpeg;base64,${p["image-1"]}`
-              : "/placeholder.png";
-    
+            p.images?.[0] || "/placeholder.png";
+
           const card = document.createElement("div");
           card.className = "favorite-item";
     
@@ -123,11 +143,27 @@
             </div>
           `;
 
-          card.querySelector(".heart-icon").addEventListener("click", (e) => {
+          // ❤️ Unlike directly
+          card.querySelector(".heart-icon").addEventListener("click", async (e) => {
             e.stopPropagation();
-            location.reload(); // simple refresh for now
-          });
     
+            await fetch(`${BACKEND_URL}/api/address`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: user.email,
+                productId: String(p._id),
+                action: "unlike"
+              })
+            });
+    
+            card.remove();
+    
+            if (!container.children.length) {
+              container.innerHTML = "<p style='text-align:center'>No favorites yet ❤️</p>";
+            }
+          });
+
           card.addEventListener("click", () => {
             location.href = "product.html?id=" + p._id;
           });
@@ -141,6 +177,9 @@
       }
     }
     
+    loadFavorites();
+    </script>
+    <script>
     loadFavorites();
     // Add some interactivity
     document.querySelectorAll('.favorite-item').forEach(item => {
