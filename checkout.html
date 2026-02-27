@@ -162,55 +162,54 @@ input:focus{ outline:none; border-color:#111827; }
   <!-- RIGHT SIDE -->
   <div class="right-col">
     <div class="card">
-
-      <h3 class="section-title">Order Summary</h3>
-
-      <div class="prodim" style="display:flex;gap:12px;">
-        <img id="productImage1" alt="Product Image" style="border-radius:10px;">
-        <div>
-          <strong>CloudSoft 3-Seater Sofa</strong><br>
-          <span class="muted">Color: Neutral Sand • Qty: 1</span><br><br>
-          <strong>$899.00</strong>
+      <h2 class="summary-title">Order Summary</h2>
+      <div class="product-card">
+          <div class="product-image-box">
+              <img id="productImage1" alt="Product Image">
+          </div>
+          <div class="product-info">
+                <div class="product-name">CloudSoft 3-Seater Sofa</div>
+                <div class="product-color">Color: Neutral Sand</div>
+                
+                <div class="product-qty-price">
+                    <span class="product-qty">Qty: 1</span>
+                    <div class="price-section">
+                        <span class="current-price">$899.00</span>
+                        <span class="original-price">$1,199.00</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <br>
-
-      <input placeholder="Discount code or gift card">
-      <button class="green-btn" style="margin-top:10px;">Apply</button>
-
-      <hr style="margin:20px 0;border:none;border-top:1px solid #e5e7eb;">
-
-      <div class="summary-row">
-        <span>Subtotal</span>
-        <span id="itemsTotal"></span>
-      </div>
-
-      <div class="summary-row" style="color:#dc2626;">
-        <span>Discount (SAVE25)</span>
-        <span>- $300.00</span>
-      </div>
-
-      <div class="summary-row">
-        <span>Shipping</span>
-        <span>₹50</span>
-      </div>
-
-      <div class="summary-row">
-        <span>Estimated Taxes</span>
-        <span>₹0</span>
-      </div>
-
-      <div class="summary-row summary-total">
-        <span>Total</span>
-        <span id="finalTotal"></span>
-      </div>
-
-      <button class="dark-btn">Pay <span id="finalTotal"></span></button>
-
+        <div class="discount-section">
+            <input type="text" class="discount-input" placeholder="Discount code or gift card" value="SAVE25">
+            <button class="apply-btn">Apply</button>
+        </div>
+        <div class="divider"></div>
+        <div class="price-breakdown">
+            <div class="price-row">
+                <span class="price-label">Subtotal</span>
+                <span class="price-value">$1,199.00</span>
+            </div>
+            <div class="price-row discount">
+                <span class="price-label">Discount (SAVE25)</span>
+                <span class="price-value">-$300.00</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">Shipping</span>
+                <span class="price-value">Free</span>
+            </div>
+            <div class="price-row">
+                <span class="price-label">Estimated Taxes</span>
+                <span class="price-value">$71.92</span>
+            </div>
+            
+            <div class="price-row total">
+                <span class="price-label">Total</span>
+                <span class="price-value">$970.92</span>
+            </div>
+        </div>
+        <button class="pay-btn">Pay $970.92</button>
     </div>
-  </div>
-
 </div>
 
 <!-- ================= MOBILE VIEW ================= -->
