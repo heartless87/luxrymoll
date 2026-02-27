@@ -20,11 +20,13 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .center-wrapper{ display:none;}
 .secure-ico{ display:flex; width: 22px; height: 22px; overflow: hidden; border: none; position: absolute; right: 50px; }
 .secure-icon{ display:none; }
+.sectext{ display:none; }
 @media (max-width: 768px) {
     .logo img{ display:none; }
     .center-wrapper{ display:flex; align-items:center; margin:0 auto; }
     .secure-icon{ display:flex; width: 25px; height: 25px; overflow: hidden; border: none; position: absolute; right: 25px; }
     .secure-ico{ display:none; }
+    .sectext{ display:flex; width: 25px; height: 25px; overflow: hidden; border: none; position: absolute; right: 22px; }
 }
 .container{ max-width:1200px; margin:40px auto; padding:0 20px; }
 .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; padding:20px; }
@@ -63,8 +65,11 @@ input:focus{ outline:none; border-color:#111827; }
       <div class="center-wrapper">
           <strong>Checkout</strong>
       </div>
-      <div class="secure-ico">
-          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828415.png" alt="Secure">
+      <div class="security"
+          <div class="secure-ico">
+              <img src="https://cdn-icons-png.flaticon.com/512/1828/1828415.png" alt="Secure">
+          </div>
+          <div class="sectext"><h3>Secure Checkout</h3></div>
       </div>
       <div class="secure-icon">
           <img src="https://cdn-icons-png.flaticon.com/512/1828/1828415.png" alt="Secure">
