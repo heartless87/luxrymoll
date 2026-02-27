@@ -15,15 +15,15 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 }
 .left-section { display: flex; align-items: center; gap: 1rem; }
 .icon-pic {  width: 32px; height: 32px; overflow: hidden; position: absolute; left: 20px; }
-.icon-pic img { width: 80%; height: 80%;}
-.logo img { position: relative; left: 25px; margin-top: 18px; width: 22px; height: auto; }
+.icon-pic img { overflow: hidden; width: 80%; height: 80%;}
+.logo img { display: block; position: relative; left: 25px; margin-top: 18px; width: 22px; height: auto; }
 .center-wrapper{ display:none;}
 .nav-right{ display:flex; align-items:center; gap:6px; color:#6b7280; font-size:14px; }
 .lock-icon{ font-size:14px; display:flex; align-items:center; }
 .lock-icon img{ height:14px; width:auto; display:block; }
 @media(max-width:768px){
     .navbar{ padding:12px 16px; }
-    .brand-name{ font-size:16px; }
+    .logo img { display: none; }
     .secure-text{ display:none; }
 }
 @media (max-width: 768px) {
