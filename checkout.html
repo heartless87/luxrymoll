@@ -51,7 +51,6 @@ input:focus{ outline:none; border-color:#111827; }
   .mobile-layout{ display:block; padding:15px; }
   .mobile-card{ background:#fff; border-radius:16px; border:1px solid #e5e7eb; padding:18px; margin-bottom:18px; }
   .place-order-btn{ position:fixed; bottom:0; left:0; width:100%; padding:16px; background:#1f2937; color:#fff; font-weight:600; border:none; }
-  .order-summary { max-width: 400px; width: 100%; background-color: white; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
   .summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e5e5e5; }
   .summary-title { font-size: 20px; font-weight: 600; color: #1a1a1a; }
   .edit-btn { color: #0066cc; text-decoration: none; font-size: 14px; font-weight: 500; background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
@@ -214,41 +213,39 @@ input:focus{ outline:none; border-color:#111827; }
 
 <!-- ================= MOBILE VIEW ================= -->
 <div class="mobile-layout">
-    <div class="order-summary">
-        <div class="summary-header">
-            <h2 class="summary-title">Order Summary</h2>
-            <button class="edit-btn">Edit</button>
-        </div>
-        <div class="product-section">
-            <div class="product-item">
-                <div class="product-image-placeholder"></div>
-                <div class="product-details">
-                    <div class="product-name">CloudSoft 3-Seater Sofa</div>
-                    <div class="product-variants">Color: Neutral Sand · Qty: 1</div>
-                    <div class="product-price">$899.00</div>
-                </div>
+    <div class="summary-header">
+        <h2 class="summary-title">Order Summary</h2>
+        <button class="edit-btn">Edit</button>
+    </div>
+    <div class="product-section">
+        <div class="product-item">
+            <div class="product-image-placeholder"></div>
+            <div class="product-details">
+                <div class="product-name">CloudSoft 3-Seater Sofa</div>
+                <div class="product-variants">Color: Neutral Sand · Qty: 1</div>
+                <div class="product-price">$899.00</div>
             </div>
         </div>
-        <div class="divider"></div>
-        <div class="delivery-section">
-            <h3 class="delivery-title">Delivery</h3>
-            <div class="delivery-contact-card">
-                <div class="delivery-item">
-                    <div class="delivery-icon" aria-label="Location"></div>
-                    <div class="delivery-content">
-                        <div class="delivery-label">Aanya Patel</div>
-                        <div class="delivery-address">
-                            123 Meadow Lane, Apt 4B<br>
-                            San Francisco, CA 94107
-                        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="delivery-section">
+        <h3 class="delivery-title">Delivery</h3>
+        <div class="delivery-contact-card">
+            <div class="delivery-item">
+                <div class="delivery-icon" aria-label="Location"></div>
+                <div class="delivery-content">
+                    <div class="delivery-label">Aanya Patel</div>
+                    <div class="delivery-address">
+                        123 Meadow Lane, Apt 4B<br>
+                        San Francisco, CA 94107
                     </div>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon" aria-label="Email"></div>
-                    <div class="contact-content">
-                        <div class="contact-label">Contact</div>
-                        <div class="contact-email">aanya.patel@example.com</div>
-                    </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon" aria-label="Email"></div>
+                <div class="contact-content">
+                    <div class="contact-label">Contact</div>
+                    <div class="contact-email">aanya.patel@example.com</div>
                 </div>
             </div>
         </div>
