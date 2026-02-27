@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 let cachedClient = null;
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "https://luxrymoll.shop");
@@ -17,18 +17,24 @@ export default async function handler(req, res) {
     const db = cachedClient.db("Product");
     const col = db.collection("Prodlist");
     let docs;
-    if (req.query.ids) {
-
-      const ids = req.query.ids.split(",");
-
-      const objectIds = ids
-        .filter(id => ObjectId.isValid(id))
-        .map(id => new ObjectId(id));
-
-      docs = await col.find({
-        _id: { $in: objectIds }
-      }).toArray();
-
+    if (req.query.ids && req.query.ids.trim() !== "") {
+      const rawIds = req.query.ids.split(",");
+      const objectIds = [];
+      for (const id of rawIds) {
+        try {
+          if (ObjectId.isValid(id)) {
+            objectIds.push(new ObjectId(id));
+          }
+        } catch (_) {
+        }
+      }
+      if (!objectIds.length) {
+        docs = [];
+      } else {
+        docs = await col.find({
+          _id: { $in: objectIds }
+        }).toArray();
+      }
     } else {
       docs = await col.aggregate([
         { $sample: { size: 12 } }
