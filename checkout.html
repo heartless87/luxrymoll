@@ -18,16 +18,16 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .icon-pic img { width: 80%; height: 80%;}
 .logo img { position: relative; left: 25px; margin-top: 18px; width: 22px; height: auto; }
 .center-wrapper{ display:none;}
-.security{ display:flex;  width: 22px; height: 22px; border: none; position: absolute; right: 50px;}
-.secure-ico{ display:flex; }
-.sectext{ display:flex; }
-.secure-icon{ display:none; }
+.nav-right{ display:flex; align-items:center; gap:6px; color:#6b7280; font-size:14px; }
+.lock-icon{ font-size:14px; }
+@media(max-width:768px){
+    .navbar{ padding:12px 16px; }
+    .brand-name{ font-size:16px; }
+    .secure-text{ display:none; }
+}
 @media (max-width: 768px) {
     .logo img{ display:none; }
     .center-wrapper{ display:flex; align-items:center; margin:0 auto; }
-    .secure-icon{ display:flex; width: 25px; height: 25px; overflow: hidden; border: none; position: absolute; right: 25px; }
-    .security{ display:none; }
-    .sectext{ display:none; }
 }
 .container{ max-width:1200px; margin:40px auto; padding:0 20px; }
 .card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; padding:20px; }
@@ -65,6 +65,10 @@ input:focus{ outline:none; border-color:#111827; }
       </div>
       <div class="center-wrapper">
           <strong>Checkout</strong>
+      </div>
+      <div class="nav-right">
+          <span class="lock-icon"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828415.png" alt="Secure"></span>
+          <span class="secure-text">Secure Checkout</span>
       </div>
       <div class="security"
           <div class="secure-ico">
