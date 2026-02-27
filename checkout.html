@@ -5,37 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout Product | Luxrymoll</title>
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-body{
-  background:#f5f6f8;
-  color:#1f2937;
-}
-
-.container{
-  max-width:1200px;
-  margin:40px auto;
-  padding:0 20px;
-}
-
-.card{
-  background:#fff;
-  border-radius:12px;
-  border:1px solid #e5e7eb;
-  padding:20px;
-}
-
-.section-title{
-  font-weight:600;
-  margin-bottom:16px;
-  font-size:18px;
-}
-
+*{ margin:0; padding:0; box-sizing:border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body{ background:#f5f6f8; color:#1f2937; }
+.container{ max-width:1200px; margin:40px auto; padding:0 20px; }
+.card{ background:#fff; border-radius:12px; border:1px solid #e5e7eb; padding:20px; }
+.section-title{ font-weight:600; margin-bottom:16px; font-size:18px; }
 input{
   width:100%;
   padding:12px 14px;
@@ -104,10 +78,6 @@ input:focus{
   margin-top:10px;
 }
 
-/* =========================
-   DESKTOP LAYOUT
-========================= */
-
 .desktop-layout{
   display:flex;
   gap:40px;
@@ -120,11 +90,6 @@ input:focus{
 .right-col{
   flex:1;
 }
-
-/* =========================
-   MOBILE LAYOUT
-========================= */
-
 .mobile-layout{
   display:none;
 }
@@ -175,29 +140,9 @@ input:focus{
 
 </style>
 </head>
-
 <body>
-
-<!-- ================= DESKTOP VIEW ================= -->
-
 <div class="container desktop-layout">
-
-  <!-- LEFT SIDE -->
   <div class="left-col">
-
-    <h2 class="section-title">Contact Information</h2>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;">
-        <div>
-          <strong>Aanya Patel</strong><br>
-          <span class="muted">aanya.patel@example.com</span>
-        </div>
-        <a href="#" class="muted">Log out</a>
-      </div>
-    </div>
-
-    <br>
-
     <h2 class="section-title">Shipping Address</h2>
     <div class="radio-option active">
       <div>
