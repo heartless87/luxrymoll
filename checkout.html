@@ -89,7 +89,7 @@ input:focus{ outline:none; border-color:#111827; }
 <body>
   <nav>
       <div class="left-section">
-          <div class="icon-pic" onclick="goBack()">
+          <div class="icon-pic" id="backBtn">
               <img src="https://cdn-icons-png.flaticon.com/512/5343/5343109.png" alt="Back">
           </div>
           <div class="logo">
@@ -279,5 +279,10 @@ input:focus{ outline:none; border-color:#111827; }
 
 </div>
 <script src="checkout.js"></script>
+<script>
+document.getElementById("backBtn").addEventListener("click", function() {
+    window.history.back();
+});
+</script>
 </body>
 </html>
