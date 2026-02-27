@@ -149,7 +149,7 @@ input:focus{ outline:none; border-color:#111827; }
 
       <div class="summary-row">
         <span>Subtotal</span>
-        <span>$1,199.00</span>
+        <span id="itemsTotal"></span>
       </div>
 
       <div class="summary-row" style="color:#dc2626;">
@@ -159,20 +159,20 @@ input:focus{ outline:none; border-color:#111827; }
 
       <div class="summary-row">
         <span>Shipping</span>
-        <span>Free</span>
+        <span>₹50</span>
       </div>
 
       <div class="summary-row">
         <span>Estimated Taxes</span>
-        <span>$71.92</span>
+        <span>₹0</span>
       </div>
 
       <div class="summary-row summary-total">
         <span>Total</span>
-        <span>$970.92</span>
+        <span id="finalTotal"></span>
       </div>
 
-      <button class="dark-btn">Pay $970.92</button>
+      <button class="dark-btn">Pay <span id="finalTotal"></span></button>
 
     </div>
   </div>
@@ -206,7 +206,7 @@ input:focus{ outline:none; border-color:#111827; }
   <div class="mobile-card">
     <div class="summary-row">
       <span>Subtotal</span>
-      <span>$1,199.00</span>
+      <span id="itemsTotal"></span>
     </div>
     <div class="summary-row" style="color:#dc2626;">
       <span>Discount</span>
@@ -214,13 +214,13 @@ input:focus{ outline:none; border-color:#111827; }
     </div>
     <div class="summary-row">
       <span>Total</span>
-      <span><strong>$970.92</strong></span>
+      <span id="finalTotal"></span>
     </div>
   </div>
 
-  <button class="place-order-btn">Place Order • $970.92</button>
+  <button class="place-order-btn">Place Order • <span id="finalTotal"></span></button>
 
 </div>
-
+<script src="checkout.js"></script>
 </body>
 </html>
