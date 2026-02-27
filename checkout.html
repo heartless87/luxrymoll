@@ -51,6 +51,39 @@ input:focus{ outline:none; border-color:#111827; }
   .mobile-layout{ display:block; padding:15px; }
   .mobile-card{ background:#fff; border-radius:16px; border:1px solid #e5e7eb; padding:18px; margin-bottom:18px; }
   .place-order-btn{ position:fixed; bottom:0; left:0; width:100%; padding:16px; background:#1f2937; color:#fff; font-weight:600; border:none; }
+  .order-summary { max-width: 400px; width: 100%; background-color: white; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+  .summary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e5e5e5; }
+  .summary-title { font-size: 20px; font-weight: 600; color: #1a1a1a; }
+  .edit-btn { color: #0066cc; text-decoration: none; font-size: 14px; font-weight: 500; background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+  .edit-btn:hover { background-color: #f0f7ff; }
+  .product-section { margin-bottom: 20px; }
+  .product-item { display: flex; gap: 12px; }
+  .product-image-placeholder { width: 80px; height: 80px; background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%); border-radius: 8px; flex-shrink: 0; }
+  .product-details { flex: 1; }
+  .product-name { font-weight: 600; color: #1a1a1a; font-size: 16px; margin-bottom: 6px; }
+  .product-variants { color: #666; font-size: 14px; margin-bottom: 8px; }
+  .product-price { font-weight: 600; color: #1a1a1a;  font-size: 18px; }
+  .divider { height: 1px; background-color: #e5e5e5; margin: 20px 0; }
+  .delivery-section { margin-top: 8px; }
+  .delivery-title { font-weight: 600; color: #1a1a1a; font-size: 16px; margin-bottom: 16px; }
+  .delivery-contact-card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; background-color: #ffffff; }
+  .delivery-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e5e5e5; }
+  .delivery-icon { width: 24px; height: 24px; background-color: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #666; font-size: 14px; }
+  .delivery-content { flex: 1; }
+  .delivery-label { font-weight: 600; color: #1a1a1a; font-size: 15px; margin-bottom: 4px; }
+  .delivery-address { color: #666; font-size: 14px; line-height: 1.5; }
+  .contact-item { display: flex; gap: 12px; align-items: flex-start; }
+  .contact-icon { width: 24px; height: 24px; background-color: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #666; font-size: 14px; }
+  .contact-content { flex: 1; }
+  .contact-label { font-weight: 600; color: #1a1a1a; font-size: 15px; margin-bottom: 4px; }
+  .contact-email { color: #666; font-size: 14px; }
+  .delivery-icon::before { content: "📍"; font-size: 14px; }
+  .contact-icon::before { content: "📧"; font-size: 14px; }
+}
+@media (max-width: 400px) {
+    .order-summary { padding: 20px; } 
+    .product-item { flex-direction: column; } 
+    .product-image-placeholder { width: 100%; height: 120px; }
 }
 </style>
 </head>
@@ -180,19 +213,46 @@ input:focus{ outline:none; border-color:#111827; }
 </div>
 
 <!-- ================= MOBILE VIEW ================= -->
-
 <div class="mobile-layout">
-  <div class="mobile-card">
-    <strong>CloudSoft 3-Seater Sofa</strong><br>
-    <span class="muted">Color: Neutral Sand • Qty: 1</span><br><br>
-    <strong>$899.00</strong>
-  </div>
-
-  <div class="mobile-card">
-    <strong>Standard Delivery</strong><br>
-    <span class="muted">Est. delivery: Oct 24 - Oct 26</span>
-  </div>
-
+    <div class="order-summary">
+        <div class="summary-header">
+            <h2 class="summary-title">Order Summary</h2>
+            <button class="edit-btn">Edit</button>
+        </div>
+        <div class="product-section">
+            <div class="product-item">
+                <div class="product-image-placeholder"></div>
+                <div class="product-details">
+                    <div class="product-name">CloudSoft 3-Seater Sofa</div>
+                    <div class="product-variants">Color: Neutral Sand · Qty: 1</div>
+                    <div class="product-price">$899.00</div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="delivery-section">
+            <h3 class="delivery-title">Delivery</h3>
+            <div class="delivery-contact-card">
+                <div class="delivery-item">
+                    <div class="delivery-icon" aria-label="Location"></div>
+                    <div class="delivery-content">
+                        <div class="delivery-label">Aanya Patel</div>
+                        <div class="delivery-address">
+                            123 Meadow Lane, Apt 4B<br>
+                            San Francisco, CA 94107
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon" aria-label="Email"></div>
+                    <div class="contact-content">
+                        <div class="contact-label">Contact</div>
+                        <div class="contact-email">aanya.patel@example.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   <div class="mobile-card">
     <strong>Credit Card</strong>
     <input placeholder="Card number">
