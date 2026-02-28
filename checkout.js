@@ -9,7 +9,6 @@ const finalTotal = itemsTotal + DELIVERY_FEE;
 document.getElementById("itemsTotal").innerText = "₹" + itemsTotal;
 document.getElementById("finalTotal").innerText = "₹" + finalTotal;
 document.getElementById("itemsTotal0").innerText = "₹" + itemsTotal;
-document.getElementById("finalTotal0").innerText = "₹" + finalTotal;
 document.getElementById("productImage").src = data.image;
 document.getElementById("section-title").innerText = data.title;
 document.getElementById("delivery-type").innerText = data.desc;
