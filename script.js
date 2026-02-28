@@ -2,6 +2,20 @@ let loading = false;
 let loadedProductIds = new Set();
 const BACKEND_URL = "https://luxrymoll.vercel.app";
 const PLACEHOLDER = "/placeholder.png";
+function updateLocalLiked(productId, isLiked) {
+  try {
+    const existing = JSON.parse(localStorage.getItem("Liked")) || [];
+    const likedSet = new Set(existing);
+    if (isLiked) {
+      likedSet.add(productId);
+    } else {
+      likedSet.delete(productId);
+    }
+    localStorage.setItem("Liked", JSON.stringify([...likedSet]));
+  } catch (err) {
+    console.error("LocalStorage Like Error:", err);
+  }
+}
 function getLikedSet() {
   try {
     const liked = JSON.parse(localStorage.getItem("Liked")) || [];
@@ -157,6 +171,8 @@ document.addEventListener("change", async (e) => {
       console.error("API failed:", res.status);
       return;
     }
+    updateLocalLiked(productId, checkbox.checked);
+    console.log("Like synced backend + local");
     const data = await res.json();
     console.log("Like system:", data);
   } catch (err) {
