@@ -81,7 +81,7 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .right-col{ flex:1; }
 .mobile-layout{ display:none; } */
 /* @media(max-width:768px){ */
-/* .desktop-layout{ display:none; } */
+.desktop-layout{ display:none; }
 .mobile-layout{ display:block; padding:15px; }
 .mobile-card{ display:block; background:#fff; border-radius:16px; border:1px solid #e5e7eb; padding:18px; margin-bottom:18px; }
 .place-order-btn{ position:fixed; bottom:0; left:0; width:100%; padding:16px; background:#1f2937; color:#fff; font-weight:600; border:none; }
@@ -234,69 +234,69 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
       </div>
 
 <!-- ================= MOBILE VIEW ================= -->
-    <div class="mobile-layout">
-        <div class="summary-header">
-            <h2 class="summary-title">Order Summary</h2>
-            <button class="edit-btn">Edit</button>
-        </div>
-        <div class="product-section">
-            <div class="product-item">
-                <div class="product-image-placeholder"><img id="productImage2" alt="Product Image"></div>
-                <div class="product-details">
-                    <div class="product-name"><span id="section-title"></span></div>
-                    <div class="product-variants">Color: Neutral Sand · Qty: 1</div>
-                    <div class="product-price">$899.00</div>
-                </div>
-            </div>
-        </div>
-        <div class="divider"></div>
-        <div class="delivery-section">
-            <h3 class="delivery-title">Delivery</h3>
-            <div class="delivery-contact-card">
-                <div class="delivery-item">
-                    <div class="delivery-icon" aria-label="Location"></div>
-                    <div class="delivery-content">
-                        <div class="delivery-label">Aanya Patel</div>
-                        <div class="delivery-address">
-                            123 Meadow Lane, Apt 4B<br>
-                            San Francisco, CA 94107
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon" aria-label="Email"></div>
-                    <div class="contact-content">
-                        <div class="contact-label">Contact</div>
-                        <div class="contact-email">aanya.patel@example.com</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      <div class="mobile-card">
-        <strong>Credit Card</strong>
-        <input placeholder="Card number">
-        <div style="display:flex;gap:10px;">
-          <input placeholder="MM/YY">
-          <input placeholder="CVC">
-        </div>
-        <input placeholder="Name on card">
-      </div>
-      <div class="mobile-card">
-        <div class="summary-row">
-          <span>Subtotal</span>
-          <span id="itemsTotal"></span>
-        </div>
-        <div class="summary-row" style="color:#dc2626;">
-          <span>Discount</span>
-          <span>- $300.00</span>
-        </div>
-        <div class="summary-row">
-          <span>Total</span>
-          <!-- <span id="finalTotal"></span> -->
-        </div>
-      </div>
-      <button class="place-order-btn">Place Order • <span id="finalTotal"></span></button>
+<div class="mobile-layout">
+    <div class="summary-header">
+        <h2 class="summary-title">Order Summary</h2>
+        <button class="edit-btn">Edit</button>
     </div>
+    <div class="product-section">
+        <div class="product-item">
+            <div class="product-image-placeholder"><img id="productImage2" alt="Product Image"></div>
+            <div class="product-details">
+                <div class="product-name"><span id="section-title"></span></div>
+                <div class="product-variants">Color: Neutral Sand · Qty: 1</div>
+                <div class="product-price">$899.00</div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="delivery-section">
+        <h3 class="delivery-title">Delivery</h3>
+        <div class="delivery-contact-card">
+            <div class="delivery-item">
+                <div class="delivery-icon" aria-label="Location"></div>
+                <div class="delivery-content">
+                    <div class="delivery-label">Aanya Patel</div>
+                    <div class="delivery-address">
+                        123 Meadow Lane, Apt 4B<br>
+                        San Francisco, CA 94107
+                    </div>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon" aria-label="Email"></div>
+                <div class="contact-content">
+                    <div class="contact-label">Contact</div>
+                    <div class="contact-email">aanya.patel@example.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="mobile-card">
+    <strong>Credit Card</strong>
+    <input placeholder="Card number">
+    <div style="display:flex;gap:10px;">
+      <input placeholder="MM/YY">
+      <input placeholder="CVC">
+    </div>
+    <input placeholder="Name on card">
+  </div>
+  <div class="mobile-card">
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span id="itemsTotal"></span>
+    </div>
+    <div class="summary-row" style="color:#dc2626;">
+      <span>Discount</span>
+      <span>- $300.00</span>
+    </div>
+    <div class="summary-row">
+      <span>Total</span>
+      <!-- <span id="finalTotal"></span> -->
+    </div>
+  </div>
+  <button class="place-order-btn">Place Order • <span id="finalTotal"></span></button>
+</div>
     <script src="checkout.js"></script>
     <script>
     document.getElementById("backBtn").addEventListener("click", function() {
