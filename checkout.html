@@ -191,5 +191,47 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
             window.history.back();
         });
         </script>
+        <script>
+        async function loadUserAddress() {
+        
+          const user = JSON.parse(localStorage.getItem("luxuryUser"));
+        
+          if (!user || !user.email) {
+            console.log("No user found");
+            return;
+          }
+          const email = user.email.toLowerCase();
+          const emailDiv = document.getElementById("email");
+          if (emailDiv) {
+            emailDiv.innerText = email;
+          }
+          try {
+            const response = await fetch(
+              `https://luxrymoll.vercel.app/api/address?email=${encodeURIComponent(email)}`,
+              {
+                method: "GET"
+              }
+            );
+            const result = await response.json();
+            if (result.success && result.addresses.length > 0) {
+              const a = result.addresses[0];
+              const formatted =
+                `${a.fullName}, ` +
+                `${a.address1} ${a.address2 || ""}, ` +
+                `${a.city} - ${a.zip}, ` +
+                `Phone: ${a.phone}`;
+              const addressEl = document.getElementById("address-text");
+              if (addressEl) {
+                addressEl.innerHTML = formatted;
+              }
+            } else {
+              console.log("No address saved for this email");
+            }
+          } catch (error) {
+            console.error("API Error:", error);
+          }
+        }
+        loadUserAddress();
+        </script>
     </body>
 </html>
