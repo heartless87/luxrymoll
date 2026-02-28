@@ -97,11 +97,11 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
         <div class="mobile-layout">
             <div class="summary-header">
                 <h2 class="summary-title">Order Summary</h2>
-                <button class="edit-btn">Edit</button>
+                <button class="edit-btn" id="editbtn">Edit</button>
             </div>
             <div class="product-section">
                 <div class="product-item">
-                    <div class="product-image-placeholder"><img id="productImage2" alt="Product Image"></div>
+                    <div class="product-image-placeholder"><img id="productImage" alt="Product Image"></div>
                     <div class="product-details">
                         <div class="product-name"><span id="section-title"></span></div>
                         <div class="product-variants">Color: Neutral Sand · Qty: 1</div>
@@ -148,11 +148,11 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
             </div>
             <div class="summary-row" style="color:#dc2626;">
               <span>Discount</span>
-              <span>- $300.00</span>
+              <span>00</span>
             </div>
             <div class="summary-row">
               <span>Total</span>
-              <!-- <span id="finalTotal"></span> -->
+              <span id="finalTotal"></span>
             </div>
           </div>
           <button class="place-order-btn">Place Order • <span id="finalTotal"></span></button>
@@ -160,6 +160,9 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
         <script src="checkout.js"></script>
         <script>
         document.getElementById("backBtn").addEventListener("click", function() {
+            window.history.back();
+        });
+        document.getElementById("editBtn").addEventListener("click", function() {
             window.history.back();
         });
         </script>
