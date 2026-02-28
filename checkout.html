@@ -102,7 +102,7 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
     .delivery-contact-card { border: 1px solid #e5e5e5; border-radius: 12px; padding: 16px; background-color: #ffffff; }
     .delivery-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e5e5e5; }
     .delivery-icon { width: 24px; height: 24px; background-color: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #666; font-size: 14px; }
-    .delivery-content { flex: 1; }
+    /* .delivery-content { flex: 1; }
     .delivery-label { font-weight: 600; color: #1a1a1a; font-size: 15px; margin-bottom: 4px; }
     .delivery-address { color: #666; font-size: 14px; line-height: 1.5; }
     .contact-item { display: flex; gap: 12px; align-items: flex-start; }
@@ -111,7 +111,7 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
     .contact-label { font-weight: 600; color: #1a1a1a; font-size: 15px; margin-bottom: 4px; }
     .contact-email { color: #666; font-size: 14px; }
     .delivery-icon::before { content: "📍"; font-size: 14px; }
-    .contact-icon::before { content: "📧"; font-size: 14px; }
+    .contact-icon::before { content: "📧"; font-size: 14px; } */
 }
 @media (max-width: 400px) {
     .order-summary { padding: 20px; } 
@@ -292,7 +292,6 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
     </div>
     <input placeholder="Name on card">
   </div>
-
   <div class="mobile-card">
     <div class="summary-row">
       <span>Subtotal</span>
@@ -307,11 +306,9 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
       <!-- <span id="finalTotal"></span> -->
     </div>
   </div>
-
   <button class="place-order-btn">Place Order • <span id="finalTotal"></span></button>
-
 </div>
-<!-- <script src="checkout.js"></script> -->
+<script src="checkout.js"></script>
 <script>
 document.getElementById("backBtn").addEventListener("click", function() {
     window.history.back();
