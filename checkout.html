@@ -214,6 +214,10 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
             const result = await response.json();
             if (result.success && result.addresses.length > 0) {
               const a = result.addresses[0];
+              const nameEl = document.getElementById("name");
+              if (nameEl) {
+                nameEl.innerText = a.fullName || "";
+              }
               const formatted =
                 `${a.fullName}, ` +
                 `${a.address1} ${a.address2 || ""}, ` +
