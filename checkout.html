@@ -141,21 +141,42 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
             </div>
             <input placeholder="Name on card">
           </div>
-          <div class="mobile-card">
-            <div class="summary-row">
-              <span>Subtotal</span>
-              <span id="itemsTotal"></span>
+          <div class="summary-card">
+              <div class="coupon-box">
+                <input type="text" placeholder="Gift card or discount code">
+                <button class="apply-btn">Apply</button>
+              </div>
+              <div class="divider"></div>
+              <div class="price-row">
+                <span>Subtotal</span>
+                <span id="itemsTotal"></span>
+              </div>
+            
+              <div class="price-row discount">
+                <span>Discount (SAVE25)</span>
+                <span>-00</span>
+              </div>
+            
+              <div class="price-row">
+                <span>Shipping</span>
+                <span>50</span>
+              </div>
+            
+              <div class="price-row">
+                <span>Estimated Taxes</span>
+                <span>0</span>
+              </div>
+              <div class="divider"></div>
+              <div class="price-row total">
+                <span>Total</span>
+                <span id="finalTotal"></span>
+              </div>
             </div>
-            <div class="summary-row" style="color:#dc2626;">
-              <span>Discount</span>
-              <span>00</span>
-            </div>
-            <div class="summary-row">
-              <span>Total</span>
-              <span id="finalTotal"></span>
-            </div>
+            <button class="place-order-btn">
+              Place Order • $970.92
+              <span class="arrow">→</span>
+            </button>
           </div>
-          <button class="place-order-btn">Place Order • <span id="finalTotal0"></span></button>
         </div>
         <script src="checkout.js"></script>
         <script>
