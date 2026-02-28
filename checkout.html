@@ -30,13 +30,6 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
     .logo img{ display:none; }
     .center-wrapper{ display:flex; align-items:center; margin:0 auto; }
 }
-@media (max-width: 400px) {
-    .order-summary { padding: 20px; } 
-    .product-card { flex-direction: column; } 
-    .product-image-box { width: 100%; height: 150px; }
-    .discount-section { flex-direction: column; }
-    .apply-btn { width: 100%; }
-}
 .mobile-layout{ display:block; padding:15px; }
 .mobile-card{ display:block; background:#fff; border-radius:16px; border:1px solid #e5e7eb; padding:18px; margin-bottom:18px; }
 .place-order-btn{ position:fixed; bottom:0; left:0; width:100%; padding:16px; background:#1f2937; color:#fff; font-weight:600; border:none; }
@@ -73,6 +66,20 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
     .product-item { flex-direction: column; } 
     .product-image-placeholder { width: 100%; height: 120px; }
 }
+.summary-card{ background:#ffffff; border-radius:20px; padding:24px; max-width:420px; margin:0 auto 120px auto; box-shadow:0 4px 20px rgba(0,0,0,0.05); }
+.coupon-box{ display:flex; gap:12px; }
+.coupon-box input{ flex:1; padding:16px; border-radius:14px; border:1px solid #e5e7eb; background:#f1f5f9; font-size:15px; color:#64748b; }
+.coupon-box input::placeholder{ color:#94a3b8; }
+.apply-btn{ padding:16px 20px; border:none; border-radius:14px; background:#379777; color:#ffffff; font-weight:600; cursor:pointer; }
+.apply-btn:hover{ opacity:0.9; }
+.divider{ height:1px; background:#e5e7eb; margin:22px 0; }
+.price-row{ display:flex; justify-content:space-between; margin-bottom:14px; font-size:16px; color:#64748b; }
+.price-row span:last-child{ font-weight:500; color:#111827; }
+.discount span{ color:#ef4444; }
+.total{ font-size:20px; font-weight:700; color:#111827; }
+.place-order-btn{ position:fixed; bottom:20px; left:50%; transform:translateX(-50%); width:90%; max-width:420px; padding:18px; border:none; border-radius:20px; background:#4b5563; color:#ffffff; font-size:16px; font-weight:600; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:8px; }
+.place-order-btn:hover{ background:#374151; }
+.arrow{ font-size:18px; }
 </style>
 </head>
     <body>
