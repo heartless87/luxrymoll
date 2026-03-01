@@ -52,6 +52,7 @@
         <button id="prevBtn" style="position:absolute;left:10px;top:50%">❮</button>
         <button id="nextBtn" style="position:absolute;right:10px;top:50%">❯</button>
     </div>
+    <div class="thumbnail-container" id="thumbContainer"></div>
     <div class="product-info">        
         <span class="tag popular">Popular</span>
         <span class="tag discount">25% Save</span>
@@ -124,8 +125,12 @@ function renderImage() {
 }
 function renderThumbnails() {
   const container = document.getElementById("thumbContainer");
-  if (!container) return;
+  if (!container) {
+    console.log("Thumbnail container not found");
+    return;
+  }
   container.innerHTML = "";
+  if (!images || images.length === 0) return;
   images.forEach((imgSrc, i) => {
     const box = document.createElement("div");
     box.className = "thumbnail-box";
@@ -136,7 +141,6 @@ function renderThumbnails() {
     box.addEventListener("click", () => {
       index = i;
       renderImage();
-      renderThumbnails();
     });
     container.appendChild(box);
   });
