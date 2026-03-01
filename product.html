@@ -164,6 +164,21 @@ if (window.innerWidth < 768) {
   if (nextBtn) nextBtn.style.display = "none";
   if (prevBtn) prevBtn.style.display = "none";
 }
+(function preloadImage() {
+  const preview = sessionStorage.getItem("previewProduct");
+  if (!preview) return;
+
+  try {
+    const data = JSON.parse(preview);
+    const currentId = new URLSearchParams(location.search).get("id");
+
+    if (data.id === currentId && data.image) {
+      document.getElementById("mainImg").src = data.image;
+    }
+  } catch (err) {
+    console.log("Preview load failed");
+  }
+})();
 loadProduct();
 </script>
 <script>
