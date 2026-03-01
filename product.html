@@ -23,10 +23,10 @@
         .thumbnail-box { width: 120px; height: 120px; flex: 0 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; cursor: pointer; background: #fff; display: flex; align-items: center; justify-content: center; }
         .thumbnail-box img { width: 100%; height: 100%; object-fit: contain; }
         .thumbnail-box.active { border: 2px solid #000; }
-        .product-info { background: white; border-radius: 15px; margin-top: 15px; padding: 15px; }
-        .tag { padding: 4px 8px; font-size: 12px; border-radius: 5px; margin-right: 5px; }
-        .popular { background: orange; color: white; }
-        .discount { background: gold; color: black; }
+        .product-container { max-width: 500px; background: #f2f2f2; padding: 25px; border-radius: 16px; }
+        .product-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #333; }
+        .rating { font-size: 14px; color: #777; margin-bottom: 18px; }
+        .rating span { color: #f5a623; font-size: 16px; }
         .price-new { font-size: 22px; font-weight: bold; }
         .price-old { text-decoration: line-through; color: gray; margin-left: 10px; }
         .qty-box { display: flex; gap: 10px; margin: 15px 0; }
@@ -53,10 +53,11 @@
         <button id="nextBtn" style="position:absolute;right:10px;top:50%">❯</button>
     </div>
     <div class="thumbnail-container" id="thumbContainer"></div>
-    <div class="product-info">        
-        <span class="tag popular">Popular</span>
-        <span class="tag discount">25% Save</span>
-        <h2 id="title">Loading...</h2>
+    <div class="product-container">
+        <div class="product-title" id="title">Fetching...</div>
+        <div class="rating">
+          <span>★★★★★</span> 4.8 <a href="#">(124 reviews)</a>
+        </div>
         <div class="price-box">
             <span class="price-new" id="selling"></span>
             <span class="price-old" id="original"></span>
