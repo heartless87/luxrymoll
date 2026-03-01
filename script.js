@@ -104,6 +104,13 @@ function createProductCard(p, imgSrc) {
     </div>
   `;
   div.addEventListener("click", () => {
+    sessionStorage.setItem(
+      "previewProduct",
+      JSON.stringify({
+        id: p._id,
+        image: imgSrc
+      })
+    );
     location.href = `product.html?id=${p._id}`;
   });
 
