@@ -19,9 +19,8 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .search-box { width: 100%; padding: 0.6rem 1rem 0.6rem 2.5rem; border: 1px solid #ddd; border-radius: 10px; font-size: 0.9rem; background-color: #f9f9f9; transition: all 0.3s ease; }
 .search-box:focus { outline: none; border-color: #999; background-color: #00000014; }
 .search-box::placeholder { color: #666; }
-.icon-btn { width: 55px; height: 55px; background: #2e8b6f; border-radius: 12px; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; transition: 0.2s; }
-.icon-btn:hover { background: #256f59; }
-.icon-btn img { width: 26px; height: 26px; object-fit: contain; }
+.icon-wrapper{ position:relative; width: 60px; height: 60px; background: #3b8d6d; border-radius: 18px; display: flex; align-items: center; justify-content: center; cursor:pointer; }
+.icon-wrapper img{ width:36px; height:36px; object-fit:contain; }
 nav ul{ display: flex; gap: 30px; align-item: center; }
 nav ul li{ list-style-type: none; }
 nav ul li a{ text-decoration: none; color: #0f172a; }
