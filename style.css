@@ -21,6 +21,7 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .search-box::placeholder { color: #666; }
 .icon-wrapper{ position:relative; width: 50px; height: 50px; background: #3b8d6d; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor:pointer; }
 .icon-wrapper img{ width:25px; height:25px; object-fit:contain; position:absolute; left: 12px; top: 12px; filter: brightness(0) invert(1); }
+.badge{ position:absolute; top:-6px; right:-8px; background:#f4c430; color:#000; font-size:12px; font-weight:bold; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; display: none; }
 .profile{ display:flex; align-items:center; gap:10px; background:white; padding:8px 15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
 .profile img{ width:38px; height:38px; border-radius:50%; object-fit:cover; }
 .profile span{ font-size:16px; color:#444; }
