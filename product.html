@@ -23,12 +23,13 @@
         .thumbnail-box { width: 120px; height: 120px; flex: 0 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; cursor: pointer; background: #fff; display: flex; align-items: center; justify-content: center; }
         .thumbnail-box img { width: 100%; height: 100%; object-fit: contain; }
         .thumbnail-box.active { border: 2px solid #000; }
-        .product-container { max-width: 500px; background: #f2f2f2; padding: 25px; border-radius: 16px; }
+        .product-container { max-width: 500px; box-sizing: border-box; background: #f2f2f2; padding: 25px; border-radius: 16px; }
         .product-title { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #333; }
         .rating { font-size: 14px; color: #777; margin-bottom: 18px; }
         .rating span { color: #f5a623; font-size: 16px; }
-        .price-new { font-size: 22px; font-weight: bold; }
-        .price-old { text-decoration: line-through; color: gray; margin-left: 10px; }
+        .price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+        .price-new { font-size: 28px; font-weight: 700; color: #222; }
+        .price-old { text-decoration: line-through; color: #888; }
         .qty-box { display: flex; gap: 10px; margin: 15px 0; }
         .qty-box button { padding: 6px 12px; border-radius: 8px; border: none; background: #ddd; cursor: pointer; }
         .colors, .sizes { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
@@ -58,7 +59,7 @@
         <div class="rating">
           <span>★★★★★</span> 4.8 <a href="#">(124 reviews)</a>
         </div>
-        <div class="price-box">
+        <div class="price-row">
             <span class="price-new" id="selling"></span>
             <span class="price-old" id="original"></span>
         </div>
