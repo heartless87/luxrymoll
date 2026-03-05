@@ -24,9 +24,13 @@ nav{ padding: 0px 10px; display: flex; align-items: center; justify-content: spa
 .search-box::placeholder { color: #666; }
 .icon-wrapper{ position:relative; width: 50px; height: 50px; background: #3b8d6d; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor:pointer; }
 .icon-wrapper img{ width:25px; height:25px; object-fit:contain; position:absolute; left: 12px; top: 12px; filter: brightness(0) invert(1); }
+.icon-wrapper2{ position:absolute; width: 50px; height: 50px; background: #3b8d6d; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor:pointer; right:9%; }
+.icon-wrapper2 img{ width:25px; height:25px; object-fit:contain; position:absolute; left: 12px; top: 12px; filter: brightness(0) invert(1); }
 @media (max-width: 768px) {
     .icon-wrapper{ width: 36px; height: 36px; }
     .icon-wrapper img{ width: 18px; height: 18px; object-fit:contain; position:absolute; left: 9px; top: 9px; }
+    .icon-wrapper2{ width: 36px; height: 36px; }
+    .icon-wrapper2 img{ width: 18px; height: 18px; object-fit:contain; position:absolute; left: 9px; top: 9px; }
 }
 .badge{ position:absolute; top:-6px; right:-8px; background:#f4c430; color:#000; font-size:12px; font-weight:bold; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; display: none; }
 .profile{ display:flex; align-items:center; gap:10px; background:white; padding:8px 15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
