@@ -8,6 +8,9 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
 .left-section { display: flex; align-items: center; gap: 1rem; }
 .hamburger-menu { display: flex; flex-direction: column; gap: 5px; cursor: pointer; border: 2px solid #00000014; border-radius: 8px; padding: 8px 8px; background-color: #379777; transition: all 0.3s ease; position: absolute; left: 20px; }
 .hamburger-menu span { width: 22px; height: 2px; background-color: #ffffff; border-radius: 2px; transition: all 0.3s ease; }
+@media (max-width: 768px){
+    .hamburger-menu span{ width:16px; hight:1px;}
+}
 .hamburger-menu:hover { background-color: #00000014; }
 .hamburger-menu:hover span { background-color: #ffffff; }
 .logo img { position: relative; left: 50px; margin-top: 15px; width: 220px; height: auto; }
