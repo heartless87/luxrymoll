@@ -54,7 +54,30 @@
             transform: scale(0);
         }
         .ui-bookmark .bookmark-icon::before { content: ""; position: absolute; width: 0; height: 0; border-radius: 50%; border: var(--icon-circle-border); opacity: 0; }
-                
+        .ui-bookmark input:checked + .bookmark-icon {
+            fill: var(--icon-primary-color);
+            animation: heart-pop var(--icon-anmt-duration) forwards;
+        }
+        .ui-bookmark input:checked + .bookmark-icon::after {
+            animation: heart-burst var(--icon-anmt-duration) forwards;
+        }
+        .ui-bookmark input:checked + .bookmark-icon::before {
+            animation: heart-circle var(--icon-anmt-duration) forwards;
+        }
+        @keyframes heart-pop {
+            50% { transform: scale(0.7); }
+            100% { transform: scale(1); }
+        }
+        @keyframes heart-circle {
+            0% { width: 0; height: 0; opacity: 0; }
+            90% { width: var(--icon-circle-size); height: var(--icon-circle-size); opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes heart-burst {
+            0% { transform: scale(0); opacity: 0; }
+            40% { opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }        
         .item-info { flex: 1; min-width: 0; }
         .item-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .price-container { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
