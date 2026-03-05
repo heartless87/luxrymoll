@@ -34,7 +34,27 @@
             z-index: 5;
         }
         .ui-bookmark input { display: none; }
-        
+        .ui-bookmark .bookmark-icon { width: var(--icon-size); height: var(--icon-size); display: flex; justify-content: center; align-items: center; fill: var(--icon-secondary-color); cursor: pointer; position: relative; transition: 0.2s; }
+        .ui-bookmark:hover .bookmark-icon { fill: var(--icon-hover-color); }
+        .ui-bookmark .bookmark-icon::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            box-shadow:
+                0 28px 0 -4px var(--icon-primary-color),
+                28px 0 0 -4px var(--icon-primary-color),
+                0 -28px 0 -4px var(--icon-primary-color),
+                -28px 0 0 -4px var(--icon-primary-color),
+                20px 20px 0 -4px var(--icon-primary-color),
+                -20px 20px 0 -4px var(--icon-primary-color),
+                20px -20px 0 -4px var(--icon-primary-color),
+                -20px -20px 0 -4px var(--icon-primary-color);
+            transform: scale(0);
+        }
+        .ui-bookmark .bookmark-icon::before { content: ""; position: absolute; width: 0; height: 0; border-radius: 50%; border: var(--icon-circle-border); opacity: 0; }
+                
         .item-info { flex: 1; min-width: 0; }
         .item-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .price-container { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
