@@ -17,6 +17,24 @@
         .favorite-item:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); } 
         .item-image { min-height: 250px; max-height: 500px; width: 100%; flex: 0 0 70%; position: relative; overflow: hidden; justify-items: center; }
         .item-image img { height: 100%; object-fit: cover; display: block; }
+        .ui-bookmark {
+            padding : 5px;
+            background:#fff;
+            border-radius: 50%;
+            --icon-size: 18px;
+            --icon-secondary-color: #bab8b8;
+            --icon-hover-color: #777;
+            --icon-primary-color: #fc3636;
+            --icon-circle-border: 1px solid var(--icon-primary-color);
+            --icon-circle-size: 34px;
+            --icon-anmt-duration: 0.3s;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 5;
+        }
+        .ui-bookmark input { display: none; }
+        
         .item-info { flex: 1; min-width: 0; }
         .item-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .price-container { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
