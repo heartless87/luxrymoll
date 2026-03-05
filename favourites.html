@@ -15,7 +15,7 @@
         .favorites-container {  display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; padding: 12px; }
         .favorite-item {  min-height: 320px; max-height: 340px; background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.12); display: flex; flex-direction: column; position: relative; }
         .favorite-item:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); } 
-        .item-image { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; background-color: #f2f2f7; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #8e8e93; flex-shrink: 0; }
+        .item-image { min-height: 250px; max-height: 500px; width: 100%; flex: 0 0 70%; position: relative; overflow: hidden; justify-items: center; }
         .item-info { flex: 1; min-width: 0; }
         .item-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: #1d1d1f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .price-container { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
