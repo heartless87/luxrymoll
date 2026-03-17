@@ -37,6 +37,9 @@
         .colors, .sizes { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
         .colors div, .sizes div { background: #eee; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
         .left-heading { text-align: left; margin-left: 0; padding-left: 0; }
+        #products-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 20px; }
+        .product-card { background: #fff; border-radius: 10px; overflow: hidden; cursor: pointer; }
+        .product-card img { width: 100%; height: 180px; object-fit: cover; }
         .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); }
         .buy-btn { width: 100%; padding: 15px; background: gold; border-radius: 10px; font-size: 18px; border: none; cursor: pointer; }
     </style>
