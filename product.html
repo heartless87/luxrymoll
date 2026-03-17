@@ -36,6 +36,7 @@
         .qty-box button { padding: 6px 12px; border-radius: 8px; border: none; background: #ddd; cursor: pointer; }
         .colors, .sizes { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
         .colors div, .sizes div { background: #eee; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+        .left-heading { text-align: left; margin-left: 0; padding-left: 0; }
         .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; box-shadow: 0 -3px 10px rgba(0,0,0,0.1); }
         .buy-btn { width: 100%; padding: 15px; background: gold; border-radius: 10px; font-size: 18px; border: none; cursor: pointer; }
     </style>
@@ -73,6 +74,7 @@
             <button onclick="incQty()">+</button>
         </div>
     </div>
+    <h1 class="left-heading">You might also like</h1>
 </div>
 <div class="bottom-bar">
     <button class="buy-btn" id="buyNowBtn">Buy Now</button>
