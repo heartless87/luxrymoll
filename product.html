@@ -256,5 +256,23 @@ if (shareBtn) {
   });
 }
 </script>
+<script>
+const MAX_PRODUCTS = 6;
+const originalLoadProducts = loadProducts;
+loadProducts = async function () {
+  const container = document.getElementById("products-container");
+  if (container && container.children.length >= MAX_PRODUCTS) {
+    console.log("Limit reached, loading stopped");
+    return;
+  }
+  await originalLoadProducts();
+  const cards = container.querySelectorAll(".product-card");
+  if (cards.length > MAX_PRODUCTS) {
+    for (let i = MAX_PRODUCTS; i < cards.length; i++) {
+      cards[i].remove();
+    }
+  }
+};
+</script>
 </body>
 </html>
