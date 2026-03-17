@@ -92,7 +92,7 @@
     <button class="buy-btn" id="buyNowBtn">Buy Now</button>
 </div>
 <script>
-// const BACKEND_URL = "https://luxrymoll.vercel.app";
+const BACKEND_UR = "https://luxrymoll.vercel.app";
 // const PLACEHOLDER = "/placeholder.png";
 let images = [];
 let index = 0;
@@ -168,7 +168,7 @@ function renderThumbnails() {
 async function loadProduct() {
   const id = new URLSearchParams(location.search).get("id");
   if (!id) return alert("Product ID missing");
-  const res = await fetch(`${BACKEND_URL}/api/getProduct?id=${id}`);
+  const res = await fetch(`${BACKEND_UR}/api/getProduct?id=${id}`);
   if (!res.ok) return alert("Failed to load product");
   const p = await res.json();
   document.getElementById("title").innerText = p.title;
