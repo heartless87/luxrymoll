@@ -295,7 +295,15 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
             </button>
             <script>
             function payNow() {
-              window.location.href = "upi://pay?pa=contact.mail.raj@okicici&pn=Raj&am=500&cu=INR";
+              if (!productPrice || productPrice <= 0) {
+                alert("Invalid amount");
+                return;
+              }
+              let upiLink = `upi://pay?pa=contact.mail.raj@okicici&pn=Raj&am=${productPrice}&cu=INR`;
+              window.location.href = upiLink;
+              setTimeout(function() {
+                alert("Payment Application is not Found !");
+              }, 2000);
             }
             </script>
           </div>
@@ -307,10 +315,23 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
         });
         </script>
         <script>
+        let productPrice = 0;
+        window.addEventListener("load", function() {
+          let data = localStorage.getItem("checkoutProduct");
+          if (data) {
+            try {
+              let parsedData = JSON.parse(data);
+              productPrice = parsedData.price || 0;
+            } catch (e) {
+              console.error("Invalid JSON in localStorage");
+            }
+          }
+          console.log("Price loaded:", productPrice);
+        });
+        </script>
+        <script>
         async function loadUserAddress() {
-        
           const user = JSON.parse(localStorage.getItem("luxuryUser"));
-        
           if (!user || !user.email) {
             console.log("No user found");
             return;
