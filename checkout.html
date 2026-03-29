@@ -289,10 +289,15 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
                 <span id="finalTotal"></span>
               </div>
             </div>
-            <button class="place-order-btn">
+            <button class="place-order-btn" onclick="payNow()">
               Place Order • $970.92
               <span class="arrow">→</span>
             </button>
+            <script>
+            function payNow() {
+              window.location.href = "upi://pay?pa=contact.mail.raj@okicici&pn=Raj&am=500&cu=INR";
+            }
+            </script>
           </div>
         </div>
         <script src="checkout.js"></script>
