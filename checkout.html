@@ -290,7 +290,7 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
               </div>
             </div>
             <button class="place-order-btn" onclick="payNow()">
-              Place Order • $970.92
+              Place Order • ₹<span id="btnPrice">0</span>
               <span class="arrow">→</span>
             </button>
             <script>
@@ -322,6 +322,7 @@ nav{ padding: 1px 3px; display: flex; align-items: center; justify-content: spac
             try {
               let parsedData = JSON.parse(data);
               productPrice = parsedData.price || 0;
+              document.getElementById("btnPrice").innerText = productPrice.toFixed(2);
             } catch (e) {
               console.error("Invalid JSON in localStorage");
             }
